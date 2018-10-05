@@ -1,18 +1,14 @@
 # Piscine-2018
 
   **Bienvenue jeune développeur !**  à la fin de ce readme tu comprendras qu'il y a du boulot, mais que tout va bien se passer :)
-  
-Évidemment vu qu'il y aura des questions et que notre note en dépend : je frapperai ceux qui ne répondront pas correctement à mes questions dans 1-2 mois.
-
-ps: **je frappe fort** mais étant donné que c'est coefficient 3 cette année **je frapperai donc 3 fois plus fort.**
 
 # O) Avancement du projet
 ##### 0%
    - [ ] : Lire ce ReadMe et poser des questions.
-   - [ ] : installer les outils qui nous permettrons de développer un site RÉ-VO-LU-TIO-NAIRE.
+   - [x] : installer les outils qui nous permettrons de développer un site RÉ-VO-LU-TIO-NAIRE.
    - [ ] : Avoir un MCD validé.
    - [x] : Trouver les technologies à utiliser (Laravel/MySQL/Heroku).
-   - [ ] : créer la base de données.
+   - [x] : créer la base de données.
    - [ ] : Respecter les règles de conventions de PHP.
 ##### 5%
 - [ ] : Faire un bon MVC des familles avec Laravel.
@@ -24,8 +20,8 @@ ps: **je frappe fort** mais étant donné que c'est coefficient 3 cette année *
   - [ ] : un site scalable.
   - [ ] : un site responsive.
 ##### 50%
-   - [ ] : Discuter de notre site avec les clients et faire les modifications qu'ils désirent.
-   - [ ] : Offrir un café aux clients pour obtenir un mail.
+   - [ ] : Discuter de notre site avec les clients.
+   - [ ] : Faire les modifications qu'ils désirent.
 ##### 65%
    - [ ] : un site totalement responsive.
 ##### 70%
@@ -107,6 +103,3 @@ un **gestionnaire de dépendance**( :*Composer*) qui nous épargne :
 
 # VI) Bootstrap
 	A suivre...
-
-
-ps : n'oublie pas que je frappe **très fort**
