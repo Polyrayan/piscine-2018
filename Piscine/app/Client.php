@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
   public $timestamps = false;
-  protected $fillable = ['mailClient','nomClient','prenomClient','telClient','mdpClient','sexeClient','dateNaissanceClient','adresseClient','codePostalClient','villeClient'];
+  protected $fillable = ['mailClient','nomClient','prenomClient','telClient',
+                         'mdpClient','sexeClient','dateNaissanceClient',
+                         'adresseClient','codePostalClient','villeClient'];
+
+
 }

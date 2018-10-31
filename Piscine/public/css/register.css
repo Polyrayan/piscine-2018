@@ -97,3 +97,9 @@ body {
     background-color: #1CA347;
     border-color: #1CA347;
 }
+
+
+.tab_frm{float:left; width:100%;}
+.tab_frm li{float:left; width:50%; text-align:center; list-style:none; border:1px solid #333;}
+.tab_frm li a{width:100%; background:#fff !important;color:#333 !important; float:left; height:40px; padding:8px 0 0 0;}
+.tab_frm li a.active{color:#fff !important; background:#333 !important;}

@@ -4,9 +4,10 @@
 <script type="text/javascript" src="{{ URL::asset('js/navbar.js') }}"></script>
 <link rel="stylesheet" href="{{ URL::asset('css/navbar.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/login.css') }}" />
-<link rel="stylesheet" href="{{ URL::asset('css/register.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/counter.css') }}" />
+<link rel="stylesheet" href="{{ URL::asset('css/register.css') }}" />
 <script type="text/javascript" src="{{ URL::asset('js/counter.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/register.js') }}"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -14,10 +15,10 @@
     <div class="container">
         <div class="row row1">
             <ul class="largenav pull-right">
-                <li class="upper-links"><a class="links" href="\public\login">login</a></li>
-                <li class="upper-links"><a class="links" href="\public\register">register</a></li>
-                <li class="upper-links"><a class="links" href="\public\"> home</a></li>
-                <li class="upper-links"><a class="links" href="http://clashhacks.in/">Link 4</a></li>
+                <li class="upper-links"><a class="links" href="\Piscine\public\login">login</a></li>
+                <li class="upper-links"><a class="links" href="\Piscine\public\register">register</a></li>
+                <li class="upper-links"><a class="links" href="\Piscine\public\"> home</a></li>
+                <li class="upper-links"><a class="links" href="\phpmyadmin">phpMyAdmin</a></li>
                 <li class="upper-links"><a class="links" href="http://clashhacks.in/">Link 5</a></li>
                 <li class="upper-links"><a class="links" href="http://clashhacks.in/">Link 6</a></li>
                 <li class="upper-links">

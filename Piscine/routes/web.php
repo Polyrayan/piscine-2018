@@ -11,12 +11,17 @@
 |
 */
 
-Route::view('/','welcome2');
+Route::view('/','welcome');
+Route::view('/a','navbar2');
 
 Route::get('/register', 'RegisterClientController@showForm');
-Route::post('/register', 'RegisterClienControllert@applyForm');
+Route::post('/register', 'RegisterClientController@findUser');
 
 Route::get('/login', 'loginController@showForm');
 Route::post('/login', 'loginController@applyForm');
 
 Route::view('/register2','register');
+
+Route::get('/register/optionalForm', 'RegisterClientController@showOptionalForm');
+Route::post('/register/optionalForm', 'RegisterClientController@applyOptionalForm');
+
