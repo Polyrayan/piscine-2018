@@ -18,10 +18,10 @@ Route::get('/register', 'RegisterClientController@showForm');
 Route::post('/register', 'RegisterClientController@findUser');
 
 Route::get('/login', 'loginController@showForm');
-Route::post('/login', 'loginController@applyForm');
+Route::post('/login', 'loginController@findUser');
 
 Route::view('/register2','register');
 
+
 Route::get('/register/optionalForm', 'RegisterClientController@showOptionalForm');
 Route::post('/register/optionalForm', 'RegisterClientController@applyOptionalForm');
-

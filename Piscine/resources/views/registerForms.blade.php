@@ -7,6 +7,7 @@
       {{  csrf_field()  }}
 
       <div class="form-group ">
+
         <!-- gender -->
         <label class="col-sm-2 col-form-label"> Vous êtes un(e) :</label>
         <div class="col-sm-10">
@@ -18,6 +19,7 @@
           <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('gender') }} </div> </small>
           @endif
         </div>
+
         <!-- name -->
         <label class="col-sm-2 col-form-label">Nom :</label>
         <div class="col-sm-10">
@@ -26,6 +28,7 @@
             <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('name') }} </div> </small>
           @endif
         </div>
+
         <!-- firstname -->
         <label class="col-sm-2 col-form-label">Prénom :</label>
         <div class="col-sm-10">
@@ -34,6 +37,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('firstName') }} </div>  </small>
           @endif
         </div>
+
         <!-- mail -->
         <label class="col-sm-2 col-form-label">Email :</label>
         <div class="col-sm-10">
@@ -42,6 +46,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('mail') }} </div>  </small>
           @endif
         </div>
+
         <!-- password -->
         <label class="col-sm-2 col-form-label">Mot de passe :</label>
         <div class="col-sm-10">
@@ -53,6 +58,7 @@
             @endif
           </small>
         </div>
+
         <!-- password confirmation -->
         <label class="col-sm-2 col-form-label">Mot de passe :</label>
         <div class="col-sm-10">
@@ -61,6 +67,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('password_confirmation') }} </div>  </small>
           @endif
         </div>
+
         <!-- phone number -->
         <label class="col-sm-2 col-form-label">Telephone :</label>
         <div class="col-sm-10">
@@ -69,6 +76,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('phone') }} </div>  </small>
           @endif
         </div>
+
         <!-- address -->
         <label class="col-sm-2 col-form-label">Adresse :</label>
         <div class="col-sm-10">
@@ -77,6 +85,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('address') }} </div>  </small>
           @endif
         </div>
+
         <!-- city -->
         <label class="col-sm-2 col-form-label">ville :</label>
         <div class="col-sm-10">
@@ -85,6 +94,7 @@
               <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('city') }} </div>  </small>
             @endif
         </div>
+
       <!-- postal code -->
         <label class="col-sm-2 col-form-label">Code Postal :</label>
         <div class="col-sm-10">
@@ -93,6 +103,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('postalCode') }} </div>  </small>
           @endif
         </div>
+
         <!-- birthday -->
         <label class="col-sm-2 col-form-label">Date de naissance :</label>
         <div class="col-sm-10">
@@ -114,6 +125,7 @@
       {{  csrf_field()  }}
 
       <div class="form-group ">
+
         <!-- name -->
         <label class="col-sm-2 col-form-label">Nom :</label>
         <div class="col-sm-10">
@@ -122,6 +134,7 @@
             <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('nameSeller') }} </div> </small>
           @endif
         </div>
+
         <!-- firstname -->
         <label class="col-sm-2 col-form-label">Prénom :</label>
         <div class="col-sm-10">
@@ -130,6 +143,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('firstNameSeller') }} </div>  </small>
           @endif
         </div>
+
         <!-- mail -->
         <label class="col-sm-2 col-form-label">Email :</label>
         <div class="col-sm-10">
@@ -138,6 +152,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('mailSeller') }} </div>  </small>
           @endif
         </div>
+
         <!-- password -->
         <label class="col-sm-2 col-form-label">Mot de passe :</label>
         <div class="col-sm-10">
@@ -149,6 +164,7 @@
           @endif
           </small>
         </div>
+
         <!-- password confirmation -->
         <label class="col-sm-2 col-form-label">Mot de passe :</label>
         <div class="col-sm-10">
@@ -157,6 +173,7 @@
             <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('password_confirmationSeller') }} </div>  </small>
           @endif
         </div>
+
         <!-- phone number -->
         <label class="col-sm-2 col-form-label">Telephone :</label>
         <div class="col-sm-10">

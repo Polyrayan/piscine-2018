@@ -45,6 +45,16 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        'client' => [
+            'driver' => 'session',  //  todo : changer en token
+            'provider' => 'clients',
+        ],
+
+        'seller' => [
+            'driver' => 'session',   //  todo : changer en token
+            'provider' => 'sellers',
+        ],
     ],
 
     /*
@@ -65,14 +75,25 @@ return [
     */
 
     'providers' => [
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
 
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Client::class,
+        ],
+
+        'sellers' => [
+            'driver' => 'eloquent',
+            'model' => App\Vendeur::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
-        //     'table' => 'users',
+        //     'table' => 'clients',
         // ],
     ],
 
@@ -94,6 +115,16 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'seller' => [
+            'provider' => 'sellers',
             'table' => 'password_resets',
             'expire' => 60,
         ],

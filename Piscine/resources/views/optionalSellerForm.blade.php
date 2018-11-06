@@ -22,9 +22,9 @@
                 <!-- code commerce -->
                 <label class="col-sm-2 col-form-label">code commerce:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="codeRecrutement" placeholder="code pour rejoindre le commerce" value="{{ old('codeRecrutement') }}">
-                @if ($errors->has('codeRecrutement'))
-                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('firstName') }} </div>  </small>
+                    <input type="text" class="form-control" name="joinCode" placeholder="code pour rejoindre le commerce" value="{{ old('joinCode') }}">
+                @if ($errors->has('joinCode'))
+                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('joinCode') }} </div>  </small>
                     @endif
                 </div>
 
@@ -57,25 +57,25 @@
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="name" placeholder="nom *" value="{{ old('name') }}">
                     @if ($errors->has('name'))
-                        <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('numSiret') }} </div> </small>
+                        <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('name') }} </div> </small>
                     @endif
                 </div>
 
                 <!-- libelle -->
                 <label class="col-sm-2 col-form-label"> libelle commerce :</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="name" placeholder="nom *" value="{{ old('name') }}">
-                    @if ($errors->has('name'))
-                        <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('numSiret') }} </div> </small>
+                    <input type="text" class="form-control" name="description" placeholder="description *" value="{{ old('description') }}">
+                    @if ($errors->has('description'))
+                        <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('description') }} </div> </small>
                     @endif
                 </div>
 
                 <!-- code commerce -->
                 <label class="col-sm-2 col-form-label">code commerce:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="codeRecrutement" placeholder="code pour rejoindre ce commerce *" value="{{ old('codeRecrutement') }}">
-                    @if ($errors->has('codeRecrutement'))
-                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('codeRecrutement') }} </div>  </small>
+                    <input type="text" class="form-control" name="recruitmentCode" placeholder="code pour rejoindre ce commerce *" value="{{ old('recruitmentCode') }}">
+                    @if ($errors->has('recruitmentCode'))
+                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('recruitmentCode') }} </div>  </small>
                     @endif
                 </div>
 
@@ -106,12 +106,12 @@
                     @endif
                 </div>
 
-                <!-- postal code -->
+                <!-- zip code -->
                 <label class="col-sm-2 col-form-label">code postal du commerce :</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="postalCode" placeholder="code postal du commerce" value="{{ old('postalCode') }}">
-                    @if ($errors->has('postalCode'))
-                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('postalCode') }} </div>  </small>
+                    <input type="number" class="form-control" name="zipCode" placeholder="code postal du commerce *" value="{{ old('zipCode') }}">
+                    @if ($errors->has('zipCode'))
+                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('zipCode') }} </div>  </small>
                     @endif
                 </div>
 
@@ -124,7 +124,7 @@
 
                 <!-- button to join a store -->
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary" name="action" value="submitClient"> Ajouter </button>
+                    <button type="submit" class="btn btn-primary" name="action" value="addStore"> Ajouter </button>
                 </div>
             </div>
         </form>

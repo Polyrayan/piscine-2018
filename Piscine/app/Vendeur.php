@@ -3,18 +3,35 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as BasicAuthenticatable;
 
-class Vendeur extends Model
+class Vendeur extends Model implements Authenticatable
 {
-  public $timestamps = false;
-  protected $fillable = ['mailVendeur','nomVendeur','prenomVendeur','telVendeur',
+
+    use BasicAuthenticatable; // use 6 functions in this namespace
+
+    protected $fillable = ['mailVendeur','nomVendeur','prenomVendeur','telVendeur',
                          'mdpVendeur'];
+
 
 
 
     public function commerces()
     {
         return $this->belongsToMany(Commerce::class);
+    }
+
+
+
+    /**
+     * Get the password for the seller.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->mdpVendeur;
     }
 }
 
