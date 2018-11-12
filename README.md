@@ -4,23 +4,23 @@
 
 # O) Avancement du projet
 ##### 0%
-   - [ ] : Lire ce ReadMe et poser des questions.
+   - [x] : Lire ce ReadMe et poser des questions.
    - [x] : installer les outils qui nous permettrons de développer un site RÉ-VO-LU-TIO-NAIRE.
-   - [ ] : Avoir un MCD validé.
+   - [x] : Avoir un MCD validé.
    - [x] : Trouver les technologies à utiliser (Laravel/MySQL/Heroku).
    - [x] : créer la base de données.
-   - [ ] : Respecter les règles de conventions de PHP.
+   - [x] : Respecter les règles de conventions de PHP.
 ##### 5%
 - [ ] : Faire un bon MVC des familles avec Laravel.
   Mais aussi:
-  - [ ] : des commentaires.
-  - [ ] : des objets.
-  - [ ] : des variables explicites.
+  - [x] : des commentaires.
+  - [x] : des objets.
+  - [x] : des variables explicites.
   - [ ] : un minimum de sécurité.
   - [ ] : un site scalable.
-  - [ ] : un site responsive.
+  - [x] : un site responsive.
 ##### 50%
-   - [ ] : Discuter de notre site avec les clients.
+   - [ ] : Discuter de notre site avec les clients 3 décembre.
    - [ ] : Faire les modifications qu'ils désirent.
 ##### 65%
    - [ ] : un site totalement responsive.
@@ -31,7 +31,6 @@
    - [ ] : Préparer la présentation du 8 janvier.
 ##### 97%
    - [ ] : Réviser pour le quizz de Mr Fiorio.
-   - [ ] : Frapper ceux qui répondent mal.
 ##### 100%
   
 # I) Composer :
