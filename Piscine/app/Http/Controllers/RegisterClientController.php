@@ -128,7 +128,6 @@ class RegisterClientController extends Controller
             'telVendeur' => request('phoneSeller'),
         ]);
 
-        //$seller = (['mailVendeur' => 'vendeur@gmail.com', 'nomVendeur' => 'vendeur']);
         return redirect('register/optionalForm')->with(compact('seller'));;
     }
 

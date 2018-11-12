@@ -16,6 +16,9 @@ class Vendeur extends Model implements Authenticatable
 
 
 
+    protected $primaryKey ="mailVendeur";
+    protected $keyType ="string";
+
 
     public function commerces()
     {

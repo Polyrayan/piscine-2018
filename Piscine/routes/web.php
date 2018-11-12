@@ -12,16 +12,18 @@
 */
 
 Route::view('/','welcome');
-Route::view('/a','navbar2');
 
 Route::get('/register', 'RegisterClientController@showForm');
 Route::post('/register', 'RegisterClientController@findUser');
 
-Route::get('/login', 'loginController@showForm');
-Route::post('/login', 'loginController@findUser');
-
-Route::view('/register2','register');
-
+Route::get('/login', 'LoginController@showForm');
+Route::post('/login', 'LoginController@findUser');
 
 Route::get('/register/optionalForm', 'RegisterClientController@showOptionalForm');
 Route::post('/register/optionalForm', 'RegisterClientController@applyOptionalForm');
+
+
+Route::get('/client/profil', 'ProfileController@show');
+Route::get('/vendeur/profil', 'ProfileController@show');
+
+

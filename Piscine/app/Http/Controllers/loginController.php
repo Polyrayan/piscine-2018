@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\GuardHelpers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Authenticatable; // inutile
 
-class loginController extends Controller
+class LoginController extends Controller
 {
+
+    use GuardHelpers;
 
     public function showForm()
     {
@@ -32,18 +37,24 @@ class loginController extends Controller
         'passwordClient' => ['required'],
         ]);
 
-      $login = auth('client')->attempt([
+      $login = Auth::guard('client')->attempt([
           'mailClient' => request('mailClient'),
           'password' => request('passwordClient')  // laravel va chercher le mdp en utilisant password et non mdpClient
         ]);
 
       if($login){
-          return redirect('/client/profil');
+          $user = ['mailClient' => request('mailClient'),
+          'mdpClient' => request('passwordClient') ];
+          //dd(auth('client')->user());
+          session()->put('test', 'toto');
+           return redirect('/client/profil');
       }
-      return back()->withInput()->withErrors([
+
+      /**return back()->withInput()->withErrors([
         'mailClient' => "Email ou mot de passe incorrect",
           ]);
-    }
+        */
+       }
 
     public function applySellerForm()
     {
@@ -52,7 +63,7 @@ class loginController extends Controller
             'passwordSeller' => ['required'],
         ]);
 
-        $login = auth('seller')->attempt([
+        $login = Auth::guard('seller')->attempt([
             'mailVendeur' => request('mailSeller'),
             'password' => request('passwordSeller') //// laravel va chercher le mdp en utilisant password et non mdpSeller
         ]);

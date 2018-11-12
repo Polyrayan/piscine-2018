@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as BasicAuthenticatable;
 
+
 class Client extends Model implements Authenticatable
 {
 
@@ -16,6 +17,12 @@ class Client extends Model implements Authenticatable
                          'mdpClient','sexeClient','dateNaissanceClient',
                          'adresseClient','codePostalClient','villeClient'];
 
+
+    protected $primaryKey ='mailClient';
+    protected $keyType ='varchar';
+    protected $table ='clients';
+    public $incrementing = false;
+
     /**
      * Get the password for the seller.
      *
@@ -25,5 +32,16 @@ class Client extends Model implements Authenticatable
     {
         return $this->mdpClient;
     }
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return $this->mailClient;
+    }
+
 
 }

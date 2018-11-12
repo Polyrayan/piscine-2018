@@ -47,12 +47,12 @@ return [
         ],
 
         'client' => [
-            'driver' => 'session',  //  todo : changer en token
+            'driver' => 'session',
             'provider' => 'clients',
         ],
 
         'seller' => [
-            'driver' => 'session',   //  todo : changer en token
+            'driver' => 'session',
             'provider' => 'sellers',
         ],
     ],
@@ -118,8 +118,8 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-        'admins' => [
-            'provider' => 'admins',
+        'client' => [
+            'provider' => 'clients',
             'table' => 'password_resets',
             'expire' => 60,
         ],

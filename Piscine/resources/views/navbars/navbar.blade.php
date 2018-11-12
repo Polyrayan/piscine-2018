@@ -19,8 +19,6 @@
                 <li class="upper-links"><a class="links" href="\Piscine\public\register">register</a></li>
                 <li class="upper-links"><a class="links" href="\Piscine\public\"> home</a></li>
                 <li class="upper-links"><a class="links" href="\phpmyadmin">phpMyAdmin</a></li>
-                <li class="upper-links"><a class="links" href="http://clashhacks.in/">Link 5</a></li>
-                <li class="upper-links"><a class="links" href="http://clashhacks.in/">Link 6</a></li>
                 <li class="upper-links">
                     <a class="links" href="http://clashhacks.in/">
                         <svg class="" width="16px" height="12px" style="overflow: visible;">

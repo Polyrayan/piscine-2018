@@ -1,4 +1,4 @@
-@extends('navbar')
+@extends('navbars.navbar')
 @section('content')
   <div class="container login-container">
     <div class="row">

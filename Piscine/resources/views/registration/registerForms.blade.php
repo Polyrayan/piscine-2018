@@ -1,4 +1,4 @@
-@extends('navbar')
+@extends('navbars.navbar')
 @section('content')
 
   <h1> Inscription Client: </h1>
@@ -16,7 +16,7 @@
           <input class="form-check-input" type="radio" name="gender" id="F" value="female">
           <label class="form-check-label" for="F"> femme </label>
           @if ($errors->has('gender'))
-          <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('gender') }} </div> </small>
+            <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('gender') }} </div> </small>
           @endif
         </div>
 
