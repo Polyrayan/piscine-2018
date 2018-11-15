@@ -15,7 +15,7 @@ class Client extends Model implements Authenticatable
 
     protected $fillable = ['mailClient','nomClient','prenomClient','telClient',
                          'mdpClient','sexeClient','dateNaissanceClient',
-                         'adresseClient','codePostalClient','villeClient'];
+                         'adresseClient','codePostalClient','villeClient','idClient'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey ='mailClient';

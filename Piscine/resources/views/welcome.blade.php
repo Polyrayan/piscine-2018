@@ -5,15 +5,6 @@
 <h1> Page d'accueil </h1>
 
 <div class="container">
-    <div class="row">
-        <br/>
-        <div class="col text-center">
-            <h2>Bootstrap 4 counter</h2>
-            <p>counter to count up to a target number</p>
-        </div>
-
-
-
     </div>
     <div class="row text-center">
         <div class="col">
@@ -45,5 +36,14 @@
         </div>
     </div>
 </div>
+
+    <h2> Produits </h2>
+
+    <ul>
+        @foreach($products as $product)
+            <li> {{$product->nomProduit}}  <a  href="\Piscine\public\vendeur\{{$product->numProduit}}"> acheter </a> <a  href="\Piscine\public\vendeur\{{$product->numProduit}}"> reserver </a></li>
+        @endforeach
+    </ul>
+
 
 @endsection

@@ -13,7 +13,7 @@
         <div class="form-group ">
 
             <!-- mail -->
-            <label class="col-sm-2 col-form-label">Email :</label>
+            <label class="col-sm-2 col-form-label"> Email :</label>
             <div class="col-sm-10">
                 <input type="email" class="form-control" name="mail" placeholder="e-mail" value="{{ old('mail') }}">
                 @if ($errors->has('mail'))
@@ -22,7 +22,7 @@
             </div>
 
             <!-- name -->
-            <label class="col-sm-2 col-form-label">Nom :</label>
+            <label class="col-sm-2 col-form-label"> Nom :</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="name" placeholder="nom" value="{{ old('name') }}">
             @if ($errors->has('name'))
@@ -31,7 +31,7 @@
             </div>
 
             <!-- firstname -->
-            <label class="col-sm-2 col-form-label">Prénom :</label>
+            <label class="col-sm-2 col-form-label"> Prénom :</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="firstName" placeholder="prénom" value="{{ old('firstName') }}">
             @if ($errors->has('firstName'))

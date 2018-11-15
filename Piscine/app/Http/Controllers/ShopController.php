@@ -50,7 +50,6 @@ class ShopController extends Controller
         } elseif ($request->has('delete')) {
             return 'a faire';
         }
-
     }
 
     public function numSiret($numSiretCommerce)

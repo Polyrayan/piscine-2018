@@ -53,7 +53,7 @@
                     </div>
 
                     <!-- stock -->
-                    <label class="col-sm-2 col-form-label">quantité en stock :</label>
+                    <label class="col-sm-2 col-form-label"> quantité en stock :</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="stock" placeholder="quantité en stock *" value="{{ old('stock') }}">
                         @if ($errors->has('stock'))

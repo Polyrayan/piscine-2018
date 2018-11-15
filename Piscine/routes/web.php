@@ -11,7 +11,7 @@
 |
 */
 
-Route::view('/','welcome');
+Route::get('/','HomeController@show');
 
 Route::get('/register', 'RegisterClientController@showForm');
 Route::post('/register', 'RegisterClientController@findUser');
@@ -31,3 +31,6 @@ Route::post('/vendeur/commerces', 'ShopController@selectForm');
 
 Route::get('/vendeur/commerces/{numSiretCommerce}', 'ShopController@numSiret');
 Route::post('/vendeur/commerces/{numSiretCommerce}', 'ShopController@selectForm');
+
+Route::get('/vendeur/{id}','ProfileController@idVendeur');
+Route::get('/client/{id}','ProfileController@idClient');

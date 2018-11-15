@@ -12,7 +12,7 @@ class Vendeur extends Model implements Authenticatable
     use BasicAuthenticatable; // use 6 functions in this namespace
 
     protected $fillable = ['mailVendeur','nomVendeur','prenomVendeur','telVendeur',
-                         'mdpVendeur'];
+                         'mdpVendeur','idVendeur'];
 
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
