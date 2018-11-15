@@ -10,10 +10,10 @@
 
         <!-- gender -->
         <label class="col-sm-2 col-form-label"> Vous êtes un(e) :</label>
-        <div class="col-sm-10">
-          <input class="form-check-input" type="radio" name="gender" id="M" value="male">
+        <div class="col-sm-10 col-lg-4">
+          <input class="form-horizontal" type="radio" name="gender" id="M" value="male">
           <label class="form-check-label" for="M"> homme </label>
-          <input class="form-check-input" type="radio" name="gender" id="F" value="female">
+          <input class="form-horizontal" type="radio" name="gender" id="F" value="female">
           <label class="form-check-label" for="F"> femme </label>
           @if ($errors->has('gender'))
             <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('gender') }} </div> </small>

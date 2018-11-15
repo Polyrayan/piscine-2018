@@ -30,3 +30,4 @@ Route::get('/vendeur/commerces', 'ShopController@show');
 Route::post('/vendeur/commerces', 'ShopController@selectForm');
 
 Route::get('/vendeur/commerces/{numSiretCommerce}', 'ShopController@numSiret');
+Route::post('/vendeur/commerces/{numSiretCommerce}', 'ShopController@selectForm');

@@ -25,7 +25,7 @@
                                 <button class="btn-primary" name="visit" value="{{ $shop->numSiretCommerce }}"> visiter </button>
                              </span>
                          </form>
-                        <p> faire le controller qui redirige vers la vue du commerce pour ajouter,modifier,supprimer les produits </p>
+
                         <form class = "form-inline" method="POST" action="">
                             {{  csrf_field()  }}
                             <input name="mailSeller" type="hidden" value="{{$shop->mailVendeur}}">
