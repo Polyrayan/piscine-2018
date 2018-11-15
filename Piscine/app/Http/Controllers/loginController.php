@@ -14,7 +14,7 @@ class LoginController extends Controller
 
     public function showForm()
     {
-      return view('login');
+      return view('registration.login');
     }
 
     public function findUser(Request $request)

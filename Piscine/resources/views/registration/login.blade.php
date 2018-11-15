@@ -50,9 +50,10 @@
             <button type="submit" class="btn btn-primary" name="action" value="loginSeller">Se connecter </button>
           </div>
           <div class="form-group">
-
-            <a href="#" class="ForgetPwd" value="Login">mot de passe oublié ?</a> <br>
-            <a href="#admin" class="ForgetPwd" value="Login">admin</a>
+              <a href="#" class="ForgetPwd" value="Login">mot de passe oublié ?</a> <br>
+              <div class="text-right">
+                  <a href="#admin" class="ForgetPwd" value="Login">admin</a>
+              </div>
           </div>
         </form>
       </div>

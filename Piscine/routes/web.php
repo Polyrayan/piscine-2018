@@ -26,4 +26,5 @@ Route::post('/register/optionalForm', 'RegisterClientController@applyOptionalFor
 Route::get('/client/profil', 'ProfileController@show');
 Route::get('/vendeur/profil', 'ProfileController@show');
 
+Route::get('/vendeur/commerces', 'ShopController@show');
 
