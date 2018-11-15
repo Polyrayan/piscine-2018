@@ -15,7 +15,7 @@ class Vendeur extends Model implements Authenticatable
                          'mdpVendeur'];
 
 
-
+    public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey ="mailVendeur";
     protected $keyType ="string";
 

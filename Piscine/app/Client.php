@@ -17,7 +17,7 @@ class Client extends Model implements Authenticatable
                          'mdpClient','sexeClient','dateNaissanceClient',
                          'adresseClient','codePostalClient','villeClient'];
 
-
+    public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey ='mailClient';
     protected $keyType ='varchar';
     protected $table ='clients';

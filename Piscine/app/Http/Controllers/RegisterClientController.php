@@ -13,7 +13,7 @@ class RegisterClientController extends Controller
     */
     public function showForm()
     {
-        return view('registerForms');
+        return view('registration.registerForms');
     }
 
     /**
@@ -21,7 +21,7 @@ class RegisterClientController extends Controller
      */
     public function showOptionalForm()
     {
-        return view('optionalSellerForm');
+        return view('registration.optionalSellerForm');
     }
     /**
      * données : choix du type d'utilisateur

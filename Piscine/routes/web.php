@@ -27,4 +27,6 @@ Route::get('/client/profil', 'ProfileController@show');
 Route::get('/vendeur/profil', 'ProfileController@show');
 
 Route::get('/vendeur/commerces', 'ShopController@show');
+Route::post('/vendeur/commerces', 'ShopController@selectForm');
 
+Route::get('/vendeur/commerces/{numSiretCommerce}', 'ShopController@numSiret');
