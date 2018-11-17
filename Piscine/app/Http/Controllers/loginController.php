@@ -49,11 +49,9 @@ class LoginController extends Controller
           session()->put('test', 'toto');
            return redirect('/client/profil');
       }
-
-      /**return back()->withInput()->withErrors([
+      return back()->withInput()->withErrors([
         'mailClient' => "Email ou mot de passe incorrect",
           ]);
-        */
        }
 
     public function applySellerForm()
@@ -71,7 +69,7 @@ class LoginController extends Controller
         if($login){
             return redirect('/client/profil');  // todo : faire la vue
         }
-        return back()->withInput()->withErrors([
+        return back()->withErrors([
             'mailSeller' => "Email ou mot de passe incorrect",
         ]);
     }

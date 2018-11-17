@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Produit;
 use Illuminate\Http\Request;
+use App\Client;
 use Illuminate\Support\Facades\DB;
 
 
@@ -10,9 +12,9 @@ class HomeController extends Controller
 {
     public function show()
     {
-        $mailClient = 'a@gmail.com'; // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
-
-        $products = DB::table('produits')->get();
+        $client = new Client();
+        $mailClient = $client->getMailClient(); // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
+        $products = Produit::all();
 
         return view('welcome', ['products' => $products, 'mailClient' => $mailClient]);
     }

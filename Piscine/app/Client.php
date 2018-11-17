@@ -44,4 +44,8 @@ class Client extends Model implements Authenticatable
     }
 
 
+    public function getMailClient(){
+        return "r@g.com";
+    }
+
 }
