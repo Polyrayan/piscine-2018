@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  jeu. 15 nov. 2018 à 16:56
+-- Généré le :  sam. 17 nov. 2018 à 14:39
 -- Version du serveur :  10.2.3-MariaDB-log
 -- Version de PHP :  7.1.1
 
@@ -40,6 +40,7 @@ CREATE TABLE `appartenir` (
 INSERT INTO `appartenir` (`numSiretCommerce`, `mailVendeur`) VALUES
 ('11111111111111', 'pepito24@yahoo.fr'),
 ('11111111111111', 'vendeur@gmail.com'),
+('12345677654321', 'vendeur@gmail.com'),
 ('22222222222222', 'vendeur@gmail.com');
 
 -- --------------------------------------------------------
@@ -126,7 +127,39 @@ CREATE TABLE `commerces` (
 
 INSERT INTO `commerces` (`numSiretCommerce`, `nomCommerce`, `libelleCommerce`, `adresseCommerce`, `villeCommerce`, `codePostalCommerce`, `telCommerce`, `codeReduction`, `codeRecrutement`) VALUES
 ('11111111111111', 'KFC', 'restauration rapide de poulet', '12 rue Passerelle', 'Montpellier', '34000', '0658957426', NULL, '1234'),
+('12345677654321', 'Adidas', 'marque de sport', '77 rue langevin', 'Nimes', '30000', '0559782356', '', '123123'),
 ('22222222222222', 'Ikea', 'magasin spécialisé dans la conception et la vente de détail de mobilier et objets de décoration prêts à poser ou à monter en kit.', '76 avenue klukeflux', 'Paris', '75000', '0775957595', NULL, '0000');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contenir`
+--
+
+CREATE TABLE `contenir` (
+  `numReservation` int(11) NOT NULL,
+  `numProduit` int(11) NOT NULL,
+  `qteReservation` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `contenir`
+--
+
+INSERT INTO `contenir` (`numReservation`, `numProduit`, `qteReservation`) VALUES
+(6, 1, '12');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `detenir`
+--
+
+CREATE TABLE `detenir` (
+  `numPanier` int(11) NOT NULL,
+  `numProduit` int(11) NOT NULL,
+  `qteReservation` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -193,23 +226,19 @@ CREATE TABLE `produits` (
   `qteStockDispoProduit` varchar(10) NOT NULL,
   `livraisonProduit` tinyint(1) NOT NULL,
   `prixProduit` varchar(10) NOT NULL,
-  `qte2` varchar(5) DEFAULT NULL,
-  `qte1` varchar(5) DEFAULT NULL,
   `numSiretCommerce` char(14) NOT NULL,
-  `numTypeProduit` int(11) DEFAULT NULL,
-  `numCommande` int(11) DEFAULT NULL,
-  `numReservation` int(11) DEFAULT NULL
+  `numTypeProduit` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `produits`
 --
 
-INSERT INTO `produits` (`numProduit`, `nomProduit`, `libelleProduit`, `qteStockProduit`, `qteStockDispoProduit`, `livraisonProduit`, `prixProduit`, `qte2`, `qte1`, `numSiretCommerce`, `numTypeProduit`, `numCommande`, `numReservation`) VALUES
-(1, 'wings', 'aile de poulet fris', '200', '200', 0, '2', NULL, NULL, '11111111111111', NULL, NULL, NULL),
-(2, 'tenders', 'filet de poulet fris', '350', '350', 0, '3', NULL, NULL, '11111111111111', NULL, NULL, NULL),
-(3, 'pilon', 'partie inférieur de la cuisse de poulet', '189', '189', 0, '2.35', NULL, NULL, '11111111111111', NULL, NULL, NULL),
-(5, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', '45', '45', 0, '89.99', NULL, NULL, '22222222222222', NULL, NULL, NULL);
+INSERT INTO `produits` (`numProduit`, `nomProduit`, `libelleProduit`, `qteStockProduit`, `qteStockDispoProduit`, `livraisonProduit`, `prixProduit`, `numSiretCommerce`, `numTypeProduit`) VALUES
+(1, 'wings', 'aile de poulet fris', '200', '200', 0, '2', '11111111111111', NULL),
+(2, 'tenders', 'filet de poulet fris', '350', '350', 0, '3', '11111111111111', NULL),
+(3, 'pilon', 'partie inférieur de la cuisse de poulet', '189', '189', 0, '2.35', '11111111111111', NULL),
+(5, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', '45', '45', 0, '89.99', '22222222222222', NULL);
 
 -- --------------------------------------------------------
 
@@ -233,9 +262,16 @@ CREATE TABLE `reductions` (
 
 CREATE TABLE `reservations` (
   `numReservation` int(11) NOT NULL,
-  `dateReservation` date NOT NULL,
+  `dateReservation` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `mailClient` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `reservations`
+--
+
+INSERT INTO `reservations` (`numReservation`, `dateReservation`, `mailClient`) VALUES
+(6, '2018-11-17 01:57:37', 'r@g.com');
 
 -- --------------------------------------------------------
 
@@ -321,6 +357,20 @@ ALTER TABLE `commandes`
 --
 ALTER TABLE `commerces`
   ADD PRIMARY KEY (`numSiretCommerce`);
+
+--
+-- Index pour la table `contenir`
+--
+ALTER TABLE `contenir`
+  ADD PRIMARY KEY (`numReservation`,`numProduit`),
+  ADD KEY `contenir_produits0_FK` (`numProduit`);
+
+--
+-- Index pour la table `detenir`
+--
+ALTER TABLE `detenir`
+  ADD PRIMARY KEY (`numPanier`,`numProduit`),
+  ADD KEY `detenir_produits0_FK` (`numProduit`);
 
 --
 -- Index pour la table `inclure`
@@ -427,7 +477,7 @@ ALTER TABLE `reductions`
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `numReservation` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `numReservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `tags`
@@ -446,6 +496,24 @@ ALTER TABLE `typeproduits`
 --
 ALTER TABLE `vendeurs`
   MODIFY `idVendeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `contenir`
+--
+ALTER TABLE `contenir`
+  ADD CONSTRAINT `contenir_produits0_FK` FOREIGN KEY (`numProduit`) REFERENCES `produits` (`numProduit`),
+  ADD CONSTRAINT `contenir_reservations_FK` FOREIGN KEY (`numreservation`) REFERENCES `reservations` (`numReservation`);
+
+--
+-- Contraintes pour la table `detenir`
+--
+ALTER TABLE `detenir`
+  ADD CONSTRAINT `detenir_paniers_FK` FOREIGN KEY (`numPanier`) REFERENCES `paniers` (`numPanier`),
+  ADD CONSTRAINT `detenir_produits0_FK` FOREIGN KEY (`numProduit`) REFERENCES `produits` (`numProduit`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
