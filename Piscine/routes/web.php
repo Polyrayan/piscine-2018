@@ -35,5 +35,7 @@ Route::post('/vendeur/commerces/{numSiretCommerce}','ShopController@selectForm')
 Route::get('/vendeur/{id}','ProfileController@idVendeur');
 Route::get('/client/{id}','ProfileController@idClient');
 
+Route::get('/client/{id}/reservations', 'ReservationController@show' );
+
 Route::get('/commerces/{numSiretCommerce}','ShopController@numSiret');
 Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');

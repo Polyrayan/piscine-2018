@@ -21,8 +21,9 @@ class ShopController extends Controller
     public function show()
     {
         $mailSeller = 'vendeur@gmail.com'; // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
-        $shops = DB::table('appartenir')->join('commerces', 'appartenir.numSiretCommerce', '=', 'commerces.numSiretCommerce')->where('mailVendeur', $mailSeller)->get();
-
+        $shops = DB::table('appartenir')
+            ->join('commerces', 'appartenir.numSiretCommerce', '=', 'commerces.numSiretCommerce')
+            ->where('mailVendeur', $mailSeller)->get();
         return view('sellerShops', ['shops' => $shops, 'mailSeller' => $mailSeller]);
     }
 
@@ -70,24 +71,7 @@ class ShopController extends Controller
             $mailClient = request('mailClient');
             $numProduct = request('product');
             $quantity = request('quantity');
-
-            request()->validate([
-                'quantity' => ['bail', 'required', 'min:0']
-            ]);
-            $date =  Date::now()->format('Y-m-d H:i:s');//->format('d m y H:i:s');
-            //return $date;
-            $reservation = Reservation::create([
-                'dateReservation' => $date ,'mailClient' => $mailClient
-
-            ]);
-
-            Contenir::create([
-                'numreservation' => $reservation->id,
-                'numProduit' => $numProduct,
-                'qteReservation' => $quantity
-            ]);
-
-            return back();
+            return $this->bookProduct($mailClient,$numProduct,$quantity);
 
         } elseif ($request->has('addShoppingCart')) {
             return 'panier';
@@ -170,5 +154,28 @@ class ShopController extends Controller
                 'join' => "le numéro Siret ou le code est incorrect",
             ]);
         }
+    }
+    /*
+     * @param: the email of the client who wants to book, the product number and the quantity he wants to book
+     * @return: create a new line in the table reservations and create a new line in the table contenir with parameters informations
+     */
+    public function bookProduct($mailClient,$numProduct,$quantity){
+        request()->validate([
+            'quantity' => ['bail', 'required', 'min:0']
+        ]);
+        $date =  Date::now()->format('Y-m-d H:i:s');// to get the french date ->format('d m y H:i:s');
+
+        $reservation = Reservation::create([
+            'dateReservation' => $date ,
+            'mailClient' => $mailClient
+        ]);
+
+        Contenir::create([
+            'numreservation' => $reservation->id,
+            'numProduit' => $numProduct,
+            'qteReservation' => $quantity
+        ]);
+
+        return back();
     }
 }
