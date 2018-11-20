@@ -36,6 +36,10 @@ Route::get('/vendeur/{id}','ProfileController@idVendeur');
 Route::get('/client/{id}','ProfileController@idClient');
 
 Route::get('/client/{id}/reservations', 'ReservationController@show' );
+Route::post('/client/{id}/reservations', 'ReservationController@selectForm' );
+
+Route::get('/client/{id}/panier', 'ShoppingCartController@show' );
+Route::post('/client/{id}/panier', 'ShoppingCartController@selectForm' );
 
 Route::get('/commerces/{numSiretCommerce}','ShopController@numSiret');
 Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');

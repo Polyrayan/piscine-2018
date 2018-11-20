@@ -1,49 +1,59 @@
 @extends('navbars.navbar')
 
 @section('content')
+    <div class="container-fluid">
 
-<h1> Page d'accueil </h1>
 
-<div class="container">
+        <h1> Page d'accueil </h1>
+
+        <h3> ce qu'il manque : </h3>
+        <ul>
+            <li> ajout de la vue produits/{id} avec toutes les infos du produit + les avis </li>
+            <li> trier par categorie </li>
+            <li> pagination </li>
+            <li> créer les tags  </li>
+            <li> régler la connexion  </li>
+            <li> faire le tunnel d'achat  </li>
+            <li> régler les boutons non fonctionnels  </li>
+            <li> ajouter des avis  </li>
+        </ul>
+        <h2> Produits </h2>
     </div>
-    <div class="row text-center">
-        <div class="col">
-            <div class="counter">
-                <i class="fa fa-code fa-2x"></i>
-                <h2 class="timer count-title count-number" data-to="100" data-speed="1500"></h2>
-                <p class="count-text ">Our Customer</p>
-            </div>
-        </div>
-        <div class="col">
-            <div class="counter">
-                <i class="fa fa-coffee fa-2x"></i>
-                <h2 class="timer count-title count-number" data-to="1700" data-speed="1500"></h2>
-                <p class="count-text ">Happy Clients</p>
-            </div>
-        </div>
-        <div class="col">
-            <div class="counter">
-                <i class="fa fa-lightbulb-o fa-2x"></i>
-                <h2 class="timer count-title count-number" data-to="11900" data-speed="1500"></h2>
-                <p class="count-text ">Project Complete</p>
-            </div></div>
-        <div class="col">
-            <div class="counter">
-                <i class="fa fa-bug fa-2x"></i>
-                <h2 class="timer count-title count-number" data-to="157" data-speed="1500"></h2>
-                <p class="count-text ">Coffee With Clients</p>
-            </div>
-        </div>
-    </div>
-</div>
 
-    <h2> Produits </h2>
-
-    <ul>
-        @foreach($products as $product)
-            <li> {{$product->nomProduit}}  <a  href="\Piscine\public\vendeur\{{$product->numProduit}}"> acheter </a> <a  href="\Piscine\public\vendeur\{{$product->numProduit}}"> reserver </a></li>
-        @endforeach
-    </ul>
-
+    <div class="container">
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th style="width:50%">Produit</th>
+                <th style="width:5%">Prix</th>
+                <th style="width:5%">Quantité</th>
+                <th style="width:8%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($products as $product)
+                <tr>
+                    <td data-th="Product">
+                        <div class="row">
+                            <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                            <div class="col-sm-10">
+                                <h4 class="nomargin"><b>{{$product->nomProduit}} </b></h4>
+                                <p>{{$product->libelleProduit}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-th="Price">{{$product->prixProduit}}€</td>
+                    <td data-th="Quantity">
+                        <input type="number" class="form-control text-center" value= "1" >
+                    </td>
+                    <td class="actions form-inline" data-th="">
+                        <a href="./commerces/{{$product->numSiretCommerce}}" class="btn btn-info" role="button"> voir le magasin </a>
+                        <a href="" class="btn btn-warning" role="button"> ajouter au panier</a>
+                        <a href="" class="btn btn-success" role="button"> réserver </a>
+                    </td>
+                </tr>
+            </tbody>
+            @endforeach
+        </table>
 
 @endsection

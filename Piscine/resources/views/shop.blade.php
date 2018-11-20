@@ -29,6 +29,10 @@
                     <tr>
                         <form class ="input-group" style="display: inline-block" method="POST">
                             {{  csrf_field()  }}
+                            <input name="product" type="hidden" value="{{ $product->numProduit }}">
+                            <input name="mailClient" type="hidden" value="{{ $mailClient }}">
+                            <input name="numSiret" type="hidden" value="{{ $numSiret }}">
+                            <input name="productPrice" type="hidden" value="{{ $product->prixProduit }}">
                             <td data-th="Product">
                                 <div class="row">
                                     <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
@@ -44,10 +48,6 @@
                             </td>
                             <td data-th="Subtotal" class="text-center"> {{$product->prixProduit*1}} </td>
                             <td class="actions" data-th="">
-
-                                <input name="product" type="hidden" value="{{ $product->numProduit }}">
-                                <input name="mailClient" type="hidden" value="{{ $mailClient }}">
-
                                 <button class="btn btn-success btn-group" name="book"> réserver </button>
                                 <button class="btn btn-warning btn-group" name="addShoppingCart"> ajouter au panier </button>
                             </td>
@@ -57,13 +57,13 @@
                 @endforeach
                 <tfoot>
                 <tr class="visible-xs">
-                    <td class="text-center"><strong>Total 1.99</strong></td>
+                    <td class="text-center"><strong></strong></td>
                 </tr>
                 <tr>
                     <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuer vos achats</a></td>
                     <td colspan="2" class="hidden-xs"></td>
-                    <td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
-                    <td><a href="" class="btn btn-success btn-block">mes réservations <i class="fa fa-angle-right"></i></a></td>
+                    <td class="hidden-xs text-center"><strong></strong></td>
+                    <td><a href="./../client/{{$idClient}}/reservations" class="btn btn-success btn-block">mes réservations <i class="fa fa-angle-right"></i></a></td>
                 </tr>
                 </tfoot>
             </table>

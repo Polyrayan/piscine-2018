@@ -48,4 +48,8 @@ class Client extends Model implements Authenticatable
         return "r@g.com";
     }
 
+    public function getIdClient(){
+        return "2";
+    }
+
 }
