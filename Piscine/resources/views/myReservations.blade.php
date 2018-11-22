@@ -18,7 +18,7 @@
                             <th style="width:5%">Prix</th>
                             <th style="width:5%">Quantité</th>
                             <th style="width:15%" class="text-center">Temps restant</th>
-                            <th style="width:12%" class="text-center">Sous total</th>
+                            <th style="width:15%" class="text-center">Sous total</th>
                             <th style="width:20% "class="text-center">Points gagnés</th>
                             <th style="width:4%"></th>
                         </tr>
@@ -63,10 +63,11 @@
                 </tr>
                 <tr>
                     <td><a href="./../../" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuer vos achats</a></td>
-                    <td colspan="4  " class="hidden-xs"></td>
+                    <td colspan="3  " class="hidden-xs"></td>
                     <td class="hidden-xs text-center"><strong> Total {{ $total }}€ </strong></td>
 
-                    <td><a href="./panier" class="btn btn-info btn-block"> mon panier <i class="fa fa-angle-right"></i></a><a href="#" class="btn btn-success btn-block"> finaliser votre réservation  <i class="fa fa-angle-right"></i></a></td>
+                    <td><a href="./panier" class="btn btn-info btn-block"> mon panier </a></td>
+                    <td><a href="#" class="btn btn-success btn-block"> finaliser votre réservation  <i class="fa fa-angle-right"></i></a></td>
                 </tr>
                 </tfoot>
             </table>

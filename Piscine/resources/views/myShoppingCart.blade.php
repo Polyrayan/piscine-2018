@@ -7,6 +7,9 @@
         <div class="alert alert-info text-center" role="alert">
             <strong> Vous n'avez aucun produit dans votre panier ! </strong> Cliquez <a href="./../../" class="alert-link">ici</a> pour ajouter de nouveaux produits.
         </div>
+        <div class="alert alert-success text-center" role="alert">
+            <strong> Historique des commandes : </strong> Cliquez <a href="./../../" class="alert-link">ici</a> pour suivre la progression de vos commandes déjà réglée.
+        </div>
     @endisset
     @isset($products)
 
@@ -41,11 +44,11 @@
                             </div>
                         </div>
                             </td>
-                            <td data-th="Price" >{{$product->prixProduit}}€</td>
+                            <td data-th="Price" ><b>{{$product->prixProduit}}€</b></td>
                             <td data-th="Quantity">
                                 <input type="number" class="form-control text-center" name="quantity" value={{$product->qteCommande}}>
                             </td>
-                            <td data-th="Subtotal" class="text-center">{{$product->prixProduit*$product->qteCommande}}€</td>
+                            <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
                             <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
                                     <br> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
                             <td class="actions form-inline" data-th="">
@@ -57,16 +60,20 @@
                         </form>
                 @endforeach
                 <tfoot>
-                <tr class="visible-xs">
-                    <td class="text-center"><strong>Total {{$total}}€</strong></td>
-                </tr>
-                <tr>
-                    <td><a href="./../../" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuer vos achats</a></td>
-                    <td colspan="3  " class="hidden-xs"></td>
-                    <td class="hidden-xs text-center"><strong>Total {{ $total }}€ </strong></td>
-
-                    <td><a href="#" class="btn btn-success btn-block">Régler votre panier<i class="fa fa-angle-right"></i></a></td>
-                </tr>
+                    <form class ="input-group" method="POST">
+                            {{  csrf_field()  }}
+                        <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
+                        <tr class="visible-xs">
+                            <td class="text-center"><strong>Total {{$total}}€</strong></td>
+                        </tr>
+                        <tr>
+                            <td><a href="./../../" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuer vos achats</a></td>
+                            <td colspan="2  " class="hidden-xs"></td>
+                            <td class="hidden-xs text-center"><strong>Total {{ $total }}€ </strong></td>
+                            <td></td>
+                            <td> <button class="btn btn-success btn-sm" name="buy">Régler votre panier </button></td>
+                        </tr>
+                    </form>
                 </tfoot>
             </table>
         </div>

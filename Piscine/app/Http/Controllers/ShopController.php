@@ -165,7 +165,7 @@ class ShopController extends Controller
      */
     public function bookProduct($mailClient,$numProduct,$quantity){
         request()->validate([
-            'quantity' => ['bail', 'required', 'min:0']
+            'quantity' => ['bail', 'required', 'min:0' ,'max:99999']
         ]);
         $date =  Date::now()->format('Y-m-d H:i:s');// to get the french date ->format('d m y H:i:s');
 
@@ -184,7 +184,6 @@ class ShopController extends Controller
 
         return back();
     }
-
 
     /*
    * @param: the email of the client who wants to book, the product number the siret number of the product's shop and the quantity he wants to book
@@ -211,7 +210,6 @@ class ShopController extends Controller
             $commande->prixCommande += $productPrice*$quantity;
         }
         $commande->save();
-
 
         $detenir = Detenir::firstOrNew(['numCommande' => $commande->numCommande, 'numProduit'=> $numProduct]);
         if(is_null($detenir->qteCommande)){

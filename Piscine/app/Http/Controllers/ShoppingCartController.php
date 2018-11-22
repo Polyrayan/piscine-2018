@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Commande;
 use App\Detenir;
 use App\Panier;
-use Illuminate\Http\Request;
+use App\Produit;
 use App\Client;
+use Jenssegers\Date\Date;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
@@ -17,6 +19,7 @@ class ShoppingCartController extends Controller
     {
         $client = Client::select('mailClient')->where('idClient',$id)->firstOrFail();
         $products = Panier::where('mailClient',$client->mailClient)
+            ->where('datePanier','=',null)
             ->join('commandes', 'commandes.numPanier', '=', 'paniers.numPanier')
             ->join('detenir', 'detenir.numCommande', '=', 'commandes.numCommande')
             ->join('produits', 'detenir.numProduit', '=' , 'produits.numProduit')
@@ -45,6 +48,8 @@ class ShoppingCartController extends Controller
 
         } elseif ($request->has('delete')) {
             return $this->deleteQuantity(request('orderNumber'),request('productNumber'),request('shoppingCartNumber'));
+        } elseif ($request->has('buy')) {
+            return $this->buyShoppingCart(request('shoppingCartNumber'));
         }
     }
 
@@ -75,5 +80,26 @@ class ShoppingCartController extends Controller
             Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['prixPanier' => $sum->total]);
         }
         return back();
+    }
+
+    public function buyShoppingCart($shoppingCartNumber)
+    {
+        $commandes = Panier::where('paniers.numPanier',$shoppingCartNumber)
+            ->join('commandes','commandes.numPanier' , '=' , 'paniers.numPanier')
+            ->join('detenir','detenir.numCommande' , '=' , 'commandes.numCommande')
+            ->join('produits','detenir.numProduit' , '=' , 'detenir.numProduit')
+            ->get();
+        $date = Date::now()->format('Y-m-d H:i:s');
+        foreach ($commandes as $commande){
+            $this->updateStocks($commande->numProduit,$commande->qteCommande);
+        }
+        Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
+        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date]);
+        return 'success';
+    }
+
+    public function updateStocks($productNumber,$quantity){
+        Produit::where('numProduit',$productNumber)->decrement('qteStockDispoProduit', $quantity );
+        Produit::where('numProduit',$productNumber)->decrement('qteStockProduit', $quantity );
     }
 }

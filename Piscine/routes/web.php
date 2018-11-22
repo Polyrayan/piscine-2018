@@ -22,7 +22,6 @@ Route::post('/login','LoginController@findUser');
 Route::get('/register/optionalForm','RegisterClientController@showOptionalForm');
 Route::post('/register/optionalForm','RegisterClientController@applyOptionalForm');
 
-
 Route::get('/client/profil','ProfileController@show');
 Route::get('/vendeur/profil','ProfileController@show');
 
@@ -41,5 +40,11 @@ Route::post('/client/{id}/reservations', 'ReservationController@selectForm' );
 Route::get('/client/{id}/panier', 'ShoppingCartController@show' );
 Route::post('/client/{id}/panier', 'ShoppingCartController@selectForm' );
 
+Route::get('/client/{id}/commandes', 'ProfileController@purchaseClient' );
+Route::post('/client/{id}/commandes', 'ProfileController@selectForm' );
+
+
 Route::get('/commerces/{numSiretCommerce}','ShopController@numSiret');
 Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');
+
+Route::get('/produits/{id}','ProductController@show');
