@@ -13,8 +13,8 @@
 
 Route::get('/','HomeController@show');
 
-Route::get('/register','RegisterClientController@showForm');
-Route::post('/register','RegisterClientController@findUser');
+Route::get('/register','RegisterController@showForm');
+Route::post('/register','RegisterController@findUser');
 
 Route::get('/login','LoginController@showForm');
 Route::post('/login','LoginController@findUser');
@@ -40,6 +40,9 @@ Route::post('/client/{id}/reservations', 'ReservationController@selectForm' );
 Route::get('/client/{id}/panier', 'ShoppingCartController@show' );
 Route::post('/client/{id}/panier', 'ShoppingCartController@selectForm' );
 
+Route::get('/client/{id}/panier/confirmation', 'ShoppingCartController@showConfirmation' );
+Route::post('/client/{id}/panier/confirmation', 'ShoppingCartController@selectForm' );
+
 Route::get('/client/{id}/commandes', 'ProfileController@purchaseClient' );
 Route::post('/client/{id}/commandes', 'ProfileController@selectForm' );
 
@@ -48,3 +51,5 @@ Route::get('/commerces/{numSiretCommerce}','ShopController@numSiret');
 Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');
 
 Route::get('/produits/{id}','ProductController@show');
+
+

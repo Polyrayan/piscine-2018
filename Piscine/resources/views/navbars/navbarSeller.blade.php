@@ -1,6 +1,6 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('js/navbar.js') }}"></script>
 <link rel="stylesheet" href="{{ URL::asset('css/navbar.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/login.css') }}" />
@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
 <script type="text/javascript" src="{{ URL::asset('js/counter.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/register.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/popup.js') }}"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">

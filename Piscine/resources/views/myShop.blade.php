@@ -1,6 +1,7 @@
 @extends('navbars.navbarSeller')
 
 @section('content')
+
     <div class = "container-fluid">
         <h1> Commerce : {{ $shop->nomCommerce }} </h1> <br>
         <div class = " text-right col-lg-11 ">
@@ -47,7 +48,7 @@
 
                             <input name="product" type="hidden" value="{{ $product->numProduit }}">
 
-                            <button class="btn btn-success btn-group" name="show"> informations </button>
+                            <button class="btn btn-success btn-group"   name="show"> informations </button>
                             <button class="btn btn-warning btn-group" name="edit"> éditer </button>
                             <button class="btn btn-danger btn-group" name="delete"> supprimer </button>
                         </td>

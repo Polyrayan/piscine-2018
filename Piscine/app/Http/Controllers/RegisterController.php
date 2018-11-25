@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Reduction;
 use App\Vendeur;
 use Illuminate\Http\Request;
+use Jenssegers\Date\Date;
 
-class RegisterClientController extends Controller
+class RegisterController extends Controller
 {
     /**
     * return the form to register the client/Seller
@@ -99,7 +101,18 @@ class RegisterClientController extends Controller
           'dateNaissanceClient' => request('birthday'),
         ]);
 
-        return view('welcome');
+        $date = Date::now();
+        $reduction = new Reduction();
+
+        $finalDate = $reduction->calculateDateToDestroyReductionPoints($date);
+         Reduction::create([
+             'mailClient' => request('mail'),
+             'pointsReduction' => 0,
+             'dateDebutReduction' => $date,
+             'dateFinReduction' => $finalDate,
+        ]);
+
+        return redirect('/');
     }
 
     /**

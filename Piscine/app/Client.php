@@ -23,6 +23,8 @@ class Client extends Model implements Authenticatable
     protected $table ='clients';
     public $incrementing = false;
 
+    //functions
+
     /**
      * Get the password for the seller.
      *
@@ -32,6 +34,7 @@ class Client extends Model implements Authenticatable
     {
         return $this->mdpClient;
     }
+
 
     /**
      * Get the name of the unique identifier for the user.
@@ -43,7 +46,6 @@ class Client extends Model implements Authenticatable
         return $this->mailClient;
     }
 
-
     public function getMailClient(){
         return "r@g.com";
     }
@@ -51,5 +53,4 @@ class Client extends Model implements Authenticatable
     public function getIdClient(){
         return "2";
     }
-
 }

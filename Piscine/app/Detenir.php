@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Detenir extends Model
 {
 
-    protected $fillable = ['numCommande','numProduit','qteCommande'];
+    protected $fillable = ['numCommande','numProduit','qteCommande','livrer'];
 
     public $timestamps = false;
     protected $table ='detenir';

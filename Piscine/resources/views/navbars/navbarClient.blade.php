@@ -1,18 +1,17 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <script type="text/javascript" src="{{ URL::asset('js/navbar.js') }}"></script>
 <link rel="stylesheet" href="{{ URL::asset('css/navbar.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/login.css') }}" />
-<link rel="stylesheet" href="{{ URL::asset('css/counter.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/register.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
-<script type="text/javascript" src="{{ URL::asset('js/counter.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/register.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/rating.js') }}"></script>
-<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="{{ URL::asset('css/confirmation.css') }}" />
 
+<!------ Include the above in your HEAD tag ---------->
+<html>
+<head>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <div id="flipkart-navbar">
     <div class="container">
@@ -79,6 +78,8 @@
     <a href="http://clashhacks.in/">Link</a>
     <a href="http://clashhacks.in/">Link</a>
 </div>
+</head>
 <body>
 @yield('content')
 </body>
+</html>

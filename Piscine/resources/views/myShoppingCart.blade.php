@@ -52,13 +52,14 @@
                             <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
                                     <br> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
                             <td class="actions form-inline" data-th="">
-                                <button class="btn btn-info btn-sm" name="update"><i class="fa fa-refresh"></i></button>
-                                <button class="btn btn-danger btn-sm" name="delete"><i class="fa fa-trash-o"></i></button>
+                                <button class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
+                                <button class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
                             </td>
                         </tr>
-                </tbody>
+                    @endforeach
                         </form>
-                @endforeach
+                    </tbody>
+
                 <tfoot>
                     <form class ="input-group" method="POST">
                             {{  csrf_field()  }}

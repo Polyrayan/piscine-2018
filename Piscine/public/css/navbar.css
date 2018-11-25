@@ -210,3 +210,9 @@
     font-size: 36px;
     color: #fff;
 }
+
+div.sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}

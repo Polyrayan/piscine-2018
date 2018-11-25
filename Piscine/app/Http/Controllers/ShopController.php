@@ -10,14 +10,14 @@ use App\Contenir;
 use App\Detenir;
 use App\Panier;
 use App\Produit;
-use App\Reservation;
+use App\Reduction;
 use App\TypeProduit;
+use App\Reservation;
+use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
+use function Sodium\increment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Jenssegers\Date\Date;
-use phpDocumentor\Reflection\Types\Null_;
-use function Sodium\increment;
 
 class ShopController extends Controller
 {
@@ -60,13 +60,13 @@ class ShopController extends Controller
             return $this->addProduct();
 
         } elseif ($request->has('show')) {
-            return 'a faire';
+            return redirect('/produits/'.request('product'));
 
         } elseif ($request->has('edit')) {
             return 'a faire';
 
         } elseif ($request->has('delete')) {
-            return 'a faire';
+            return $this->deleteProductOfShop(request('product'));
 
             // view shop
 
@@ -159,6 +159,12 @@ class ShopController extends Controller
             ]);
         }
     }
+
+    public function deleteProductOfShop($productNumber){
+        $product = Produit::where('numProduit', $productNumber)->firstOrFail();
+        $product->delete();
+        return back();
+    }
     /*
      * @param: the email of the client who wants to book, the product number and the quantity he wants to book
      * @return: create a new line in the table reservations and create a new line in the table contenir with parameters informations
@@ -221,4 +227,6 @@ class ShopController extends Controller
 
         return back();
     }
+
+
 }
