@@ -91,7 +91,7 @@ class ProfileController extends Controller
         ]);
 
         Client::where('mailClient',$mail)->update(['nomClient'=> $name , 'prenomClient'=> $firstName, 'telClient' => $phone,
-            'adresseClient' => $address ,'villeClient' => $city,'codePostalClient' => $zipCode]);
+                                                    'adresseClient' => $address ,'villeClient' => $city,'codePostalClient' => $zipCode]);
         return back();
     }
 
@@ -101,14 +101,14 @@ class ProfileController extends Controller
             'productNumber' => ['required','int'],
             'mark' => ['required','min:0','max:10'],
             'comment' => ['required']
-        ]);
+         ]);
 
-        $avis = Avis::firstOrNew(['mailClient' => $mailClient , 'numProduit' => $productNumber]);
-        $avis->noteAvis = $mark;
-        $avis->commentaireAvis = $comment;
-        $avis->dateAvis = Date::now()->format('Y-m-d H:i:s');
-        $avis->save();
-        return back();
+         $avis = Avis::firstOrNew(['mailClient' => $mailClient , 'numProduit' => $productNumber]);
+         $avis->noteAvis = $mark;
+         $avis->commentaireAvis = $comment;
+         $avis->dateAvis = Date::now()->format('Y-m-d H:i:s');
+         $avis->save();
+         return back();
     }
 
     public function idVendeur($id){

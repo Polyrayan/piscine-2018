@@ -2,14 +2,38 @@
 
 @section('content')
 
-    <div class = "container-fluid">
-        <h1> Commerce : {{ $shop->nomCommerce }} </h1> <br>
-        <div class = " text-right col-lg-11 ">
-            <h3> liste des commerçants : </h3>
-        @foreach($sellers as $seller)
-                <li> {{$seller->nomVendeur}}  <a  href="\Piscine\public\vendeur\{{$seller->idVendeur}}"> infos </a></li>
-            @endforeach
-        </div>  <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class = "col-lg-3 ">
+                <h1> Commerce : {{ $shop->nomCommerce }} </h1>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="form-inline">
+                <h4> Horaires : </h4> <a href="{{url()->current()}}/horaires"> (éditer) </a> <br/>
+                </div>
+                @foreach($days as $day)
+                    <li>
+                        <strong>{{$day->nomJour}}</strong>
+                        @if(($schedulesOfWork->where('nomJour', $day->nomJour))->count() > 0)
+                        ouvert @foreach($schedulesOfWork->where('nomJour', $day->nomJour) as $scheduleOfWork)
+                                de {{$scheduleOfWork->debut}} à {{$scheduleOfWork->fin}}
+                            @endforeach
+                        @else
+                         fermé
+                        @endif
+                    </li>
+                @endforeach
+            </div>
+            <div class="col-lg-3">
+                <h4> commerçants : </h4>
+                @foreach($sellers as $seller)
+                    <li> {{$seller->nomVendeur}} <a href="\Piscine\public\vendeur\{{$seller->idVendeur}}"> infos </a> </li>
+                @endforeach
+            </div>
+        </div>
+
+
         <div  class = " text-left col-lg-2" >
             <h3> liste des produits : </h3> <br>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Ouvrir;
 use App\Reduction;
 use App\Vendeur;
 use Illuminate\Http\Request;
@@ -181,6 +182,7 @@ class RegisterController extends Controller
             'codePostaCommercel' => request('zipCode'),
             'codeRecrutement' => request('recruitmentCode'),
         ]);
+
         // todo : add the seller to the shop
 
         return redirect('/');

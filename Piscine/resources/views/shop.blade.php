@@ -2,16 +2,21 @@
 
 @section('content')
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class = "col-lg-9 ">
+                <h1> Commerce : {{ $shop->nomCommerce }} </h1>
 
+            </div>
+            <div class="col-lg-3">
+                <h4> commerçants : </h4>
+                @foreach($sellers as $seller)
+                    <li> {{$seller->nomVendeur}} <a href="\Piscine\public\vendeur\{{$seller->idVendeur}}"> infos </a> </li>
+                @endforeach
+            </div>
+        </div>
 
-    <h1> Commerce : {{ $shop->nomCommerce }} </h1>
-    <div class = "text-right col-lg-11 ">
-        <h4> commerçants : </h4>
-    @foreach($sellers as $seller)
-            <li> {{$seller->nomVendeur}} <a href="\Piscine\public\vendeur\{{$seller->idVendeur}}"> infos </a> </li>
-        @endforeach
     </div>
-
 
         <div class="container">
             <table id="cart" class="table table-hover table-condensed">

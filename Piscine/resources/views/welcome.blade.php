@@ -8,14 +8,12 @@
 
         <h3> ce qu'il manque : </h3>
         <ul>
-            <li> ajout de la vue produits/{id} avec toutes les infos du produit + les avis </li>
             <li> trier par categorie </li>
             <li> pagination </li>
             <li> créer les tags  </li>
             <li> régler la connexion  </li>
             <li> faire le tunnel d'achat  </li>
-            <li> régler les boutons non fonctionnels  </li>
-            <li> ajouter des avis  </li>
+            <li> régler les boutons non fonctionnels </li>
         </ul>
         <h2> Produits </h2>
     </div>

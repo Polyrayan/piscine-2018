@@ -177,9 +177,9 @@
                             <p> dont TVA :{{ $total*0.2 }}€ </p>
                         </div>
                         <div class="btn-group">
-                            <button  type="button" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
-                            <button type="button" class="btn btn-success btn-sm" name="selectedDelivery">livrer ceux séléctionnés </button>
-                            <button type="button" class="btn btn-info btn-sm" name="deliverAll">Tout se faire livrer</button>
+                            <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
+                            <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">livrer ceux séléctionnés </button>
+                            <button type="submit" class="btn btn-info btn-sm" name="deliverAll">Tout se faire livrer</button>
                         </div>
                     </form>
                 </div>

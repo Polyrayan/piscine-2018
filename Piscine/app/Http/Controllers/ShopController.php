@@ -8,6 +8,8 @@ use App\Commande;
 use App\Commerce;
 use App\Contenir;
 use App\Detenir;
+use App\Jour;
+use App\Ouvrir;
 use App\Panier;
 use App\Produit;
 use App\Reduction;
@@ -28,9 +30,18 @@ class ShopController extends Controller
     {
         $mailSeller = 'vendeur@gmail.com'; // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
         $shops = DB::table('appartenir')
-            ->join('commerces', 'appartenir.numSiretCommerce', '=', 'commerces.numSiretCommerce')
-            ->where('mailVendeur', $mailSeller)->get();
-        return view('sellerShops', ['shops' => $shops, 'mailSeller' => $mailSeller]);
+            ->select('appartenir.numSiretCommerce','commerces.nomCommerce' , 'appartenir.mailVendeur' ,DB::raw(" count(etatCommande) as count"))
+            ->where('mailVendeur', $mailSeller)
+            ->leftjoin('commerces', 'commerces.numSiretCommerce', '=', 'appartenir.numSiretCommerce')
+            ->leftjoin('commandes','commandes.numSiretCommerce','=','commerces.numSiretCommerce')
+            ->groupBy('appartenir.numSiretCommerce')
+            ->get();
+
+        $orders = Commande::select(DB::raw("count(etatCommande) as count"),'numCommande','numSiretCommerce')
+            ->where('etatCommande','traitement')
+            ->groupBy('numCommande')
+            ->get();
+        return view('sellerShops', ['shops' => $shops, 'mailSeller' => $mailSeller , 'orders' => $orders]);
     }
 
     /*
@@ -97,7 +108,11 @@ class ShopController extends Controller
             ->get(['vendeurs.mailVendeur', 'vendeurs.nomVendeur', 'vendeurs.idVendeur']);
         $products = Produit::where('numSiretCommerce', $numSiretCommerce)->get();
         $types = TypeProduit::select('nomTypeProduit','numTypeProduit')->get();
-        return view('myShop', ['sellers' => $sellers, 'numShop' => $numSiretCommerce, 'shop' => $shop, 'products' => $products, 'types' => $types]);
+        $days = Jour::all();
+        $schedulesOfWork = Ouvrir::where('numSiretCommerce',$numSiretCommerce)->get();
+        return view('myShop', ['sellers' => $sellers, 'numShop' => $numSiretCommerce,
+                    'shop' => $shop, 'products' => $products, 'types' => $types ,
+                    'days' =>$days , 'schedulesOfWork' => $schedulesOfWork]);
     }
 
     /*

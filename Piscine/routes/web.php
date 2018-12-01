@@ -23,6 +23,8 @@ Route::get('/register/optionalForm','RegisterClientController@showOptionalForm')
 Route::post('/register/optionalForm','RegisterClientController@applyOptionalForm');
 
 Route::get('/client/profil','ProfileController@show');
+Route::post('/client/profil','ProfileController@selectForm');
+
 Route::get('/vendeur/profil','ProfileController@show');
 
 Route::get('/vendeur/commerces','ShopController@show');
@@ -33,6 +35,9 @@ Route::post('/vendeur/commerces/{numSiretCommerce}','ShopController@selectForm')
 
 Route::get('/vendeur/commerces/{numSiretCommerce}/ventes','ShopSalesController@mySales');
 Route::post('/vendeur/commerces/{numSiretCommerce}/ventes','ShopSalesController@selectForm');
+
+Route::get('/vendeur/commerces/{numSiretCommerce}/horaires','ShopScheduleController@show');
+Route::post('/vendeur/commerces/{numSiretCommerce}/horaires','ShopScheduleController@selectForm');
 
 Route::get('/vendeur/{id}','ProfileController@idVendeur');
 Route::get('/client/{id}','ProfileController@idClient');
