@@ -159,7 +159,7 @@ class ShoppingCartController extends Controller
         }
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($total*0.10,1)]);
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
-        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date]);
+        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
         return 'success';
     }
 
@@ -177,7 +177,7 @@ class ShoppingCartController extends Controller
         }
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($total*0.10,1)]);
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
-        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date]);
+        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
         return 'success';
     }
 
@@ -208,7 +208,7 @@ class ShoppingCartController extends Controller
         }
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($points,1)]);
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
-        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date]);
+        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
         return "success";
     }
 

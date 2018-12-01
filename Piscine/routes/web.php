@@ -31,6 +31,9 @@ Route::post('/vendeur/commerces','ShopController@selectForm');
 Route::get('/vendeur/commerces/{numSiretCommerce}','ShopController@myShop');
 Route::post('/vendeur/commerces/{numSiretCommerce}','ShopController@selectForm');
 
+Route::get('/vendeur/commerces/{numSiretCommerce}/ventes','ShopSalesController@mySales');
+Route::post('/vendeur/commerces/{numSiretCommerce}/ventes','ShopSalesController@selectForm');
+
 Route::get('/vendeur/{id}','ProfileController@idVendeur');
 Route::get('/client/{id}','ProfileController@idClient');
 

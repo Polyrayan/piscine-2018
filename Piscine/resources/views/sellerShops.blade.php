@@ -28,6 +28,10 @@
                     <input name="shopName" type="hidden" value="{{$shop->nomCommerce}}">
                     <button class="btn btn-primary btn-group" name="visit"  value="{{ $shop->numSiretCommerce }}"> visiter </button>
 
+                    <!-- orders -->
+                    <input name="siretNumber" type="hidden" value="{{$shop->numSiretCommerce}}">
+                    <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}}</span> </button>
+
                     <!-- quit  -->
                     <input name="mailSeller" type="hidden" value="{{$shop->mailVendeur}}">
                     <button class="btn btn-danger btn-group"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>

@@ -53,6 +53,9 @@ class ShopController extends Controller
         } elseif ($request->has('join')) {
             return $this->joinShop(request('numShop'), request('codeShop'), request('mailSeller'));
         }
+        elseif ($request->has('sales')) {
+            return redirect(url()->current().'/'.request('siretNumber').'/ventes');
+        }
 
         // view myShop
 
