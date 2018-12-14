@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Authenticatable; // inutile
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class LoginController extends Controller
 {
@@ -17,16 +17,13 @@ class LoginController extends Controller
       return view('registration.login');
     }
 
-    public function findUser(Request $request)
+    public function selectForm(Request $request)
     {
-        switch ($request->input('action')) {
-            case 'loginClient':
-                return $this->applyClientForm();
-                break;
-
-            case 'loginSeller':
-                return $this->applySellerForm();
-                break;
+        if ($request->has('loginClient')) {
+            return $this->applyClientForm();
+        }
+        elseif ($request->has('loginSeller')){
+            return $this->applySellerForm();
         }
     }
 
@@ -46,7 +43,6 @@ class LoginController extends Controller
           $user = ['mailClient' => request('mailClient'),
           'mdpClient' => request('passwordClient') ];
           //dd(auth('client')->user());
-          session()->put('test', 'toto');
            return redirect('/client/profil');
       }
       return back()->withInput()->withErrors([
@@ -67,7 +63,7 @@ class LoginController extends Controller
         ]);
 
         if($login){
-            return redirect('/client/profil');  // todo : faire la vue
+            return redirect('/client/profil');
         }
         return back()->withErrors([
             'mailSeller' => "Email ou mot de passe incorrect",

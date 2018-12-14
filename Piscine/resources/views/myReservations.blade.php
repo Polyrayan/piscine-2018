@@ -50,8 +50,8 @@
                                         <br> magasin: <font color="green"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.15,1)}} </font> </b> </td>
                                 <td class="actions form-inline" data-th="">
 
-                            <button class="btn btn-info btn-sm" name="update"><i class="fa fa-refresh"></i></button>
-                            <button class="btn btn-danger btn-sm" name="delete"><i class="fa fa-trash-o"></i></button>
+                            <button class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
+                            <button class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
                                 </td>
                             </tr>
                             </form>

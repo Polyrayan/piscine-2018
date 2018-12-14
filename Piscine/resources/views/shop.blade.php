@@ -68,7 +68,8 @@
                     <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuer vos achats</a></td>
                     <td colspan="2" class="hidden-xs"></td>
                     <td class="hidden-xs text-center"><strong></strong></td>
-                    <td><a href="./../client/{{$idClient}}/reservations" class="btn btn-success btn-block">mes réservations <i class="fa fa-angle-right"></i></a></td>
+                    <td><a href="./../client/{{$idClient}}/reservations" class="btn btn-success btn-block">mes réservations <i class="fa fa-angle-right"></i></a>
+                        <a href="./../client/{{$idClient}}/panier" class="btn btn-info btn-block">panier <i class="fa fa-angle-right"></i></a></td>
                 </tr>
                 </tfoot>
             </table>

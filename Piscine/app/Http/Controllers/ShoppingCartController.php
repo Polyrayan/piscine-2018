@@ -129,8 +129,8 @@ class ShoppingCartController extends Controller
         return back();
     }
 
-    public function deleteQuantity($orderNumber,$productNumber,$shoppingCartNumber){
-        Commande::where('numCommande', $orderNumber)->delete();
+    public function deleteQuantity($orderNumber,$productNumber,$shoppingCartNumber)
+    {
         Detenir::where('numCommande' , $orderNumber)->where('numProduit' , $productNumber)->delete();
         $sum = Panier::where('paniers.numPanier',$shoppingCartNumber)
             ->join('commandes', 'commandes.numPanier', '=', 'paniers.numPanier')

@@ -31,24 +31,28 @@
             <tbody>
             @foreach($products as $product)
                 <tr>
-                    <td data-th="Product">
-                        <div class="row">
-                            <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
-                            <div class="col-sm-10">
-                                <h4 class="nomargin"><b>{{$product->nomProduit}} </b></h4>
-                                <p>{{$product->libelleProduit}}</p>
+                    <form class ="input-group" style="display: inline-block" method="POST">
+                        {{  csrf_field()  }}
+                        <td data-th="Product">
+                            <div class="row">
+                                <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                                <div class="col-sm-10">
+                                    <h4 class="nomargin"><b>{{$product->nomProduit}} </b></h4>
+                                    <p>{{$product->libelleProduit}}</p>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td data-th="Price">{{$product->prixProduit}}€</td>
-                    <td data-th="Quantity">
-                        <input type="number" class="form-control text-center" value= "1" >
-                    </td>
-                    <td class="actions form-inline" data-th="">
-                        <a href="./commerces/{{$product->numSiretCommerce}}" class="btn btn-info" role="button"> voir le magasin </a>
-                        <a href="" class="btn btn-warning" role="button"> ajouter au panier</a>
-                        <a href="" class="btn btn-success" role="button"> réserver </a>
-                    </td>
+                        </td>
+                        <td data-th="Price">{{$product->prixProduit}}€</td>
+                        <td data-th="Quantity">
+                            <input type="number" class="form-control text-center" value= "1" >
+                        </td>
+                        <td class="actions form-inline" data-th="">
+                            <a href="./commerces/{{$product->numSiretCommerce}}" class="btn btn-info" role="button"> voir le magasin </a>
+                            <input name="productNumber" type="hidden" value="{{ $product->numProduit }}">
+                            <button class="btn btn-warning btn-group" name="addShoppingCart"> ajouter au panier </button>
+                            <button class="btn btn-success btn-group" name="book"> réserver </button>
+                        </td>
+                    </form>
                 </tr>
             </tbody>
             @endforeach

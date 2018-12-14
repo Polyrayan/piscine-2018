@@ -13,7 +13,7 @@
                 <!-- numSiret -->
                 <label class="col-sm-2 col-form-label"> numéro SIRET :</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="numSiret" placeholder="nom" value="{{ old('numSiret') }}">
+                    <input type="text" class="form-control" name="numSiret" placeholder="14 chiffres" value="{{ old('numSiret') }}">
                 @if ($errors->has('numSiret'))
                         <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('numSiret') }} </div> </small>
                     @endif
@@ -30,7 +30,8 @@
 
                 <!-- button to join a store -->
                 <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary" name="action" value="joinStore">Rejoindre </button>
+                    <input type="hidden" name="sellerMail" value="{{$seller->mailVendeur}}">
+                    <button type="submit" class="btn btn-primary" name="joinStore">Rejoindre </button>
                 </div>
             </div>
         </form>
@@ -124,7 +125,8 @@
 
                 <!-- button to join a store -->
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary" name="action" value="addStore"> Ajouter </button>
+                    <input type="hidden" name="sellerMail" value="{{$seller->mailVendeur}}">
+                    <button type="submit" class="btn btn-primary" name="addStore"> Ajouter </button>
                 </div>
             </div>
         </form>

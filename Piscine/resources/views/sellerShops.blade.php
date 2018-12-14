@@ -38,7 +38,7 @@
 
                                     <!-- orders -->
                                     <input name="siretNumber" type="hidden" value="{{$shop->numSiretCommerce}}">
-                                    <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}}</span> </button>
+                                    <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}} </span> </button>
 
                                     <!-- quit  -->
                                     <input name="mailSeller" type="hidden" value="{{$shop->mailVendeur}}">

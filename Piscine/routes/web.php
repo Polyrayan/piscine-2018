@@ -12,15 +12,17 @@
 */
 
 Route::get('/','HomeController@show');
+Route::post('/','ShopController@show');
+
 
 Route::get('/register','RegisterController@showForm');
-Route::post('/register','RegisterController@findUser');
+Route::post('/register','RegisterController@findChoice');
+
+Route::get('/register/optionalForm','RegisterController@showOptionalForm');
+Route::post('/register/optionalForm','RegisterController@findChoice');
 
 Route::get('/login','LoginController@showForm');
-Route::post('/login','LoginController@findUser');
-
-Route::get('/register/optionalForm','RegisterClientController@showOptionalForm');
-Route::post('/register/optionalForm','RegisterClientController@applyOptionalForm');
+Route::post('/login','LoginController@selectForm');
 
 Route::get('/client/profil','ProfileController@show');
 Route::post('/client/profil','ProfileController@selectForm');

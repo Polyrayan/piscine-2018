@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Appartenir;
 use App\Client;
+use App\Commerce;
 use App\Ouvrir;
 use App\Reduction;
 use App\Vendeur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Jenssegers\Date\Date;
 
 class RegisterController extends Controller
@@ -24,7 +27,9 @@ class RegisterController extends Controller
      */
     public function showOptionalForm()
     {
-        return view('registration.optionalSellerForm');
+        if( session('seller'))
+           $seller = session('seller');
+            return view('registration.optionalSellerForm')->with(['seller' => $seller]);
     }
     /**
      * données : choix du type d'utilisateur
@@ -32,37 +37,19 @@ class RegisterController extends Controller
      * resultat : redirige selon le choix
      */
 
-    public function findUser(Request $request)
+    public function findChoice(Request $request)
     {
-        switch ($request->input('action')) {
-            case 'submitClient':
-                return $this->applyClientForm();
-                break;
+        if ($request->has('submitClient')){
+            return $this->applyClientForm();
 
-            case 'submitSeller':
-                return $this->applySellerForm();
-                break;
+        }elseif ($request->has('submitSeller')){
+            return $this->applySellerForm();
 
-        }
-    }
+        }elseif ($request->has('joinStore')) {
+            return $this->applyJoinForm();
 
-    /**
-     * données : choix du type d'utilisateur
-     *
-     * resultat : redirige selon le choix
-     */
-
-    public function findOption(Request $request)
-    {
-        switch ($request->input('action')) {
-            case 'joinStore':
-                return $this->applyClientForm();
-                break;
-
-            case 'addStore':
-                return $this->applySellerForm();
-                break;
-
+        }elseif ($request->has('addStore')){
+            return $this->applyAddForm();
         }
     }
 
@@ -73,46 +60,9 @@ class RegisterController extends Controller
 
     public function applyClientForm()
     {
-
-        request()->validate([
-          'mail' => ['bail','required','email'],
-          'password' => ['bail','required','confirmed','min:6'],
-          'password_confirmation' => ['required'],
-          'name' => ['bail','required','string'],
-          'firstName' => ['bail','required','string'],
-          'address' => ['bail','required','string'],
-          'city' => ['bail','required','string'],
-          'postalCode' => ['bail','required','numeric'],
-          'phone' => ['bail','required','numeric'],
-          'gender' => ['bail','required','string'],
-          'birthday' => ['bail','required','before:now'],
-        ]);
-
-
-        $client = Client::create([
-          'mailClient' => request('mail'),
-          'mdpClient' => bcrypt(request('password')),
-          'nomClient' => request('name'),
-          'prenomClient' => request('firstName'),
-          'adresseClient' => request('address'),
-          'villeClient' => request('city'),
-          'telClient' => request('phone'),
-          'codePostalClient' => request('postalCode'),
-          'sexeClient' => request('gender'),
-          'dateNaissanceClient' => request('birthday'),
-        ]);
-
-        $date = Date::now();
-        $reduction = new Reduction();
-
-        $finalDate = $reduction->calculateDateToDestroyReductionPoints($date);
-         Reduction::create([
-             'mailClient' => request('mail'),
-             'pointsReduction' => 0,
-             'dateDebutReduction' => $date,
-             'dateFinReduction' => $finalDate,
-        ]);
-
+        Client::validateFormClient();
+        Client::createClient();
+        Reduction::createClientReduction(request('mail'));
         return redirect('/');
     }
 
@@ -123,68 +73,29 @@ class RegisterController extends Controller
 
     public function applySellerForm()
     {
-
-        request()->validate([
-            'mailSeller' => ['bail','required','email'],
-            'passwordSeller' => ['bail','required','min:6','required_with:password_confirmationSeller','same:password_confirmationSeller'],
-            'password_confirmationSeller' => ['required'],
-            'nameSeller' => ['bail','required','string'],
-            'firstNameSeller' => ['bail','required','string'],
-            'phoneSeller' => ['bail','required','numeric'],
-        ]);
-
-
-        $seller = Vendeur::create([
-            'mailVendeur' => request('mailSeller'),
-            'mdpVendeur' => bcrypt(request('passwordSeller')),
-            'nomVendeur' => request('nameSeller'),
-            'prenomVendeur' => request('firstNameSeller'),
-            'telVendeur' => request('phoneSeller'),
-        ]);
-
-        return redirect('register/optionalForm')->with(compact('seller'));;
+        Vendeur::validateFormSeller();
+        Vendeur::createSeller();
+        $seller = Vendeur::sellerWithThisMail(request('mailSeller'));
+        return redirect('register/optionalForm')->with(['seller' => $seller]);
     }
 
     public function applyJoinForm()
     {
-        request()->validate([
-            'numSiret' => ['bail','required','min:14','max:14'],
-            'recruitmentCode' => ['bail','required','min:6'],
-        ]);
-        return 0;
+        Appartenir::validateFormAppartenir();
+        $match = Commerce::matchSiretAndCode(request('numSiret'),request('joinCode'));
+        if($match->count()>0)
+        {
+            Appartenir::createAppartenir(request('numSiret'), request('sellerMail'));
+            return redirect('vendeur/commerces');
+        }
+            return back()->withErrors(["le numero SIRET et/ou le code est incorrect"]);
     }
 
     public function applyAddForm()
     {
-        request()->validate([
-            'numSiret' => ['bail','required','min:14','max:14'],
-            'recruitmentCode' => ['bail','required','min:6'],
-            'name' => ['bail','required','string'],
-            'description' => ['bail','required','string'],
-            'phone' => ['bail','required','numeric'],
-            'address' => ['bail','required','string'],
-            'city' => ['bail','required','string'],
-            'zipCode' => ['bail','required','numeric'],
-            //
-            //
-            // todo : add the cssfile here and create a function to create products in this file
-            //
-
-        ]);
-
-        $shop = Commerce::create([
-            'numSiretCommerce' => request('numSiret'),
-            'nomCommerce' => (request('name')),
-            'libelleCommerce' => request('description'),
-            'adresseCommerce' => request('address'),
-            'villeCommerce' => request('city'),
-            'telCommerce' => request('phone'),
-            'codePostaCommercel' => request('zipCode'),
-            'codeRecrutement' => request('recruitmentCode'),
-        ]);
-
-        // todo : add the seller to the shop
-
-        return redirect('/');
+        Commerce::validateFormShop(); // todo : add the cssfile here and create a function to create products in this file
+        Commerce::createShop();
+        Appartenir::createAppartenir(request('numSiret'), request('sellerMail'));
+        return redirect('/vendeur/commerces');
     }
 }

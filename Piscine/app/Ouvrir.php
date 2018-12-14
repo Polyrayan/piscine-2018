@@ -12,5 +12,9 @@ class Ouvrir extends Model
     protected $table ='ouvrir';
     public $timestamps = false;
     protected $primaryKey = 'numOuvrir';
+    protected $keyType = 'string';
 
+    public static function schedulesOfThisShop($siret){
+        return self::where('numSiretCommerce',$siret)->get();
+    }
 }

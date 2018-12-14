@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Appartenir;
-use App\Client;
-use App\Commande;
-use App\Commerce;
-use App\Contenir;
-use App\Detenir;
 use App\Jour;
+use App\Client;
 use App\Ouvrir;
 use App\Panier;
 use App\Produit;
+use App\Detenir;
+use App\Contenir;
+use App\Commande;
+use App\Commerce;
 use App\Reduction;
+use App\Appartenir;
 use App\TypeProduit;
 use App\Reservation;
 use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 use function Sodium\increment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
 
 class ShopController extends Controller
@@ -29,18 +30,8 @@ class ShopController extends Controller
     public function show()
     {
         $mailSeller = 'vendeur@gmail.com'; // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
-        $shops = DB::table('appartenir')
-            ->select('appartenir.numSiretCommerce','commerces.nomCommerce' , 'appartenir.mailVendeur' ,DB::raw(" count(etatCommande) as count"))
-            ->where('mailVendeur', $mailSeller)
-            ->leftjoin('commerces', 'commerces.numSiretCommerce', '=', 'appartenir.numSiretCommerce')
-            ->leftjoin('commandes','commandes.numSiretCommerce','=','commerces.numSiretCommerce')
-            ->groupBy('appartenir.numSiretCommerce')
-            ->get();
-
-        $orders = Commande::select(DB::raw("count(etatCommande) as count"),'numCommande','numSiretCommerce')
-            ->where('etatCommande','traitement')
-            ->groupBy('numCommande')
-            ->get();
+        $shops = Appartenir::shopsOfThisSeller($mailSeller);
+        $orders = Commande::OrdersToTreat();
         return view('sellerShops', ['shops' => $shops, 'mailSeller' => $mailSeller , 'orders' => $orders]);
     }
 
@@ -53,15 +44,12 @@ class ShopController extends Controller
         // view sellerShops
 
         if ($request->has('visit')) {
-            $numSiret = request('visit');
-            return $this->myShop($numSiret);
-
-        } elseif ($request->has('quit')) {
-            $numSiret = request('quit');
-            $mailSeller = request('mailSeller');
-            // todo supprimer dans la table appartenir
-
-        } elseif ($request->has('join')) {
+            return redirect(url()->current().'/'.request('siretNumber'));
+        }
+        elseif ($request->has('quit')) {
+            return $this->quitShop(request('siretNumber'), request('mailSeller'));
+        }
+        elseif ($request->has('join')) {
             return $this->joinShop(request('numShop'), request('codeShop'), request('mailSeller'));
         }
         elseif ($request->has('sales')) {
@@ -80,7 +68,8 @@ class ShopController extends Controller
             return 'a faire';
 
         } elseif ($request->has('delete')) {
-            return $this->deleteProductOfShop(request('product'));
+            Produit::deleteProduct(request('product'));
+            return back();
 
             // view shop
 
@@ -93,7 +82,6 @@ class ShopController extends Controller
         } else {
             return 'boulette';
         }
-
     }
 
     /*
@@ -102,14 +90,12 @@ class ShopController extends Controller
      */
     public function myShop($numSiretCommerce)
     {
-
-        $shop = Commerce::where('numSiretCommerce', $numSiretCommerce)->firstOrFail();
-        $sellers = DB::table('appartenir')->join('vendeurs', 'appartenir.mailVendeur', '=', 'vendeurs.mailVendeur')->where('numSiretCommerce', $numSiretCommerce)
-            ->get(['vendeurs.mailVendeur', 'vendeurs.nomVendeur', 'vendeurs.idVendeur']);
-        $products = Produit::where('numSiretCommerce', $numSiretCommerce)->get();
-        $types = TypeProduit::select('nomTypeProduit','numTypeProduit')->get();
+        $shop = Commerce::shopWithSiret($numSiretCommerce);
+        $sellers = Appartenir::sellersOfThisShop($numSiretCommerce);
+        $products = Produit::productsOfThisShop($numSiretCommerce);
+        $types = TypeProduit::all();
         $days = Jour::all();
-        $schedulesOfWork = Ouvrir::where('numSiretCommerce',$numSiretCommerce)->get();
+        $schedulesOfWork = Ouvrir::schedulesOfThisShop($numSiretCommerce);
         return view('myShop', ['sellers' => $sellers, 'numShop' => $numSiretCommerce,
                     'shop' => $shop, 'products' => $products, 'types' => $types ,
                     'days' =>$days , 'schedulesOfWork' => $schedulesOfWork]);
@@ -121,24 +107,8 @@ class ShopController extends Controller
      */
     public function addProduct()
     {
-        request()->validate([
-            'productName' => ['bail', 'required'],
-            'description' => ['bail', 'required'],
-            'stock' => ['bail', 'required', 'int'],
-            'delivery' => ['bail', 'required'],
-            'price' => ['bail', 'required', 'numeric'],
-        ]);
-
-        $product = Produit::create([
-            'numTypeProduit' => request('numType'),
-            'nomProduit' => request('productName'),
-            'libelleProduit' => request('description'),
-            'qteStockProduit' => request('stock'),
-            'qteStockDispoProduit' => request('stock'),
-            'livraisonProduit' => request('delivery'),
-            'prixProduit' => request('price'),
-            'numSiretCommerce' => request('numSiretCommerce')
-        ]);
+        Produit::validateProduct();
+        Produit::createProduct();
         return back();
     }
 
@@ -148,14 +118,11 @@ class ShopController extends Controller
      */
     public function numSiret($numSiret)
     {
-        $client = new Client();
-        $mailClient = $client->getMailClient();
-        $idClient = $client->getIdClient();
-        $shop = Commerce::where('numSiretCommerce', $numSiret)->firstOrFail(['nomCommerce']);
-        $sellers = DB::table('appartenir')->join('vendeurs', 'appartenir.mailVendeur', '=', 'vendeurs.mailVendeur')->where('numSiretCommerce', $numSiret)
-            ->get(['vendeurs.mailVendeur', 'vendeurs.nomVendeur', 'vendeurs.idVendeur']);
-
-        $products = Produit::where('numSiretCommerce', $numSiret)->get();
+        $mailClient = Client::getMailClient();
+        $idClient = Client::getIdClient();
+        $shop = Commerce::nameOfThisShop($numSiret);
+        $sellers = Appartenir::sellersOfThisShop($numSiret);
+        $products = Produit::productsOfThisShop($numSiret);
         return view('shop')->with(['sellers' => $sellers, 'numSiret' => $numSiret, 'shop' => $shop, 'products' => $products, 'mailClient' => $mailClient, 'idClient' => $idClient]);
     }
 
@@ -166,23 +133,16 @@ class ShopController extends Controller
     public function joinShop($numSiret, $codeShop, $mailSeller)
     {
         if (Commerce::where('numSiretCommerce', $numSiret)->where('codeRecrutement', $codeShop)->first()) {
-            Appartenir::create([
-                'numSiretCommerce' => $numSiret,
-                'mailVendeur' => $mailSeller,
-            ]);
+            Appartenir::createAppartenir($numSiret,$mailSeller);
             return back();
-        } else {
+        }
+        else {
             return back()->withErrors([
                 'join' => "le numéro Siret ou le code est incorrect",
             ]);
         }
     }
 
-    public function deleteProductOfShop($productNumber){
-        $product = Produit::where('numProduit', $productNumber)->firstOrFail();
-        $product->delete();
-        return back();
-    }
     /*
      * @param: the email of the client who wants to book, the product number and the quantity he wants to book
      * @return: create a new line in the table reservations and create a new line in the table contenir with parameters informations
@@ -191,21 +151,9 @@ class ShopController extends Controller
         request()->validate([
             'quantity' => ['bail', 'required', 'min:0' ,'max:99999']
         ]);
-        $date =  Date::now()->format('Y-m-d H:i:s');// to get the french date ->format('d m y H:i:s');
-
-        $reservation = Reservation::create([
-            'dateReservation' => $date ,
-            'mailClient' => $mailClient
-        ]);
-
-        Contenir::create([
-            'numReservation' => $reservation->numReservation,
-            'numProduit' => $numProduct,
-            'qteReservation' => $quantity
-        ]);
-
-        DB::table('produits')->where('numProduit' , $numProduct)->decrement('qteStockDispoProduit', $quantity );
-
+        $reservation = Reservation::createReservation($mailClient);
+        Contenir::createContenir($reservation,$numProduct,$quantity);
+        Produit::decrementProduct($numProduct,$quantity);
         return back();
     }
 
@@ -217,34 +165,22 @@ class ShopController extends Controller
         request()->validate([
             'quantity' => ['bail', 'required', 'min:0']
         ]);
+        $panier = Panier::firstOrNewPanier($mailClient);
+        Panier::addPriceToThisShoppingCart($panier,$productPrice,$quantity);
 
-        $panier = Panier::firstOrNew(['mailClient' => $mailClient , 'datePanier' => null]);
+        $commande = Commande::firstOrNewCommande($panier,$numSiret);
+        Commande::addPriceToThisOrder($commande,$productPrice,$quantity);
 
-        if(is_null($panier->prixPanier)){
-            $panier->prixPanier = $productPrice*$quantity;
-        }else{
-            $panier->prixPanier += $productPrice*$quantity;
-        }
-        $panier->save();
-
-        $commande = Commande::firstOrNew(['numPanier' => $panier->numPanier , 'numSiretCommerce' => $numSiret , 'dateCommande' => null]);
-        if(is_null($commande->prixCommande)){
-            $commande->prixCommande = $productPrice*$quantity;
-        }else{
-            $commande->prixCommande += $productPrice*$quantity;
-        }
-        $commande->save();
-
-        $detenir = Detenir::firstOrNew(['numCommande' => $commande->numCommande, 'numProduit'=> $numProduct]);
-        if(is_null($detenir->qteCommande)){
-            $detenir->qteCommande = $quantity;
-        }else{
-            $detenir->qteCommande += $quantity;
-        }
-        $detenir->save();
+        $detenir = Detenir::firstOrNewDetenir($commande,$numProduct);
+        Detenir::storeQuantity($detenir,$quantity);
 
         return back();
     }
 
+    public function quitShop($siretNumber,$mailSeller){
+        $appartenir = Appartenir::where("numSiretCommerce",$siretNumber)->where("mailVendeur",$mailSeller)->firstOrFail();
+        $appartenir->delete();
+        return back();
+    }
 
 }

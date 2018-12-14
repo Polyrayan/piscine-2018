@@ -16,8 +16,8 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Produit::where('numProduit',$id)->firstOrFail();
-        $avis = Avis::where('numProduit',$product->numProduit)->get();
+        $product = Produit::productWithId($id);
+        $avis = Avis::allReviewsOfThisProduct($id);
         return view('product')->with(['product' => $product , 'avis' => $avis]);
     }
 

@@ -115,7 +115,7 @@
       </div>
 
       <!-- button to validate the register form -->
-      <button type="submit" class="btn btn-primary" name="action" value="submitClient">S'inscrire </button>
+      <button type="submit" class="btn btn-primary" name="submitClient">S'inscrire </button>
     </form>
   </div>
 
@@ -185,7 +185,7 @@
       </div>
 
       <!-- button to validate the register form -->
-      <button type="submit" class="btn btn-primary" name="action" value="submitSeller">S'inscrire </button>
+      <button type="submit" class="btn btn-primary" name="submitSeller">S'inscrire </button>
     </form>
   </div>
 

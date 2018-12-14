@@ -74,6 +74,7 @@
         </div>
 
         <!-- button to validate the register form -->
+        <input type="hidden" name="mail" value="{{$client->mailClient}}">
         <button type="submit" class="btn btn-primary" name="editClient">modifier </button>
     </form>
 </div>

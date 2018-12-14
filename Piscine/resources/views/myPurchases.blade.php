@@ -32,7 +32,6 @@
                                     @endif
                                     <button class="btn btn-success btn-group" name="rate" type="submit">envoyer</button>
                     </div>
-
                 </form>
             </div>
         </div>

@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\DB;
 class ReservationController extends Controller
 {
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($id)
     {
-        $client = Client::select('mailClient')->where('idClient', $id)->firstOrFail();
-        $reservations = Reservation::where('mailClient', $client->mailClient)->join('contenir', 'contenir.numReservation', '=', 'reservations.numReservation')
-            ->join('produits', 'contenir.numProduit', '=', 'produits.numProduit')->get();
-
+        $client = Client::getClientWithId($id);
+        $reservations = Reservation::bookingsOfThisMailClient($client->mailClient);
         $sum = Reservation::where('mailClient', $client->mailClient)
             ->join('contenir', 'contenir.numReservation', '=', 'reservations.numReservation')
             ->join('produits', 'contenir.numProduit', '=', 'produits.numProduit')
@@ -27,11 +29,16 @@ class ReservationController extends Controller
         if ($reservations->isEmpty()) {
             return view('myReservations');
         }
-        $total = $sum->total;
-
-        return view('myReservations')->with(['reservations' => $reservations, 'total' => $total]);
+        else {
+            $total = $sum->total;
+            return view('myReservations')->with(['reservations' => $reservations, 'total' => $total]);
+        }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function selectForm(Request $request)
     {
         // view sellerShops
@@ -44,25 +51,36 @@ class ReservationController extends Controller
         }
     }
 
-    public function updateQuantity($reservationNumber,$productNumber,$newQuantity)
+    /**
+     * @param $reservationNumber
+     * @param $productNumber
+     * @param $newQuantity
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateQuantity($reservationNumber, $productNumber, $newQuantity)
     {
-        $contenir = Contenir::where('numReservation', $reservationNumber)->firstOrFail();
+        $contenir = Contenir::getContenirWithReservationNumber($reservationNumber);
         $oldQuantity = $contenir->qteReservation;
-        $produit = Produit::where('numProduit', $productNumber)->firstOrFail();
-        if ($newQuantity > $oldQuantity){
+        $produit = Produit::productWithId($productNumber);
+        if ($newQuantity > $oldQuantity){ // we are losing more products
             $produit->qteStockDispoProduit -= ($newQuantity - $oldQuantity);
-        }else{
+        }else{ // we recover products
             $produit->qteStockDispoProduit +=  $oldQuantity - $newQuantity;
         }
         $produit->save();
-        Contenir::where('numReservation', $reservationNumber)->update(['qteReservation' => $newQuantity]);
+        Contenir::updateQuantityContenir($reservationNumber,$newQuantity);
         return back();
     }
 
-    public function deleteQuantity($reservationNumber,$productNumber){
-        $contenir = Contenir::where('numReservation', $reservationNumber)->firstOrFail();
+    /**
+     * @param $reservationNumber
+     * @param $productNumber
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteQuantity($reservationNumber, $productNumber){
+        $contenir = Contenir::getContenirWithReservationNumber($reservationNumber);
         $oldQuantity = $contenir->qteReservation;
-        $produit = Produit::where('numProduit', $productNumber)->increment('qteStockDispoProduit', $oldQuantity);
+        Produit::where('numProduit', $productNumber)->increment('qteStockDispoProduit', $oldQuantity);
         $contenir->delete();
         return back();
     }
