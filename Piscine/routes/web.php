@@ -12,8 +12,7 @@
 */
 
 Route::get('/','HomeController@show');
-Route::post('/','ShopController@show');
-
+Route::post('/','ShopController@selectForm');
 
 Route::get('/register','RegisterController@showForm');
 Route::post('/register','RegisterController@findChoice');
@@ -41,6 +40,10 @@ Route::post('/vendeur/commerces/{numSiretCommerce}/ventes','ShopSalesController@
 Route::get('/vendeur/commerces/{numSiretCommerce}/horaires','ShopScheduleController@show');
 Route::post('/vendeur/commerces/{numSiretCommerce}/horaires','ShopScheduleController@selectForm');
 
+Route::get('/vendeur/commerces/{numSiretCommerce}/variante/{group}','ShopProductsController@show');
+Route::post('/vendeur/commerces/{numSiretCommerce}/variante/{group}','ShopProductsController@selectForm');
+
+
 Route::get('/vendeur/{id}','ProfileController@idVendeur');
 Route::get('/client/{id}','ProfileController@idClient');
 
@@ -55,7 +58,6 @@ Route::post('/client/{id}/panier/confirmation', 'ShoppingCartController@selectFo
 
 Route::get('/client/{id}/commandes', 'ProfileController@purchaseClient' );
 Route::post('/client/{id}/commandes', 'ProfileController@selectForm' );
-
 
 Route::get('/commerces/{numSiretCommerce}','ShopController@numSiret');
 Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');

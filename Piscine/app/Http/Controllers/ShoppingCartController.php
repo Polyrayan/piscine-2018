@@ -19,13 +19,7 @@ class ShoppingCartController extends Controller
     public function show($id)
     {
         $client = Client::select('mailClient')->where('idClient',$id)->firstOrFail();
-        $products = Panier::where('mailClient',$client->mailClient)
-            ->where('datePanier','=',null)
-            ->join('commandes', 'commandes.numPanier', '=', 'paniers.numPanier')
-            ->join('detenir', 'detenir.numCommande', '=', 'commandes.numCommande')
-            ->join('produits', 'detenir.numProduit', '=' , 'produits.numProduit')
-            ->get();
-
+        $products = Panier::getPanierClient($client->mailClient);
         if($products->isEmpty()){
             return view('myShoppingCart');
         }

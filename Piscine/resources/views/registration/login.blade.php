@@ -19,7 +19,7 @@
             @endif
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary" name="action" value="loginClient">Se connecter </button>
+            <button type="submit" class="btn btn-primary" name="loginClient">Se connecter </button>
           </div>
           <div class="form-group">
             <input type="submit" class="btnSubmit" value="facebook" />
@@ -47,7 +47,7 @@
             @endif
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary" name="action" value="loginSeller">Se connecter </button>
+            <button type="submit" class="btn btn-primary" name="loginSeller">Se connecter </button>
           </div>
           <div class="form-group">
               <a href="#" class="ForgetPwd" value="Login">mot de passe oublié ?</a> <br>

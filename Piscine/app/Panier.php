@@ -34,4 +34,13 @@ class Panier extends Model
             ->join('produits','produits.numProduit', '=','detenir.numProduit')
             ->get();
     }
+
+    public static function getPanierClient($mail){
+        return self::where('mailClient',$mail)
+            ->where('datePanier','=',null)
+            ->join('commandes', 'commandes.numPanier', '=', 'paniers.numPanier')
+            ->join('detenir', 'detenir.numCommande', '=', 'commandes.numCommande')
+            ->join('produits', 'detenir.numProduit', '=' , 'produits.numProduit')
+            ->get();
+    }
 }

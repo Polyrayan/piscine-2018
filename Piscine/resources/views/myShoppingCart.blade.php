@@ -33,13 +33,13 @@
                             <input name="orderNumber" type="hidden" value="{{ $product->numCommande }}">
                             <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
                             <input name="price" type="hidden" value="{{ $product->prixProduit }}">
-
                         <tr>
                             <td data-th="Product">
                                 <div class="row">
                             <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
                             <div class="col-sm-10">
                                 <h4 class="nomargin"><b>{{$product->nomProduit}} </b></h4>
+                                {{ $product->numProduit }}
                                 <p>{{$product->libelleProduit}}</p>
                             </div>
                         </div>
@@ -52,12 +52,12 @@
                             <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
                                     <br> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
                             <td class="actions form-inline" data-th="">
-                                <button class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
-                                <button class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
+                                <button type="submit" class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
+                                <button type="submit" class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
                             </td>
                         </tr>
-                    @endforeach
                         </form>
+                    @endforeach
                     </tbody>
 
                 <tfoot>

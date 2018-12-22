@@ -14,7 +14,6 @@ class Appartenir extends Model
     protected $primaryKey ='numSiretCommerce';
     protected $keyType = 'string';
 
-
     public static function validateFormAppartenir(){
         request()->validate([
             'numSiret' => ['bail','required','min:14','max:14'],

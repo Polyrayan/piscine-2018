@@ -96,13 +96,19 @@ class Client extends Model implements Authenticatable
     }
 
     public static function updateClient(){
-        Client::where('mailClient',request('mail'))
+        self::where('mailClient',request('mail'))
             ->update(['nomClient'=> request('name') ,
                 'prenomClient'=> request('firstName'),
                 'telClient' => request('phone'),
                 'adresseClient' => request('address') ,
                 'villeClient' => request('city'),
-                'codePostalClient' => request('zipCode')]);
+                'codePostalClient' => request('zipCode')
+            ]);
+    }
+
+    public static function getMyAddress(){
+        $client = self::where('mailClient',self::getMailClient())->firstOrFail();
+        return "$client->adresseClient , $client->villeClient ";
     }
 
     public static function getClientWithMail($mail){

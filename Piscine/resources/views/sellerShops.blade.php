@@ -32,16 +32,14 @@
                                     <h3>{{$shop->nomCommerce}}</h3>
                                 </div>
                                 <div class="col-lg-4">
-                                    <!-- visit  -->
                                     <input name="shopName" type="hidden" value="{{$shop->nomCommerce}}">
-                                    <button class="btn btn-primary" name="visit"  value="{{ $shop->numSiretCommerce }}"> visiter </button>
-
-                                    <!-- orders -->
                                     <input name="siretNumber" type="hidden" value="{{$shop->numSiretCommerce}}">
-                                    <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}} </span> </button>
-
-                                    <!-- quit  -->
                                     <input name="mailSeller" type="hidden" value="{{$shop->mailVendeur}}">
+                                    <!-- visit  -->
+                                    <button class="btn btn-primary" name="visit"  value="{{ $shop->numSiretCommerce }}"> visiter </button>
+                                    <!-- orders -->
+                                    <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}} </span> </button>
+                                    <!-- quit  -->
                                     <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
                                 </div>
                             </div>

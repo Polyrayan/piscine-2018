@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Geocoder;
 class Produit extends Model
 {
     protected $fillable = ['numProduit','nomProduit','libelleProduit','qteStockProduit',
         'qteStockDispoProduit','livraisonProduit','prixProduit',
-        'qte1','qte2','numSiretCommerce','numTypeProduit','numCommande', 'numReservation'];
+        'numSiretCommerce','nomTypeProduit','couleurProduit','tailleProduit',
+        'marqueProduit','numGroupeVariante'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey = 'numProduit';
@@ -25,17 +26,66 @@ class Produit extends Model
         ]);
     }
 
-    public static function createProduct(){
+    public static function createProduct($numGroupVariant){
         return self::create([
-            'numTypeProduit' => request('numType'),
+            'nomTypeProduit' => request('nomType'),
             'nomProduit' => request('productName'),
             'libelleProduit' => request('description'),
             'qteStockProduit' => request('stock'),
             'qteStockDispoProduit' => request('stock'),
             'livraisonProduit' => request('delivery'),
             'prixProduit' => request('price'),
-            'numSiretCommerce' => request('numSiretCommerce')
+            'numSiretCommerce' => request('numSiretCommerce'),
+            'couleurProduit' => request('color'),
+            'tailleProduit' => request('size'),
+            'marqueProduit' => request('brand'),
+            'numGroupeVariante' => $numGroupVariant,
         ]);
+    }
+
+    public static function updateProduct(){                     // todo a tester
+        self::where('numProduit',request('productNumber'))
+            ->update(['nomProduit'=> request('productName') ,
+                'libelleProduit'=> request('description'),
+                'qteStockProduit' => request('stock'),
+                'qteStockDispoProduit' => request('stock'),
+                'livraisonProduit' => request('delivery'),
+                'prixProduit' => request('price'),
+                'numSiretCommerce' => request('numSiretCommerce'),
+                'couleurProduit' => request('color'),
+                'tailleProduit' => request('size'),
+                'marqueProduit' => request('brand')
+            ]);
+    }
+
+    public function addDistance($position1){
+        $productAddress = Commerce::getShopAddress($this->numSiretCommerce);
+        $productsCoordinates = Geocoder::getCoordinatesForAddress($productAddress);
+        $this->distance = Geocoder::getDistanceBetween($position1, $productsCoordinates);
+    }
+
+    public function addColors($allProducts){
+        $array = array();
+        foreach ($allProducts->where('numGroupeVariante', $this->numGroupeVariante ) as $singleProduct){
+            if (!empty($singleProduct->couleurProduit) and !in_array($singleProduct->couleurProduit, $array)) {
+                array_push($array, $singleProduct->couleurProduit);
+            }
+        }
+        return $array;
+    }
+
+    public function addSizes($allProducts){
+        $array = array();
+        foreach ($allProducts->where('numGroupeVariante', $this->numGroupeVariante ) as $singleProduct) {
+            if (!empty($singleProduct->tailleProduit) and !in_array($singleProduct->tailleProduit, $array)) {
+                array_push($array, $singleProduct->tailleProduit);
+            }
+        }
+        return $array;
+    }
+
+    public function addCity(){
+        $this->city = Commerce::getCity($this->numSiretCommerce);
     }
 
     public static function deleteProduct($productNumber){
@@ -53,6 +103,38 @@ class Produit extends Model
 
     public static function productWithId($id){
         return self::where('numProduit',$id)->firstOrFail();
+    }
+
+    public static function category($number)
+    {
+        $product = self::where('numGroupeVariante',$number)->firstOrFail();
+        return $product->nomTypeProduit;
+    }
+
+    public static function productsOfThisGroup($number)
+    {
+        return self::where('numGroupeVariante',$number)->get();
+    }
+
+    public static function firstProductOfThisGroup($number)
+    {
+        return self::where('numGroupeVariante',$number)->firstOrFail();
+    }
+
+    public static function productsOfThisShopGroupedByVariant($siret){
+        return self::where('numSiretCommerce', $siret)
+            ->groupBy('numGroupeVariante')
+            ->get();
+    }
+
+    public static function productsGroupedByVariant(){
+        return self::groupBy('numGroupeVariante')->get();
+    }
+
+    public static function allVariants($siret)
+    {
+        return self::where('numSiretCommerce', $siret)
+            ->get(['couleurProduit','tailleProduit']);
     }
 }
 

@@ -90,11 +90,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Vendeur::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'clients',
-        // ],
     ],
 
     /*

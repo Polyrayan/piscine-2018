@@ -15,6 +15,7 @@ use App\Reduction;
 use App\Appartenir;
 use App\TypeProduit;
 use App\Reservation;
+use App\Variante;
 use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 use function Sodium\increment;
@@ -67,6 +68,10 @@ class ShopController extends Controller
         } elseif ($request->has('edit')) {
             return 'a faire';
 
+        } elseif ($request->has('variant')) {
+            $variant = Produit::productWithId(request('product'));
+            return redirect(url()->current().'/variante/'.$variant->numGroupeVariante);
+
         } elseif ($request->has('delete')) {
             Produit::deleteProduct(request('product'));
             return back();
@@ -92,13 +97,14 @@ class ShopController extends Controller
     {
         $shop = Commerce::shopWithSiret($numSiretCommerce);
         $sellers = Appartenir::sellersOfThisShop($numSiretCommerce);
-        $products = Produit::productsOfThisShop($numSiretCommerce);
+        $products = Produit::productsOfThisShopGroupedByVariant($numSiretCommerce);
+        $groups = Produit::allVariants($numSiretCommerce);
         $types = TypeProduit::all();
         $days = Jour::all();
         $schedulesOfWork = Ouvrir::schedulesOfThisShop($numSiretCommerce);
         return view('myShop', ['sellers' => $sellers, 'numShop' => $numSiretCommerce,
                     'shop' => $shop, 'products' => $products, 'types' => $types ,
-                    'days' =>$days , 'schedulesOfWork' => $schedulesOfWork]);
+                    'days' =>$days , 'schedulesOfWork' => $schedulesOfWork, 'groups' => $groups]);
     }
 
     /*
@@ -107,8 +113,9 @@ class ShopController extends Controller
      */
     public function addProduct()
     {
+        $newGroupVariant = Variante::createVariant();
         Produit::validateProduct();
-        Produit::createProduct();
+        Produit::createProduct($newGroupVariant->numGroupeVariante);
         return back();
     }
 
