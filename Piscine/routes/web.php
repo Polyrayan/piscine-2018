@@ -64,4 +64,5 @@ Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');
 
 Route::get('/produits/{id}','ProductController@show');
 
-
+Route::get('/admin','AdminController@show');
+Route::post('/admin','AdminController@selectForm');

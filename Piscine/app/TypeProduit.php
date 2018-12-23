@@ -10,6 +10,25 @@ class TypeProduit extends Model
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $table ='typeProduits';
-    protected $primaryKey = 'numTypeProduit';
+    protected $primaryKey = 'nomTypeProduit';
     protected $keyType = 'string';
+
+    public static function createCategorie(){
+        return self::create([
+            'nomTypeProduit' => request('Nom'),
+            'tempsReservation' => request('temps'),
+        ]);
+    }
+
+
+    public static function changeCategorie(){                     // todo a tester
+        TypeProduit::where('nomTypeProduit',request('Nom'))
+            ->update(['tempsReservation'=> request('temps')
+            ]);
+    }
+
+    public static function deleteCategorie(){
+        $product = self::where('nomTypeProduit', request('Nom'));
+        $product->delete();
+    }
 }
