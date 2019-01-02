@@ -60,9 +60,9 @@ class RegisterController extends Controller
 
     public function applyClientForm()
     {
-        Client::validateFormClient();
+        //Client::validateFormClient();
         Client::createClient();
-        Reduction::createClientReduction(request('mail'));
+        //Reduction::createClientReduction(request('mail'));
         return redirect('/');
     }
 

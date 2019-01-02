@@ -19,14 +19,11 @@ class TypeProduit extends Model
             'tempsReservation' => request('temps'),
         ]);
     }
-
-
-    public static function changeCategorie(){                     // todo a tester
+    public static function changeCategorie(){
         TypeProduit::where('nomTypeProduit',request('Nom'))
             ->update(['tempsReservation'=> request('temps')
             ]);
     }
-
     public static function deleteCategorie(){
         $product = self::where('nomTypeProduit', request('Nom'));
         $product->delete();

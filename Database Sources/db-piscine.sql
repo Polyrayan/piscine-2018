@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  sam. 22 déc. 2018 à 17:07
+-- Généré le :  mer. 02 jan. 2019 à 01:10
 -- Version du serveur :  10.2.3-MariaDB-log
 -- Version de PHP :  7.1.1
 
@@ -21,6 +21,25 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `db-piscine`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `admins`
+--
+
+CREATE TABLE `admins` (
+  `mailAdmin` varchar(25) NOT NULL,
+  `mdpAdmin` text NOT NULL,
+  `mailVendeur` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `admins`
+--
+
+INSERT INTO `admins` (`mailAdmin`, `mdpAdmin`, `mailVendeur`) VALUES
+('cci@gmail.com', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', 'vendeur@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -76,7 +95,7 @@ CREATE TABLE `clients` (
   `mailClient` varchar(100) NOT NULL,
   `nomClient` varchar(20) NOT NULL,
   `prenomClient` varchar(20) NOT NULL,
-  `mdpClient` char(60) NOT NULL,
+  `mdpClient` text NOT NULL,
   `adresseClient` varchar(80) NOT NULL,
   `villeClient` varchar(30) NOT NULL,
   `codePostalClient` char(5) NOT NULL,
@@ -84,17 +103,19 @@ CREATE TABLE `clients` (
   `numReduction` int(11) DEFAULT NULL,
   `sexeClient` char(5) NOT NULL,
   `dateNaissanceClient` date NOT NULL,
-  `idClient` int(5) NOT NULL
+  `idClient` int(5) NOT NULL,
+  `remember_token` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `clients`
 --
 
-INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `numReduction`, `sexeClient`, `dateNaissanceClient`, `idClient`) VALUES
-('a@g.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '0685404708', NULL, 'male', '1999-03-03', 1),
-('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '15 rue', 'Toulouse', '15000', '06', NULL, 'male', '1666-05-25', 6),
-('r@g.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404708', NULL, 'male', '1996-06-28', 2);
+INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `numReduction`, `sexeClient`, `dateNaissanceClient`, `idClient`, `remember_token`) VALUES
+('a@gmail.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '0685404708', NULL, 'male', '1999-03-03', 1, 'JhJGbkkds6kHylaNzoy637WpdC2dipotGRXujTDLBhs0Y78qkcEx1FZeRRbB'),
+('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '15 rue', 'Toulouse', '15000', '06', NULL, 'male', '1666-05-25', 6, NULL),
+('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', NULL, 'male', '1996-06-28', 2, 'MdibomA3Nvmy7OQbfhQCphSVhPHSaWnYby8ZgUoq34Nd4qFhD2iF2p1JA2Am'),
+('zzz@g.com', 'b', 'bahroun', '$2y$10$YAY5R3Vi.JrQr4MH2M4Zl.3HtlJmkihvIiRsEYK4JNX4pPESD3j.a', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '06854047080', NULL, 'male', '0001-06-06', 11, 'nLIof9zEWQwodLyu9qm7CjHYedYRWIxLlT89ktdhTmw4cw0EeVw2NkoCqbOo');
 
 -- --------------------------------------------------------
 
@@ -323,7 +344,7 @@ CREATE TABLE `produits` (
 --
 
 INSERT INTO `produits` (`numProduit`, `nomProduit`, `libelleProduit`, `qteStockProduit`, `qteStockDispoProduit`, `livraisonProduit`, `prixProduit`, `numSiretCommerce`, `nomTypeProduit`, `couleurProduit`, `tailleProduit`, `marqueProduit`, `numGroupeVariante`, `imageProduit`) VALUES
-(1, 'wings', 'aile de poulet fris', 156, 146, 0, '2', '11111111111111', 'Nourriture', NULL, NULL, NULL, 1, 'https://image.freepik.com/free-photo/grilled-chicken-wings_1205-523.jpg'),
+(1, 'wings', 'aile de poulet fris', 156, 146, 0, '2', '11111111111111', 'Nourriture', NULL, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs0qLwurYDYph7EotV-jOiLZh_KHGlhXDogAqigHloeOZNxS-v'),
 (2, 'tenders', 'filet de poulet fris', 306, 306, 0, '3', '11111111111111', 'Nourriture', NULL, NULL, NULL, 2, 'http://allopizza77.fr/emporter/88-large_default/tenders.jpg'),
 (3, 'pilon', 'partie inférieur de la cuisse de poulet', 130, 130, 0, '2.35', '11111111111111', 'Nourriture', NULL, NULL, NULL, 3, ''),
 (5, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 50, 50, 0, '89.99', '22222222222222', 'Meuble', 'marron', '200x80x100', NULL, 4, ''),
@@ -353,7 +374,12 @@ CREATE TABLE `reductions` (
 
 INSERT INTO `reductions` (`numReduction`, `pointsReduction`, `dateDebutReduction`, `dateFinReduction`, `mailClient`) VALUES
 (1, 0, '2018-11-22 21:43:42', '2018-12-05 23:00:00', 'r@g.com'),
-(2, 0, '2018-12-06 21:40:04', '2018-12-05 23:00:00', 'bob@gmail.com');
+(2, 0, '2018-12-06 21:40:04', '2018-12-05 23:00:00', 'bob@gmail.com'),
+(3, 0, '2019-01-10 10:28:11', '2019-01-09 23:00:00', 'jean@hotmail.fr'),
+(4, 0, '2019-01-10 10:48:17', '2019-01-09 23:00:00', 'jean@hotmail.fr'),
+(5, 0, '2019-01-10 10:53:27', '2019-01-09 23:00:00', 'zz@gmail.com'),
+(6, 0, '2019-01-10 10:57:45', '2019-01-09 23:00:00', 'zzz@g.com'),
+(7, 0, '2019-01-10 11:02:14', '2019-01-09 23:00:00', 'zzz@g.com');
 
 -- --------------------------------------------------------
 
@@ -449,22 +475,30 @@ CREATE TABLE `vendeurs` (
   `prenomVendeur` varchar(20) NOT NULL,
   `mdpVendeur` char(60) NOT NULL,
   `telVendeur` char(10) NOT NULL,
-  `idVendeur` int(11) NOT NULL
+  `idVendeur` int(11) NOT NULL,
+  `remember_token` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `vendeurs`
 --
 
-INSERT INTO `vendeurs` (`mailVendeur`, `nomVendeur`, `prenomVendeur`, `mdpVendeur`, `telVendeur`, `idVendeur`) VALUES
-('cci@gmail.com', 'cci', 'cci', '$2y$10$NETz7trIS..vuVMKYvUXVOSfvgFEWuO5McPs01Nhuqc1PwqAr0tA2', '0433103310', 27),
-('mathieu@gmail.com', 'r', 'r', '$2y$10$g8X9Vsug0fic9zBBurg/A.T/4j/4NwW9S1tuar1crwJMWP0YffrKW', '0685404708', 1),
-('pepito24@yahoo.fr', 'pepito', 'aïe', '$2y$10$mVE932fpgExRzJce7ajxme2SfZnoRGI3GnpKzndPspms4xflKiZ2a', '0150426988', 2),
-('vendeur@gmail.com', 'Toulino', 'David', '$2y$10$uK/2emyMVyUAG7FiiaIHdekKZ6QIysZPw0fMvYZOsdgluIX4GLZLC', '0685404708', 3);
+INSERT INTO `vendeurs` (`mailVendeur`, `nomVendeur`, `prenomVendeur`, `mdpVendeur`, `telVendeur`, `idVendeur`, `remember_token`) VALUES
+('cci@gmail.com', 'cci', 'cci', '$2y$10$NETz7trIS..vuVMKYvUXVOSfvgFEWuO5McPs01Nhuqc1PwqAr0tA2', '0433103310', 27, ''),
+('mathieu@gmail.com', 'r', 'r', '$2y$10$g8X9Vsug0fic9zBBurg/A.T/4j/4NwW9S1tuar1crwJMWP0YffrKW', '0685404708', 1, ''),
+('pepito24@yahoo.fr', 'pepito', 'aïe', '$2y$10$mVE932fpgExRzJce7ajxme2SfZnoRGI3GnpKzndPspms4xflKiZ2a', '0150426988', 2, ''),
+('vdd@gmail.com', 'vdd', 'vdd', '$2y$10$7OoagxKe1bTnbAl/v9XgUOoxgR9.Z/HqB9k9zIjiIJ/xygMsdgr2.', '0202020202', 28, NULL),
+('vendeur@gmail.com', 'Toulino', 'David', '$2y$10$uK/2emyMVyUAG7FiiaIHdekKZ6QIysZPw0fMvYZOsdgluIX4GLZLC', '0685404708', 3, 'KKCaxdlhYB6MTfpbEgzS9ETTtkHdAMJnpfxWqPesC4PsQLvPRc7BQC1QYCYY');
 
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`mailAdmin`);
 
 --
 -- Index pour la table `appartenir`
@@ -591,7 +625,7 @@ ALTER TABLE `avis`
 -- AUTO_INCREMENT pour la table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `idClient` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idClient` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `commandes`
@@ -627,7 +661,7 @@ ALTER TABLE `produits`
 -- AUTO_INCREMENT pour la table `reductions`
 --
 ALTER TABLE `reductions`
-  MODIFY `numReduction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `numReduction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `reservations`
@@ -651,7 +685,7 @@ ALTER TABLE `variantes`
 -- AUTO_INCREMENT pour la table `vendeurs`
 --
 ALTER TABLE `vendeurs`
-  MODIFY `idVendeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idVendeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Contraintes pour les tables déchargées

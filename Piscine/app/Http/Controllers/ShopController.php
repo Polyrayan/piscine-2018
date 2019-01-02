@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jour;
+use App\Vendeur;
 use App\Client;
 use App\Ouvrir;
 use App\Panier;
@@ -11,17 +12,18 @@ use App\Detenir;
 use App\Contenir;
 use App\Commande;
 use App\Commerce;
-use App\Reduction;
 use App\Appartenir;
 use App\TypeProduit;
 use App\Reservation;
 use App\Variante;
+use Illuminate\Support\Facades\Auth;
 use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 use function Sodium\increment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
+
 
 class ShopController extends Controller
 {
@@ -30,7 +32,7 @@ class ShopController extends Controller
      */
     public function show()
     {
-        $mailSeller = 'vendeur@gmail.com'; // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
+        $mailSeller = Vendeur::getSellerMail(); // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
         $shops = Appartenir::shopsOfThisSeller($mailSeller);
         $orders = Commande::OrdersToTreat();
         return view('sellerShops', ['shops' => $shops, 'mailSeller' => $mailSeller , 'orders' => $orders]);
@@ -56,6 +58,12 @@ class ShopController extends Controller
         elseif ($request->has('sales')) {
             return redirect(url()->current().'/'.request('siretNumber').'/ventes');
         }
+        elseif ($request->has('logout')) {
+            Auth::guard('client')->logout();
+            Auth::guard('seller')->logout();
+            return redirect('/login');
+        }
+
 
         // view myShop
 
@@ -84,8 +92,6 @@ class ShopController extends Controller
         } elseif ($request->has('addShoppingCart')) {
             return $this->addToShoppingCart(request('mailClient'),request('product'),request('productPrice'),request('quantity'),request('numSiret'));
 
-        } else {
-            return 'boulette';
         }
     }
 

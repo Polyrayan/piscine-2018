@@ -3,25 +3,24 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as BasicAuthenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 
-class Client extends Model implements Authenticatable
+class Client extends Authenticatable
 {
+    use Notifiable;
 
-    use BasicAuthenticatable; // use 6 functions in this namespace
+    protected $guard = 'client';
 
-
-    protected $fillable = ['mailClient','nomClient','prenomClient','telClient',
-                         'mdpClient','sexeClient','dateNaissanceClient',
+    protected $fillable = ['mailClient','mdpClient','nomClient','prenomClient','telClient','sexeClient','dateNaissanceClient',
                          'adresseClient','codePostalClient','villeClient','idClient'];
+    protected $hidden = ['mdpClient','remember_token'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey ='mailClient';
     protected $keyType = 'string';
-    protected $table ='clients';
-    public $incrementing = false;
 
 
     /**
@@ -34,19 +33,18 @@ class Client extends Model implements Authenticatable
         return $this->mdpClient;
     }
 
-
     /**
      * Get the name of the unique identifier for the user.
      *
      * @return string
      */
-    public function getAuthIdentifierName()
-    {
-        return $this->mailClient;
-    }
+    //public function getAuthIdentifierName()
+    //{
+    //    return $this->mailClient;
+    //}
 
     public static function getMailClient(){
-        return "r@g.com";
+        return Auth::guard('client')->user()->mailClient;
     }
 
     public static function getIdClient(){
@@ -69,17 +67,6 @@ class Client extends Model implements Authenticatable
         ]);
     }
 
-    public static function validateUpdate(){
-        request()->validate([
-            'name' => ['bail','required','string'],
-            'firstName' => ['bail','required','string'],
-            'phone' => ['bail','required','numeric'],
-            'address' => ['bail','required','string'],
-            'city' => ['bail','required','string'],
-            'zipCode' => ['bail','required','numeric'],
-        ]);
-    }
-
     public static function createClient(){
         return self::create([
             'mailClient' => request('mail'),
@@ -92,6 +79,17 @@ class Client extends Model implements Authenticatable
             'codePostalClient' => request('postalCode'),
             'sexeClient' => request('gender'),
             'dateNaissanceClient' => request('birthday'),
+        ]);
+    }
+
+    public static function validateUpdate(){
+        request()->validate([
+            'name' => ['bail','required','string'],
+            'firstName' => ['bail','required','string'],
+            'phone' => ['bail','required','numeric'],
+            'address' => ['bail','required','string'],
+            'city' => ['bail','required','string'],
+            'zipCode' => ['bail','required','numeric'],
         ]);
     }
 

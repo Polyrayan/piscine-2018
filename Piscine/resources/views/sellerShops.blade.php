@@ -17,7 +17,6 @@
                     <input type="text" name="codeShop"  placeholder="code Recrutement" class="form-control">
                     <button class="btn btn-primary" name="join"> Rejoindre </button>
                 </form>
-
             </div>
         </div>
     </div>
@@ -41,6 +40,7 @@
                                     <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}} </span> </button>
                                     <!-- quit  -->
                                     <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
+                                    <button class="btn btn-danger"  name="logout"> deco </button>
                                 </div>
                             </div>
                     </div>

@@ -76,5 +76,8 @@
     <a href="http://clashhacks.in/">Link</a>
 </div>
 <body>
-  @yield('content')
+    <div class="text-center">
+        @include('flash::message')
+    </div>
+    @yield('content')
 </body>

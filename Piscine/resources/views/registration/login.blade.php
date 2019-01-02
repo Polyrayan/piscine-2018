@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-6 login-form-1">
         <h3> Client</h3>
-        <form action="" method="post">
+        <form method="post">
           {{  csrf_field()  }}
           <div class="form-group">
             <input type="email" class="form-control" name="mailClient" placeholder="Email *" value="{{ old('mailClient') }}">
@@ -22,9 +22,6 @@
             <button type="submit" class="btn btn-primary" name="loginClient">Se connecter </button>
           </div>
           <div class="form-group">
-            <input type="submit" class="btnSubmit" value="facebook" />
-          </div>
-          <div class="form-group">
             <a href="#" class="ForgetPwd">mot de passe oublié ?</a>
           </div>
         </form>
@@ -32,7 +29,7 @@
 
       <div class="col-md-6 login-form-2">
         <h3> Commerçant</h3>
-        <form action="" method="post">
+        <form method="post">
           {{  csrf_field()  }}
           <div class="form-group">
             <input type="email" class="form-control" name="mailSeller" placeholder="Email *" value="{{ old('mailSeller') }}">
@@ -52,7 +49,7 @@
           <div class="form-group">
               <a href="#" class="ForgetPwd" value="Login">mot de passe oublié ?</a> <br>
               <div class="text-right">
-                  <a href="#admin" class="ForgetPwd" value="Login">admin</a>
+                  <a href="../public/login/admin" class="ForgetPwd">admin</a>
               </div>
           </div>
         </form>

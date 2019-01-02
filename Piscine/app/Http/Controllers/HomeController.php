@@ -12,6 +12,7 @@ use App\Reservation;
 
 use Illuminate\Http\Request;
 use App\Client;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Geocoder;
 
@@ -20,7 +21,6 @@ class HomeController extends Controller
 {
     public function show()
     {
-
         $mailClient = Client::getMailClient(); // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
         $products = Produit::productsGroupedByVariant();
         $coordinatesOfClients = Geocoder::getCoordinatesForAddress(Client::getMyAddress());

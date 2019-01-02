@@ -3,28 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as BasicAuthenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
-class Vendeur extends Model implements Authenticatable
+class Vendeur extends Authenticatable
 {
+    use Notifiable;
 
-    use BasicAuthenticatable; // use 6 functions in this namespace
+    protected $guard = 'seller';
 
-    protected $fillable = ['mailVendeur','nomVendeur','prenomVendeur','telVendeur',
-                         'mdpVendeur','idVendeur'];
-
+    protected $fillable = ['mailVendeur','nomVendeur','prenomVendeur','telVendeur', 'mdpVendeur','idVendeur'];
+    protected $hidden = ['mdpVendeur', 'remember_token'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey ="mailVendeur";
     protected $keyType ="string";
 
-
     public function commerces()
     {
         return $this->belongsToMany(Commerce::class);
     }
-
 
     /**
      * Get the password for the seller.
@@ -65,6 +64,14 @@ class Vendeur extends Model implements Authenticatable
         return self::where('idVendeur',$id)->firstOrFail();
     }
 
+    public static function getSellerMail(){
+        if(Auth::guard('seller')->check()){
+            return Auth::guard('seller')->user()->mailVendeur;
+        }
+        if(Auth::guard('admin')->check()){
+            return Auth::guard('admin')->user()->mailVendeur;
+        }
+    }
 }
 
 

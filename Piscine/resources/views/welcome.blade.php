@@ -8,17 +8,21 @@
 
         <h3> ce qu'il manque : </h3>
         <ul>
+            <li> refered et js</li>
+            <li> refaire la navbar </li>
             <li> trier par categorie </li>
-            <li> pagination </li>
-            <li> créer les tags  </li>
-            <li> régler la connexion  </li>
+            <li> toutes les views admin </li>
             <li> faire le tunnel d'achat  </li>
             <li> régler les boutons non fonctionnels </li>
-            <li> admin </li>
-            <li> refered et js</li>
-            <li> supprimer variante quand on supprime le groupe de produit pour eviter "la fuite memoire" </li>
-            <li> put delete </li>
+            <li> pouvoir utiliser des points de reductions</li>
+            <li> faire la fonction d'ajout de produits via un .csv </li>
+            <li> pouvoir créer un code de reduction dans un commerce</li>
+            <li> pouvoir appliquer un code de reduction en tant que client </li>
             <li> ajouter dans les formulaires d'un nouveau produit(myshop) + variante(editVariantesShop) la possibilité de donner une ou plusieurs images ( si plusieurs rajouter une table images dans la bd...) </li>
+            <li> OPTION :put delete </li>
+            <li> OPTION :héberger le site </li>
+            <li> OPTION : rajouter une template </li>
+            <li> OPTION : supprimer variante quand on supprime le groupe de produit pour eviter "la fuite memoire" </li>
         </ul>
     </div>
 
@@ -148,14 +152,14 @@
                         {{  csrf_field()  }}
                         <td data-th="Product">
                             <div class="row">
-                                <div class="col-sm-3 hidden-xs">
+                                <div class="col-lg-4 col-md-5 col-sm-10 col-xs-8">
                                     @if(empty($product->imageProduit))
                                         <img src="http://placehold.it/100x100" style="width:100px; height: 100px;" alt="..." class=" img img-thumbnail"/>
                                     @else
                                         <img src="{{$product->imageProduit}}" style="width:  100px; height: 100px;" alt="..." class=" img-thumbnail"/>
                                     @endif
                                 </div>
-                                <div class="col-sm-8">
+                                <div class="col-lg-8 col-md-7 col-sm-6">
                                     <h4 class="nomargin"><b>{{$product->nomProduit}} </b></h4>
                                     <p>{{$product->libelleProduit}}</p>
                                 </div>
@@ -195,8 +199,8 @@
                         </td>
                     </form>
                 </tr>
-            </tbody>
             @endforeach
+            </tbody>
         </table>
     </div>
 @endsection

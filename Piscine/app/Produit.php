@@ -14,6 +14,8 @@ class Produit extends Model
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey = 'numProduit';
     protected $keyType = 'string';
+    private $colors = array();
+    private $sizes = array();
 
 
     public static function validateProduct(){
@@ -23,6 +25,8 @@ class Produit extends Model
             'stock' => ['bail', 'required', 'int'],
             'delivery' => ['bail', 'required'],
             'price' => ['bail', 'required', 'numeric'],
+            //'color' => ['string'],
+            //'brand' => ['string'],
         ]);
     }
 

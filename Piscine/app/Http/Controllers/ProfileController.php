@@ -20,32 +20,10 @@ class ProfileController extends Controller
 
     public function show()
     {
-        //return view('profiles.clientProfile');
-        //var_dump(Auth::guard('client')->check());
-        //var_dump(auth('seller')->check());
-
         $mail = Client::getMailClient();
         $client = Client::getClientWithMail($mail);
         $points = Reduction::getReductionPoints($mail);
         return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points]);
-        // var_dump(\Auth::check());
-
-        //return auth('client')->user();
-
-
-        /*if (auth('client')->check()){
-            return 'client';
-            //return view('profiles.myClientProfile');
-        }
-        if(auth('seller')){
-            return view('profiles.mySellerProfile');
-        }
-        else{
-            return redirect('/login')->withInput()->withErrors([
-                "mailSeller" => "veuilez vous connecter",
-            ]);
-        }
-        */
     }
 
 
