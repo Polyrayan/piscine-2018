@@ -1,7 +1,7 @@
 @extends('navbars.navbarSeller')
 
 @section('content')
-    @stack('product')
+</br>
 
     <h1>Fiche du produit n°{{$product->numProduit}}</h1>
     <div class="container">
@@ -10,10 +10,16 @@
             <div class="col-12 col-lg-6">
                 <div class="card bg-light mb-3">
                     <div class="card-body">
+                      <center>
                         <a href="" data-toggle="modal" data-target="#productModal">
-                            <img class="img-fluid" src="https://dummyimage.com/800x800/55595c/fff" />
-                            <p class="text-center">Zoom</p>
+                          @if(empty($product->imageProduit))
+                              <img src="http://placehold.it/100x100" style="width:410px; height: 410px;" alt="..." class=" img img-thumbnail"/>
+                          @else
+                            <img class="img-fluid" src="{{$product->imageProduit}}" style="width:410px; height: 410px;"/>
+                          @endif
                         </a>
+                          <h3 class="nom" >{{$product->nomProduit}}</h3>
+                        </center>
                     </div>
                 </div>
             </div>
@@ -22,32 +28,28 @@
             <div class="col-12 col-lg-6 add_to_cart_block">
                 <div class="card bg-light mb-3">
                     <div class="card-body">
-                        <p class="price">99.00 $</p>
-                        <p class="price_discounted">149.90 $</p>
+                        <p class="price">Prix : {{$product->prixProduit}} €</p>
+                        <p class="price_total">Total : {{$product->prixProduit}} €</p>
+
                         <form method="get" action="cart.html">
+                          @if(!empty($product->couleurProduit))
                             <div class="form-group">
                                 <label for="colors">Color</label>
                                 <select class="custom-select" id="colors">
                                     <option selected>Select</option>
-                                    <option value="1">Blue</option>
-                                    <option value="2">Red</option>
-                                    <option value="3">Green</option>
+                                    @foreach($product->colors as $color)
+                                        <option value="{{$color}}"> {{$color}}</option>
+                                    @endforeach
                                 </select>
                             </div>
+                          @endif
+
                             <div class="form-group">
                                 <label>Quantity :</label>
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
+                                    
                                     <input type="text" class="form-control"  id="quantity" name="quantity" min="1" max="100" value="1">
-                                    <div class="input-group-append">
-                                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <a href="cart.html" class="btn btn-success btn-lg btn-block text-uppercase">
@@ -56,23 +58,33 @@
                         </form>
                         <div class="product_rassurance">
                             <ul class="list-inline">
-                                <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br/>Fast delivery</li>
-                                <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br/>Secure payment</li>
-                                <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br/>+33 1 22 54 65 60</li>
+                                <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br/>Livraison rapide</li>
+                                <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br/>Paiement sécurisé</li>
+                                <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br/>{{$commerce->telCommerce}}</li>
                             </ul>
                         </div>
                         <div class="reviews_product p-3 mb-2 ">
-                            3 reviews
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            (4/5)
+                            @if($noteMoy >= 2)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($noteMoy>=4)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($noteMoy>=6)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($noteMoy>=8)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($noteMoy == 10)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($noteMoy == "Non noté")
+                              <a> {{$noteMoy}}</a>
+                            @else
+                              <a> {{$noteMoy}}/10</a>
+                            @endif
                             <a class="pull-right" href="#reviews">View all reviews</a>
-                        </div>
-                        <div class="datasheet p-3 mb-2 bg-info text-white">
-                            <a href="" class="text-white"><i class="fa fa-file-text"></i> Download DataSheet</a>
                         </div>
                     </div>
                 </div>
@@ -102,11 +114,21 @@
                             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                             <meta itemprop="datePublished" content="01-01-2016"> le {{$_avis->dateAvis}}
 
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
+                            @if($_avis->noteAvis >= 2)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($_avis->noteAvis>=4)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($_avis->noteAvis>=6)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($_avis->noteAvis>=8)
+                              <i class="fa fa-star"></i>
+                            @endif
+                            @if($_avis->noteAvis == 10)
+                              <i class="fa fa-star"></i>
+                            @endif
                             note : {{$_avis->noteAvis}}/10
                             <p class="blockquote">
                             <p class="mb-0"> {{$_avis->commentaireAvis}}</p>
@@ -144,4 +166,3 @@
 
 
 @endsection
-

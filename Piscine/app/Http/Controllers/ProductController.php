@@ -8,6 +8,7 @@ use App\Produit;
 use App\Reservation;
 use Illuminate\Http\Request;
 use App\Client;
+use App\Commerce;
 use Illuminate\Support\Facades\DB;
 
 
@@ -18,7 +19,14 @@ class ProductController extends Controller
     {
         $product = Produit::productWithId($id);
         $avis = Avis::allReviewsOfThisProduct($id);
-        return view('product')->with(['product' => $product , 'avis' => $avis]);
+        $commerce = Commerce::shopWithSiret($product->numSiretCommerce);
+        $noteMoy = Produit::noteMoy($avis);
+
+        //ajout de toute les couleurs
+        $allProducts = Produit::all();
+        $product->colors = $product->addColors($allProducts);
+
+        return view('product')->with(['product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy]);
     }
 
     public function selectForm(Request $request)

@@ -70,4 +70,5 @@ class Commerce extends Model
         $shop = self::where('numSiretCommerce',$siret)->firstOrFail();
         return $shop->villeCommerce;
     }
+
 }

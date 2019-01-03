@@ -145,5 +145,20 @@ class Produit extends Model
         $product = self::where('numProduit',$numProduit)->firstOrFail();
         return $product->nomTypeProduit;
     }
-}
 
+    public static function noteMoy($avis){
+      $moy = 0;
+      $nb = 0;
+      foreach ($avis as $_avis) {
+        $moy += $_avis->noteAvis;
+        $nb += 1;
+      }
+      if ($nb != 0){
+        $moy = $moy / $nb;
+        return $moy;
+      }
+      else{
+        return "Non noté";
+      }
+    }
+}
