@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mer. 02 jan. 2019 à 01:10
+-- Généré le :  jeu. 03 jan. 2019 à 14:24
 -- Version du serveur :  10.2.3-MariaDB-log
 -- Version de PHP :  7.1.1
 
@@ -114,7 +114,7 @@ CREATE TABLE `clients` (
 INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `numReduction`, `sexeClient`, `dateNaissanceClient`, `idClient`, `remember_token`) VALUES
 ('a@gmail.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '0685404708', NULL, 'male', '1999-03-03', 1, 'JhJGbkkds6kHylaNzoy637WpdC2dipotGRXujTDLBhs0Y78qkcEx1FZeRRbB'),
 ('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '15 rue', 'Toulouse', '15000', '06', NULL, 'male', '1666-05-25', 6, NULL),
-('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', NULL, 'male', '1996-06-28', 2, 'MdibomA3Nvmy7OQbfhQCphSVhPHSaWnYby8ZgUoq34Nd4qFhD2iF2p1JA2Am'),
+('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', NULL, 'male', '1996-06-28', 2, '2rQxs2MKYK7NUcXfjVswX1zOcram3UQ86gsYTCpPtaog0OcupLuS0eeYDHbM'),
 ('zzz@g.com', 'b', 'bahroun', '$2y$10$YAY5R3Vi.JrQr4MH2M4Zl.3HtlJmkihvIiRsEYK4JNX4pPESD3j.a', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '06854047080', NULL, 'male', '0001-06-06', 11, 'nLIof9zEWQwodLyu9qm7CjHYedYRWIxLlT89ktdhTmw4cw0EeVw2NkoCqbOo');
 
 -- --------------------------------------------------------
@@ -194,6 +194,23 @@ CREATE TABLE `contenir` (
 INSERT INTO `contenir` (`numReservation`, `numProduit`, `qteReservation`) VALUES
 (25, 1, 2),
 (27, 1, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `codeCoupon` varchar(10) NOT NULL,
+  `numSiretCommerce` int(11) DEFAULT NULL,
+  `nomTypeProduit` text DEFAULT NULL,
+  `numProduit` int(11) DEFAULT NULL,
+  `valeur` double DEFAULT NULL,
+  `valeurPourcentage` double DEFAULT NULL,
+  `dateLimite` timestamp NULL DEFAULT NULL,
+  `quantiteMax` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -488,7 +505,7 @@ INSERT INTO `vendeurs` (`mailVendeur`, `nomVendeur`, `prenomVendeur`, `mdpVendeu
 ('mathieu@gmail.com', 'r', 'r', '$2y$10$g8X9Vsug0fic9zBBurg/A.T/4j/4NwW9S1tuar1crwJMWP0YffrKW', '0685404708', 1, ''),
 ('pepito24@yahoo.fr', 'pepito', 'aïe', '$2y$10$mVE932fpgExRzJce7ajxme2SfZnoRGI3GnpKzndPspms4xflKiZ2a', '0150426988', 2, ''),
 ('vdd@gmail.com', 'vdd', 'vdd', '$2y$10$7OoagxKe1bTnbAl/v9XgUOoxgR9.Z/HqB9k9zIjiIJ/xygMsdgr2.', '0202020202', 28, NULL),
-('vendeur@gmail.com', 'Toulino', 'David', '$2y$10$uK/2emyMVyUAG7FiiaIHdekKZ6QIysZPw0fMvYZOsdgluIX4GLZLC', '0685404708', 3, 'KKCaxdlhYB6MTfpbEgzS9ETTtkHdAMJnpfxWqPesC4PsQLvPRc7BQC1QYCYY');
+('vendeur@gmail.com', 'Toulino', 'David', '$2y$10$uK/2emyMVyUAG7FiiaIHdekKZ6QIysZPw0fMvYZOsdgluIX4GLZLC', '0685404708', 3, 'CGC5hk0ZhnJ7ykO5Lts0T6IVq0KeQV6zMNVdTuR1m8FrppB4WzTtNL7IUurg');
 
 --
 -- Index pour les tables déchargées
@@ -537,6 +554,12 @@ ALTER TABLE `commerces`
 ALTER TABLE `contenir`
   ADD PRIMARY KEY (`numReservation`,`numProduit`),
   ADD KEY `contenir_produits0_FK` (`numProduit`);
+
+--
+-- Index pour la table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`codeCoupon`);
 
 --
 -- Index pour la table `detenir`
