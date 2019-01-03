@@ -1,7 +1,7 @@
 @extends('navbars.navbarClient')
 
 @section('content')
-
+    <br>
     <h1> Mes réservations : </h1>
     @if(!@isset($reservations))
         <div class="alert alert-info text-center" role="alert">
@@ -33,8 +33,8 @@
                                 <tr>
                                 <td data-th="Product">
                                     <div class="row">
-                                        <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                                        <div class="col-sm-8">
                                     <h4 class="nomargin"><b>{{$reservation->nomProduit}} </b></h4>
                                     <p>{{$reservation->libelleProduit}}</p>
                             </div>
@@ -45,22 +45,20 @@
                                  <input type="number" class="form-control text-center " name="quantity" value={{$reservation->qteReservation}}>
                                 </td>
                                 <td class="text-center alert" id=timery>
-                                    
+
                                     <?php $rnd = rand();
                                     $strrnd = (string)$rnd;
-                                    ?> 
+                                    ?>
                                     <p id = {{$strrnd}}>
-                                    <script> makeCounter("{{$rnd}}", "{{ $reservation->dateReservation }}" , "{{ $reservation->timeLeft }}" ) </script>
+                                        <script> makeCounter("{{$rnd}}", "{{ $reservation->dateReservation }}" , "{{ $reservation->timeLeft }}" ) </script>
                                     </p>
-
                                 </td>
                                 <td data-th="Subtotal" class="text-center"><b>{{$reservation->prixProduit*$reservation->qteReservation}}€</b></td>
                                 <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.10,1)}} </font>
                                         <br> magasin: <font color="green"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.15,1)}} </font> </b> </td>
-                                <td class="actions form-inline" data-th="">
-
-                            <button class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
-                            <button class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
+                                <td class="actions" data-th="">
+                                    <button class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
+                                    <button class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
                                 </td>
                             </tr>
                             </form>

@@ -14,7 +14,7 @@ class Vendeur extends Authenticatable
     protected $guard = 'seller';
 
     protected $fillable = ['mailVendeur','nomVendeur','prenomVendeur','telVendeur', 'mdpVendeur','idVendeur'];
-    protected $hidden = ['mdpVendeur', 'remember_token'];
+    protected $hidden = ['mdpVendeur'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey ="mailVendeur";
@@ -33,6 +33,17 @@ class Vendeur extends Authenticatable
     public function getAuthPassword()
     {
         return $this->mdpVendeur;
+    }
+
+    /**
+     * on overwrite la fonction car on ne se sert pas des remember token
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return '';
     }
 
     public static function validateFormSeller(){

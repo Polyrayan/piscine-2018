@@ -1,7 +1,7 @@
 @extends('navbars.navbar')
 
 @section('content')
-
+<br>
     <div class = "container-fluid">
         <h1> Profil de {{$client->nomClient}}</h1>
         <p> Nom      : {{$client->nomClient}} </p>

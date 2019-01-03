@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contenir;
+use App\TypeProduit;
 use App\Produit;
 use App\Reservation;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class ReservationController extends Controller
             $numProduit = Contenir::getNumeroProduit($reservation->numReservation);
             $nomTypeProduit = Produit::getTypeProduit($numProduit);
             $timeLeft = TypeProduit::getReservationTime($nomTypeProduit);
-            $reservation['timeLeft'] = $timeLeft;     
+            $reservation['timeLeft'] = $timeLeft;
         }
 
         $sum = Reservation::where('mailClient', $client->mailClient)

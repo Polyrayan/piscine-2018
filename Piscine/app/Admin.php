@@ -13,7 +13,7 @@ class Admin extends Authenticatable
     protected $guard = 'admin';
 
     protected $fillable = ['mailAdmin','mdpAdmin'];
-    protected $hidden = ['mdpAdmin', 'remember_token'];
+    protected $hidden = ['mdpAdmin'];
 
     public $timestamps = false;
     protected $primaryKey ="mailAdmin";
@@ -28,6 +28,17 @@ class Admin extends Authenticatable
     public function getAuthPassword()
     {
         return $this->mdpAdmin;
+    }
+
+    /**
+     * on overwrite la fonction car on ne se sert pas des remember token
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return '';
     }
 
     public static function validateMail(){

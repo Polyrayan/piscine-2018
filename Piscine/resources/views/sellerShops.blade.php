@@ -40,7 +40,6 @@
                                     <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}} </span> </button>
                                     <!-- quit  -->
                                     <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
-                                    <button class="btn btn-danger"  name="logout"> deco </button>
                                 </div>
                             </div>
                     </div>

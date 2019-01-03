@@ -1,6 +1,7 @@
-@extends('navbars.navbar')
+@extends('navbars.navbarAdmin')
 
 @section('content')
+    <br>
 <div class="container-fluid">
     <div class="row">
         <!-- Ajout -->

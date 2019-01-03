@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="{{ URL::asset('css/nav.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/confirmation.css') }}" />
-<script type="text/javascript" src="{{ URL::asset('js/countDown.js') }}"></script>
 
 <nav class="navbar navbar-expand-md sticky-top " style="background-color: #dbdcda">
 
@@ -26,19 +25,7 @@
                 <a href="\Piscine\public\" class="nav-link"> Accueil </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Panier</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Reservation</a>
-            </li>
-            <li class="nav-item">
-                <a  href="#" class="nav-link">Comparer</a>
-            </li>
-            <li class="nav-item">
-                <a  href="#" class="nav-link">Points</a>
-            </li>
-            <li class="nav-item">
-                <a  href="\Piscine\public\client\deconnexion" class="nav-link"> deconnexion </a>
+                <a  href="\Piscine\public\admin\deconnexion" class="nav-link"> deconnexion </a>
             </li>
         </ul>
     </div>

@@ -58,12 +58,6 @@ class ShopController extends Controller
         elseif ($request->has('sales')) {
             return redirect(url()->current().'/'.request('siretNumber').'/ventes');
         }
-        elseif ($request->has('logout')) {
-            Auth::guard('client')->logout();
-            Auth::guard('seller')->logout();
-            return redirect('/login');
-        }
-
 
         // view myShop
 

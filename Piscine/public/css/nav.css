@@ -1,0 +1,14 @@
+.logo {
+    position: absolute;
+    z-index: 1;
+    left: 10px;
+    top: 12px;
+    height: 65px;
+    width: 65px;
+}
+
+.nav-link{
+    color: #1f648b;
+    font-weight: bold;
+    margin: 5px;
+}

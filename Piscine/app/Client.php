@@ -16,7 +16,7 @@ class Client extends Authenticatable
 
     protected $fillable = ['mailClient','mdpClient','nomClient','prenomClient','telClient','sexeClient','dateNaissanceClient',
                          'adresseClient','codePostalClient','villeClient','idClient'];
-    protected $hidden = ['mdpClient','remember_token'];
+    protected $hidden = ['mdpClient'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey ='mailClient';
@@ -31,6 +31,17 @@ class Client extends Authenticatable
     public function getAuthPassword()
     {
         return $this->mdpClient;
+    }
+
+    /**
+     * on overwrite la fonction car on ne se sert pas des remember token
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return '';
     }
 
     /**

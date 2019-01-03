@@ -14,6 +14,8 @@
 Route::group(['middleware' => 'App\Http\Middleware\Admin'], function () {
     Route::get('/admin','AdminController@show');
     Route::post('/admin','AdminController@selectForm');
+
+    Route::get('/admin/deconnexion','Auth\LoginController@logoutAdmin');
 });
 
 Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
@@ -41,6 +43,8 @@ Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
 
     Route::get('/commerces/{numSiretCommerce}','ShopController@numSiret');
     Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');
+
+    Route::get('/client/deconnexion','Auth\LoginController@logoutClient');
 });
 
 Route::group(['middleware' => 'App\Http\Middleware\Vendeur'], function () {
@@ -59,6 +63,8 @@ Route::group(['middleware' => 'App\Http\Middleware\Vendeur'], function () {
 
     Route::get('/vendeur/commerces/{numSiretCommerce}/variante/{group}','ShopProductsController@show');
     Route::post('/vendeur/commerces/{numSiretCommerce}/variante/{group}','ShopProductsController@selectForm');
+
+    Route::get('/vendeur/deconnexion','Auth\LoginController@logoutSeller');
 });
 
 Route::get('/register','RegisterController@showForm');
@@ -78,3 +84,6 @@ Route::get('/client/{id}','ProfileController@idClient');
 Route::get('/vendeur/{id}','ProfileController@idVendeur');
 
 Route::get('/produits/{id}','ProductController@show');
+
+
+

@@ -16,7 +16,7 @@ class Vendeur
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::guard('seller')->check() and !Auth::guard('admin')){
+        if(!Auth::guard('seller')->check() and !Auth::guard('admin')->check()){
             flash("Vous devez être connecté en tant que <b> vendeur </b> pour accéder à cette page")->error();
             return redirect('/login');
         }

@@ -119,7 +119,21 @@ class LoginController extends Controller
         ]);
     }
 
-    public function deconnexion(){
-        auth()->logout();
+    public function logoutClient(){
+        Auth::guard('client')->logout();
+        flash("Déconnexion réussie")->success();
+        return redirect('/login');
+    }
+
+    public function logoutSeller(){
+        Auth::guard('seller')->logout();
+        flash("Déconnexion réussie")->success();
+        return redirect('/login');
+    }
+
+    public function logoutAdmin(){
+        Auth::guard('admin')->logout();
+        flash("Déconnexion réussie")->success();
+        return redirect('/login/admin');
     }
 }

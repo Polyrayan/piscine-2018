@@ -1,5 +1,7 @@
 @extends('navbars.navbar')
+
 @section('content')
+
   <div class="container login-container">
     <div class="row">
       <div class="col-md-6 login-form-1">

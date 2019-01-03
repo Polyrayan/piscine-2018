@@ -20,12 +20,12 @@ class RedirectIfAuthenticated
         /*if ($guard == "admin" && Auth::guard($guard)->check()) {
             return redirect('/admin');
         }*/
-        if ($guard == "client" && Auth::guard($guard)->check()) {
+        /*if ($guard == "client" && Auth::guard($guard)->check()) {
             return redirect('/');
         }
         if ($guard == "seller" && Auth::guard($guard)->check()) {
             return redirect('/vendeur/commerces');
-        }
+        }*/
         return $next($request);
     }
 }
