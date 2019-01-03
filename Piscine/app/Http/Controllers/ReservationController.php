@@ -19,8 +19,16 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
+
         $client = Client::getClientWithId($id);
         $reservations = Reservation::bookingsOfThisMailClient($client->mailClient);
+        foreach ($reservations as $reservation) {
+            $numProduit = Contenir::getNumeroProduit($reservation->numReservation);
+            $nomTypeProduit = Produit::getTypeProduit($numProduit);
+            $timeLeft = TypeProduit::getReservationTime($nomTypeProduit);
+            $reservation['timeLeft'] = $timeLeft;     
+        }
+
         $sum = Reservation::where('mailClient', $client->mailClient)
             ->join('contenir', 'contenir.numReservation', '=', 'reservations.numReservation')
             ->join('produits', 'contenir.numProduit', '=', 'produits.numProduit')
@@ -31,7 +39,7 @@ class ReservationController extends Controller
         }
         else {
             $total = $sum->total;
-            return view('myReservations')->with(['reservations' => $reservations, 'total' => $total]);
+            return view('myReservations')->with(['reservations' => $reservations, 'total' => $total, 'timeLeft' => $timeLeft]);
         }
     }
 

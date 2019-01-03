@@ -140,5 +140,10 @@ class Produit extends Model
         return self::where('numSiretCommerce', $siret)
             ->get(['couleurProduit','tailleProduit']);
     }
+
+    public static function getTypeProduit($numProduit){
+        $product = self::where('numProduit',$numProduit)->firstOrFail();
+        return $product->nomTypeProduit;
+    }
 }
 

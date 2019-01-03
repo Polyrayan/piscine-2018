@@ -30,4 +30,9 @@ class Contenir extends Model
     public static function getContenirWithReservationNumber($reservationNumber){
         return self::where('numReservation', $reservationNumber)->firstOrFail();
     }
+
+    public static function getNumeroProduit($numReservation){
+        $contenir =  self::where('numReservation', $numReservation)->firstOrFail();
+        return $contenir->numProduit;
+    }
 }

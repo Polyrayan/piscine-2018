@@ -28,4 +28,9 @@ class TypeProduit extends Model
         $product = self::where('nomTypeProduit', request('Nom'));
         $product->delete();
     }
+
+    public static function getReservationTime($nomTypeProduit){
+        $typeProduit = self::where('nomTypeProduit', $nomTypeProduit)->firstOrFail();
+        return $typeProduit->tempsReservation;
+    }
 }

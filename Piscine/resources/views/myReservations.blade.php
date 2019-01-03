@@ -44,7 +44,16 @@
                                 <td data-th="Quantity">
                                  <input type="number" class="form-control text-center " name="quantity" value={{$reservation->qteReservation}}>
                                 </td>
-                                <td data-th="Time" class="text-center alert"><font color="red"><b> 2h </b> </font> </td>
+                                <td class="text-center alert" id=timery>
+                                    
+                                    <?php $rnd = rand();
+                                    $strrnd = (string)$rnd;
+                                    ?> 
+                                    <p id = {{$strrnd}}>
+                                    <script> makeCounter("{{$rnd}}", "{{ $reservation->dateReservation }}" , "{{ $reservation->timeLeft }}" ) </script>
+                                    </p>
+
+                                </td>
                                 <td data-th="Subtotal" class="text-center"><b>{{$reservation->prixProduit*$reservation->qteReservation}}€</b></td>
                                 <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.10,1)}} </font>
                                         <br> magasin: <font color="green"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.15,1)}} </font> </b> </td>
