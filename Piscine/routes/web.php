@@ -61,6 +61,9 @@ Route::group(['middleware' => 'App\Http\Middleware\Vendeur'], function () {
     Route::get('/vendeur/commerces/{numSiretCommerce}/horaires','ShopScheduleController@show');
     Route::post('/vendeur/commerces/{numSiretCommerce}/horaires','ShopScheduleController@selectForm');
 
+    Route::get('/vendeur/commerces/{numSiretCommerce}/coupons','ShopCouponsController@show');
+    Route::post('/vendeur/commerces/{numSiretCommerce}/coupons','ShopCouponsController@selectForm');
+
     Route::get('/vendeur/commerces/{numSiretCommerce}/variante/{group}','ShopProductsController@show');
     Route::post('/vendeur/commerces/{numSiretCommerce}/variante/{group}','ShopProductsController@selectForm');
 
