@@ -84,6 +84,4 @@ Route::get('/client/{id}','ProfileController@idClient');
 Route::get('/vendeur/{id}','ProfileController@idVendeur');
 
 Route::get('/produits/{id}','ProductController@show');
-
-
-
+Route::post('/produits/{id}','ProductController@selectForm');

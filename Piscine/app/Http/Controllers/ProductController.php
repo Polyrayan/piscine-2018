@@ -6,6 +6,9 @@ use App\Avis;
 use App\Contenir;
 use App\Produit;
 use App\Reservation;
+use App\Commande;
+use App\Panier;
+use App\Detenir;
 use Illuminate\Http\Request;
 use App\Client;
 use App\Commerce;
@@ -17,6 +20,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
+        $mailClient = Client::getMailClient();
         $product = Produit::productWithId($id);
         $avis = Avis::allReviewsOfThisProduct($id);
         $commerce = Commerce::shopWithSiret($product->numSiretCommerce);
@@ -26,7 +30,7 @@ class ProductController extends Controller
         $allProducts = Produit::all();
         $product->colors = $product->addColors($allProducts);
 
-        return view('product')->with(['product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy]);
+        return view('product')->with(['product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'mailClient' => $mailClient]);
     }
 
     public function selectForm(Request $request)
@@ -38,7 +42,25 @@ class ProductController extends Controller
 
         } elseif ($request->has('book')) {
             return $this->deleteQuantity(request('reservationNumber'),request('productNumber'));
+
+        } elseif ($request->has('add')) {
+
+            request()->validate([
+                'quantity' => ['bail', 'required', 'min:0', 'max:99999']
+            ]);
+
+            $panier = Panier::firstOrNewPanier(request('mailClient'));
+            Panier::addPriceToThisShoppingCart($panier,request('productPrice'),request('quantity'));
+
+            $commande = Commande::firstOrNewCommande($panier,request('numSiret'));
+            Commande::addPriceToThisOrder($commande,request('productPrice'),request('quantity'));
+
+            $detenir = Detenir::firstOrNewDetenir($commande,request('product'));
+            Detenir::storeQuantity($detenir,request('quantity'));
+
+            return back();
         }
+
     }
 
 }

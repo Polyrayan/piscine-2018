@@ -28,10 +28,9 @@
             <div class="col-12 col-lg-6 add_to_cart_block">
                 <div class="card bg-light mb-3">
                     <div class="card-body">
-                        <p class="price">Prix : {{$product->prixProduit}} €</p>
-                        <p class="price_total">Total : {{$product->prixProduit}} €</p>
+                        <p class="price">Prix unitaire : {{$product->prixProduit}} €</p>
 
-                        <form method="get" action="cart.html">
+                        <form method="POST" >
                           @if(!empty($product->couleurProduit))
                             <div class="form-group">
                                 <label for="colors">Color</label>
@@ -47,14 +46,19 @@
                             <div class="form-group">
                                 <label>Quantity :</label>
                                 <div class="input-group mb-3">
-                                    
+
                                     <input type="text" class="form-control"  id="quantity" name="quantity" min="1" max="100" value="1">
-                                    
+
                                 </div>
+                            <input type="hidden" name="mailClient" value="{{$mailClient}}">
+                            <input type="hidden" name="productPrice" value="{{$product->prixProduit}}">
+                            <input type="hidden" name="product" value="{{$product}}">
+
+
                             </div>
-                            <a href="cart.html" class="btn btn-success btn-lg btn-block text-uppercase">
-                                <i class="fa fa-shopping-cart"></i> Add To Cart
-                            </a>
+                            <button name="add" class="btn btn-success btn-lg btn-block text-uppercase">
+                                <i class="fa fa-shopping-cart"></i> Ajouter au panier
+                            </button>
                         </form>
                         <div class="product_rassurance">
                             <ul class="list-inline">
@@ -84,7 +88,7 @@
                             @else
                               <a> {{$noteMoy}}/10</a>
                             @endif
-                            <a class="pull-right" href="#reviews">View all reviews</a>
+                            <a class="pull-right" href="#reviews">Voir tous les avis</a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +111,7 @@
             <!-- Reviews -->
             <div class="col-12" id="reviews">
                 <div class="card border-light mb-3">
-                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-comment"></i> Reviews</div>
+                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-comment"></i> AVIS</div>
                     <div class="card-body">
                         @foreach($avis as $_avis)
                         <div class="review">
