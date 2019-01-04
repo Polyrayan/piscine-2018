@@ -95,16 +95,16 @@ class ShoppingCartController extends Controller
 
         // case 1 : [se faire livrer le maximum] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
         if (!($deliverablesProducts->isEmpty()) and !($undeliverablesProducts->isEmpty())) {
-            return view('confirmShoppingCart')->with(['deliverablesProducts' => $deliverablesProducts, 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'deliverablesProducts' => $deliverablesProducts, 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total]);
         }
         // case  2 all deliverables : [tout se faire livrer] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
         elseif (!($deliverablesProducts->isEmpty()) and $undeliverablesProducts->isEmpty()) {
-            return view('confirmShoppingCart')->with(['productCase2' => $deliverablesProducts, 'total' => $total]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'productCase2' => $deliverablesProducts, 'total' => $total]);
 
         }
         // case 3 all undeliverables : [tout récupérer chez les vendeurs]
         elseif ($deliverablesProducts->isEmpty() and !($undeliverablesProducts->isEmpty())){
-            return view('confirmShoppingCart')->with(['productCase3' => $undeliverablesProducts,'total' => $total]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total]);
         }
         else{
             return "Error unknown case";

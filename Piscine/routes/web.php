@@ -44,6 +44,8 @@ Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
     Route::get('/commerces/{numSiretCommerce}','ShopController@numSiret');
     Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');
 
+    Route::get('/client/{id}/reservationsConfirmed','ReservationsConfirmedController@show');
+
     Route::get('/client/deconnexion','Auth\LoginController@logoutClient');
 });
 

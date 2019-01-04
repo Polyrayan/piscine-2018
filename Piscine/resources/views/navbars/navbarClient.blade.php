@@ -46,7 +46,7 @@
         </ul>
         <ul class="navbar-nav ml-auto ">
             <li class="nav-item">
-                <a  href="\Piscine\public\client\deconnexion" class="nav-link"> deconnexion </a>
+                <a  href="\Piscine\public\client\deconnexion" class="nav-link"> Deconnexion </a>
             </li>
         </ul>
 

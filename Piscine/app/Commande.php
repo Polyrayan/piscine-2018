@@ -19,6 +19,10 @@ class Commande extends Model
             ->get();
     }
 
+    public static function newCommande($panier,$numSiret){
+        return self::create (['numPanier' => $panier->numPanier ,
+            'numSiretCommerce' => $numSiret , 'dateCommande' => null]);
+    }
     public static function firstOrNewCommande($panier,$numSiret){
         return self::firstOrNew(['numPanier' => $panier->numPanier ,
             'numSiretCommerce' => $numSiret , 'dateCommande' => null]);

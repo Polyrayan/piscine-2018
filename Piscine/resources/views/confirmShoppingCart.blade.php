@@ -97,7 +97,7 @@
                             <p> dont TVA :{{ $total*0.2 }}€ </p>
                         </div>
                         <div class="btn-group">
-                            <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
+                            <button type="submit" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
                             <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">livrer ceux séléctionnés </button>
                             <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">se faire livrer le maximum</button>
                         </div>

@@ -73,8 +73,8 @@
                     <td colspan="3  " class="hidden-xs"></td>
                     <td class="hidden-xs text-center"><strong> Total {{ $total }}€ </strong></td>
 
-                    <td><a href="./panier" class="btn btn-info btn-block"> mon panier </a></td>
-                    <td><a href="#" class="btn btn-success btn-block"> finaliser votre réservation  <i class="fa fa-angle-right"></i></a></td>
+                    <td><a href="./panier" class="btn btn-info btn-block"> Mon panier </a></td>
+                    <td><a href="./reservationsConfirmed" class="btn btn-success btn-block"> Finaliser votre réservation  <i class="fa fa-angle-right"></i></a></td>
                 </tr>
                 </tfoot>
             </table>

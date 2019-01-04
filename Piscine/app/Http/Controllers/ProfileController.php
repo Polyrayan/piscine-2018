@@ -36,7 +36,7 @@ class ProfileController extends Controller
     {
         $client = Client::getClientWithId($id);
         $commandes = Panier::getPurchaseOfThisMailClient($client->mailClient);
-        return view('myPurchases', ['commandes' => $commandes, 'client' => $client]);
+        return view('myPurchases', ['id' => $id, 'commandes' => $commandes, 'client' => $client]);
     }
     public function selectForm(Request $request)
     {
