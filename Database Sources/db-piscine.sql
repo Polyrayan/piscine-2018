@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jan 03, 2019 at 10:19 PM
--- Server version: 5.7.19
--- PHP Version: 7.2.2
+-- Hôte : localhost
+-- Généré le :  ven. 04 jan. 2019 à 03:44
+-- Version du serveur :  10.2.3-MariaDB-log
+-- Version de PHP :  7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db-piscine`
+-- Base de données :  `db-piscine`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
+-- Structure de la table `admins`
 --
 
 CREATE TABLE `admins` (
@@ -35,7 +35,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admins`
+-- Déchargement des données de la table `admins`
 --
 
 INSERT INTO `admins` (`mailAdmin`, `mdpAdmin`, `mailVendeur`) VALUES
@@ -44,7 +44,7 @@ INSERT INTO `admins` (`mailAdmin`, `mdpAdmin`, `mailVendeur`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appartenir`
+-- Structure de la table `appartenir`
 --
 
 CREATE TABLE `appartenir` (
@@ -53,7 +53,7 @@ CREATE TABLE `appartenir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `appartenir`
+-- Déchargement des données de la table `appartenir`
 --
 
 INSERT INTO `appartenir` (`numSiretCommerce`, `mailVendeur`) VALUES
@@ -66,7 +66,7 @@ INSERT INTO `appartenir` (`numSiretCommerce`, `mailVendeur`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `avis`
+-- Structure de la table `avis`
 --
 
 CREATE TABLE `avis` (
@@ -79,7 +79,7 @@ CREATE TABLE `avis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `avis`
+-- Déchargement des données de la table `avis`
 --
 
 INSERT INTO `avis` (`numAvis`, `commentaireAvis`, `noteAvis`, `dateAvis`, `numProduit`, `mailClient`) VALUES
@@ -88,7 +88,7 @@ INSERT INTO `avis` (`numAvis`, `commentaireAvis`, `noteAvis`, `dateAvis`, `numPr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clients`
+-- Structure de la table `clients`
 --
 
 CREATE TABLE `clients` (
@@ -103,24 +103,23 @@ CREATE TABLE `clients` (
   `numReduction` int(11) DEFAULT NULL,
   `sexeClient` char(5) NOT NULL,
   `dateNaissanceClient` date NOT NULL,
-  `idClient` int(5) NOT NULL,
-  `remember_token` text
+  `idClient` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `clients`
+-- Déchargement des données de la table `clients`
 --
 
-INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `numReduction`, `sexeClient`, `dateNaissanceClient`, `idClient`, `remember_token`) VALUES
-('a@gmail.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '0685404708', NULL, 'male', '1999-03-03', 1, 'JhJGbkkds6kHylaNzoy637WpdC2dipotGRXujTDLBhs0Y78qkcEx1FZeRRbB'),
-('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '15 rue', 'Toulouse', '15000', '06', NULL, 'male', '1666-05-25', 6, NULL),
-('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', NULL, 'male', '1996-06-28', 2, 'MdibomA3Nvmy7OQbfhQCphSVhPHSaWnYby8ZgUoq34Nd4qFhD2iF2p1JA2Am'),
-('zzz@g.com', 'b', 'bahroun', '$2y$10$YAY5R3Vi.JrQr4MH2M4Zl.3HtlJmkihvIiRsEYK4JNX4pPESD3j.a', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '06854047080', NULL, 'male', '0001-06-06', 11, 'nLIof9zEWQwodLyu9qm7CjHYedYRWIxLlT89ktdhTmw4cw0EeVw2NkoCqbOo');
+INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `numReduction`, `sexeClient`, `dateNaissanceClient`, `idClient`) VALUES
+('a@gmail.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', 'zqohqfohoqf', 'qvnqlkknv', '37000', '0685404708', NULL, 'male', '1999-03-03', 1),
+('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '15 rue', 'Toulouse', '15000', '06', NULL, 'male', '1666-05-25', 6),
+('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', NULL, 'male', '1996-06-28', 2),
+('zzz@g.com', 'b', 'bahroun', '$2y$10$YAY5R3Vi.JrQr4MH2M4Zl.3HtlJmkihvIiRsEYK4JNX4pPESD3j.a', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '06854047080', NULL, 'male', '0001-06-06', 11);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commandes`
+-- Structure de la table `commandes`
 --
 
 CREATE TABLE `commandes` (
@@ -131,11 +130,11 @@ CREATE TABLE `commandes` (
   `dateCommande` timestamp NULL DEFAULT NULL,
   `numSiretCommerce` char(14) NOT NULL,
   `numPanier` int(11) NOT NULL,
-  `etatCommande` text
+  `etatCommande` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `commandes`
+-- Déchargement des données de la table `commandes`
 --
 
 INSERT INTO `commandes` (`numCommande`, `prixCommande`, `prixReduitCommande`, `paiementEnLigne`, `dateCommande`, `numSiretCommerce`, `numPanier`, `etatCommande`) VALUES
@@ -150,7 +149,7 @@ INSERT INTO `commandes` (`numCommande`, `prixCommande`, `prixReduitCommande`, `p
 -- --------------------------------------------------------
 
 --
--- Table structure for table `commerces`
+-- Structure de la table `commerces`
 --
 
 CREATE TABLE `commerces` (
@@ -166,7 +165,7 @@ CREATE TABLE `commerces` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `commerces`
+-- Déchargement des données de la table `commerces`
 --
 
 INSERT INTO `commerces` (`numSiretCommerce`, `nomCommerce`, `libelleCommerce`, `adresseCommerce`, `villeCommerce`, `codePostalCommerce`, `telCommerce`, `codeReduction`, `codeRecrutement`) VALUES
@@ -178,7 +177,7 @@ INSERT INTO `commerces` (`numSiretCommerce`, `nomCommerce`, `libelleCommerce`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contenir`
+-- Structure de la table `contenir`
 --
 
 CREATE TABLE `contenir` (
@@ -188,42 +187,35 @@ CREATE TABLE `contenir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `contenir`
+-- Déchargement des données de la table `contenir`
 --
 
 INSERT INTO `contenir` (`numReservation`, `numProduit`, `qteReservation`) VALUES
 (25, 1, 2),
-(27, 1, 10);
+(27, 1, 10),
+(28, 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `coupons`
+-- Structure de la table `coupons`
 --
 
 CREATE TABLE `coupons` (
   `codeCoupon` varchar(10) NOT NULL,
-  `numSiretCommerce` varchar(14) DEFAULT NULL,
-  `nomTypeProduit` text,
+  `numSiretCommerce` int(11) DEFAULT NULL,
+  `nomTypeProduit` text DEFAULT NULL,
   `numProduit` int(11) DEFAULT NULL,
   `valeur` double DEFAULT NULL,
   `valeurPourcentage` double DEFAULT NULL,
   `dateLimite` timestamp NULL DEFAULT NULL,
-  `quantiteMax` int(11) DEFAULT NULL,
-  `description` text
+  `quantiteMax` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `coupons`
---
-
-INSERT INTO `coupons` (`codeCoupon`, `numSiretCommerce`, `nomTypeProduit`, `numProduit`, `valeur`, `valeurPourcentage`, `dateLimite`, `quantiteMax`, `description`) VALUES
-('SHOES10', '12345677654321', 'Chausseurs', NULL, 20, NULL, '2019-02-28 23:00:00', 5, 'Reduction parce qu\'on est gentil.');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detenir`
+-- Structure de la table `detenir`
 --
 
 CREATE TABLE `detenir` (
@@ -234,7 +226,7 @@ CREATE TABLE `detenir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `detenir`
+-- Déchargement des données de la table `detenir`
 --
 
 INSERT INTO `detenir` (`numCommande`, `numProduit`, `livrer`, `qteCommande`) VALUES
@@ -258,7 +250,7 @@ INSERT INTO `detenir` (`numCommande`, `numProduit`, `livrer`, `qteCommande`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `inclure`
+-- Structure de la table `inclure`
 --
 
 CREATE TABLE `inclure` (
@@ -269,7 +261,7 @@ CREATE TABLE `inclure` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jours`
+-- Structure de la table `jours`
 --
 
 CREATE TABLE `jours` (
@@ -278,7 +270,7 @@ CREATE TABLE `jours` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jours`
+-- Déchargement des données de la table `jours`
 --
 
 INSERT INTO `jours` (`numJour`, `nomJour`) VALUES
@@ -293,7 +285,7 @@ INSERT INTO `jours` (`numJour`, `nomJour`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ouvrir`
+-- Structure de la table `ouvrir`
 --
 
 CREATE TABLE `ouvrir` (
@@ -305,7 +297,7 @@ CREATE TABLE `ouvrir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ouvrir`
+-- Déchargement des données de la table `ouvrir`
 --
 
 INSERT INTO `ouvrir` (`numOuvrir`, `nomJour`, `numSiretCommerce`, `debut`, `fin`) VALUES
@@ -319,7 +311,7 @@ INSERT INTO `ouvrir` (`numOuvrir`, `nomJour`, `numSiretCommerce`, `debut`, `fin`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paniers`
+-- Structure de la table `paniers`
 --
 
 CREATE TABLE `paniers` (
@@ -332,7 +324,7 @@ CREATE TABLE `paniers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `paniers`
+-- Déchargement des données de la table `paniers`
 --
 
 INSERT INTO `paniers` (`numPanier`, `datePanier`, `prixPanier`, `prixReduitPanier`, `qtePointsAcquis`, `mailClient`) VALUES
@@ -344,7 +336,7 @@ INSERT INTO `paniers` (`numPanier`, `datePanier`, `prixPanier`, `prixReduitPanie
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produits`
+-- Structure de la table `produits`
 --
 
 CREATE TABLE `produits` (
@@ -357,19 +349,19 @@ CREATE TABLE `produits` (
   `prixProduit` varchar(10) NOT NULL,
   `numSiretCommerce` char(14) NOT NULL,
   `nomTypeProduit` varchar(25) NOT NULL,
-  `couleurProduit` text,
-  `tailleProduit` text,
-  `marqueProduit` text,
+  `couleurProduit` text DEFAULT NULL,
+  `tailleProduit` text DEFAULT NULL,
+  `marqueProduit` text DEFAULT NULL,
   `numGroupeVariante` int(11) NOT NULL,
-  `imageProduit` text
+  `imageProduit` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `produits`
+-- Déchargement des données de la table `produits`
 --
 
 INSERT INTO `produits` (`numProduit`, `nomProduit`, `libelleProduit`, `qteStockProduit`, `qteStockDispoProduit`, `livraisonProduit`, `prixProduit`, `numSiretCommerce`, `nomTypeProduit`, `couleurProduit`, `tailleProduit`, `marqueProduit`, `numGroupeVariante`, `imageProduit`) VALUES
-(1, 'wings', 'aile de poulet fris', 156, 146, 0, '2', '11111111111111', 'Nourriture', NULL, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs0qLwurYDYph7EotV-jOiLZh_KHGlhXDogAqigHloeOZNxS-v'),
+(1, 'wings', 'aile de poulet fris', 156, 144, 0, '2', '11111111111111', 'Nourriture', NULL, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs0qLwurYDYph7EotV-jOiLZh_KHGlhXDogAqigHloeOZNxS-v'),
 (2, 'tenders', 'filet de poulet fris', 306, 306, 0, '3', '11111111111111', 'Nourriture', NULL, NULL, NULL, 2, 'http://allopizza77.fr/emporter/88-large_default/tenders.jpg'),
 (3, 'pilon', 'partie inférieur de la cuisse de poulet', 130, 130, 0, '2.35', '11111111111111', 'Nourriture', NULL, NULL, NULL, 3, ''),
 (5, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 50, 50, 0, '89.99', '22222222222222', 'Meuble', 'marron', '200x80x100', NULL, 4, ''),
@@ -382,19 +374,19 @@ INSERT INTO `produits` (`numProduit`, `nomProduit`, `libelleProduit`, `qteStockP
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reductions`
+-- Structure de la table `reductions`
 --
 
 CREATE TABLE `reductions` (
   `numReduction` int(11) NOT NULL,
   `pointsReduction` double NOT NULL,
-  `dateDebutReduction` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateDebutReduction` timestamp NOT NULL DEFAULT current_timestamp(),
   `dateFinReduction` timestamp NULL DEFAULT NULL,
   `mailClient` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `reductions`
+-- Déchargement des données de la table `reductions`
 --
 
 INSERT INTO `reductions` (`numReduction`, `pointsReduction`, `dateDebutReduction`, `dateFinReduction`, `mailClient`) VALUES
@@ -409,17 +401,17 @@ INSERT INTO `reductions` (`numReduction`, `pointsReduction`, `dateDebutReduction
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reservations`
+-- Structure de la table `reservations`
 --
 
 CREATE TABLE `reservations` (
   `numReservation` int(11) NOT NULL,
-  `dateReservation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dateReservation` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `mailClient` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `reservations`
+-- Déchargement des données de la table `reservations`
 --
 
 INSERT INTO `reservations` (`numReservation`, `dateReservation`, `mailClient`) VALUES
@@ -432,12 +424,13 @@ INSERT INTO `reservations` (`numReservation`, `dateReservation`, `mailClient`) V
 (24, '2018-11-20 10:51:43', 'r@g.com'),
 (25, '2018-11-20 15:00:16', 'r@g.com'),
 (26, '2018-12-13 19:31:38', 'r@g.com'),
-(27, '2018-12-13 20:05:50', 'r@g.com');
+(27, '2018-12-13 20:05:50', 'r@g.com'),
+(28, '2019-01-03 15:22:12', 'r@gmail.com');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tags`
+-- Structure de la table `tags`
 --
 
 CREATE TABLE `tags` (
@@ -448,7 +441,7 @@ CREATE TABLE `tags` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `typeproduits`
+-- Structure de la table `typeproduits`
 --
 
 CREATE TABLE `typeproduits` (
@@ -457,18 +450,17 @@ CREATE TABLE `typeproduits` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `typeproduits`
+-- Déchargement des données de la table `typeproduits`
 --
 
 INSERT INTO `typeproduits` (`nomTypeProduit`, `tempsReservation`) VALUES
-('Chausseurs', '48'),
 ('Meuble', '10080'),
-('Nourriture', '60');
+('Nourriture', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `variantes`
+-- Structure de la table `variantes`
 --
 
 CREATE TABLE `variantes` (
@@ -476,7 +468,7 @@ CREATE TABLE `variantes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `variantes`
+-- Déchargement des données de la table `variantes`
 --
 
 INSERT INTO `variantes` (`numGroupeVariante`) VALUES
@@ -492,7 +484,7 @@ INSERT INTO `variantes` (`numGroupeVariante`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vendeurs`
+-- Structure de la table `vendeurs`
 --
 
 CREATE TABLE `vendeurs` (
@@ -502,233 +494,233 @@ CREATE TABLE `vendeurs` (
   `mdpVendeur` char(60) NOT NULL,
   `telVendeur` char(10) NOT NULL,
   `idVendeur` int(11) NOT NULL,
-  `remember_token` text
+  `commerceFavori` varchar(14) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `vendeurs`
+-- Déchargement des données de la table `vendeurs`
 --
 
-INSERT INTO `vendeurs` (`mailVendeur`, `nomVendeur`, `prenomVendeur`, `mdpVendeur`, `telVendeur`, `idVendeur`, `remember_token`) VALUES
-('cci@gmail.com', 'cci', 'cci', '$2y$10$NETz7trIS..vuVMKYvUXVOSfvgFEWuO5McPs01Nhuqc1PwqAr0tA2', '0433103310', 27, ''),
-('mathieu@gmail.com', 'r', 'r', '$2y$10$g8X9Vsug0fic9zBBurg/A.T/4j/4NwW9S1tuar1crwJMWP0YffrKW', '0685404708', 1, ''),
-('pepito24@yahoo.fr', 'pepito', 'aïe', '$2y$10$mVE932fpgExRzJce7ajxme2SfZnoRGI3GnpKzndPspms4xflKiZ2a', '0150426988', 2, ''),
+INSERT INTO `vendeurs` (`mailVendeur`, `nomVendeur`, `prenomVendeur`, `mdpVendeur`, `telVendeur`, `idVendeur`, `commerceFavori`) VALUES
+('cci@gmail.com', 'cci', 'cci', '$2y$10$NETz7trIS..vuVMKYvUXVOSfvgFEWuO5McPs01Nhuqc1PwqAr0tA2', '0433103310', 27, NULL),
+('mathieu@gmail.com', 'r', 'r', '$2y$10$g8X9Vsug0fic9zBBurg/A.T/4j/4NwW9S1tuar1crwJMWP0YffrKW', '0685404708', 1, NULL),
+('pepito24@yahoo.fr', 'pepito', 'aïe', '$2y$10$mVE932fpgExRzJce7ajxme2SfZnoRGI3GnpKzndPspms4xflKiZ2a', '0150426988', 2, NULL),
 ('vdd@gmail.com', 'vdd', 'vdd', '$2y$10$7OoagxKe1bTnbAl/v9XgUOoxgR9.Z/HqB9k9zIjiIJ/xygMsdgr2.', '0202020202', 28, NULL),
-('vendeur@gmail.com', 'Toulino', 'David', '$2y$10$uK/2emyMVyUAG7FiiaIHdekKZ6QIysZPw0fMvYZOsdgluIX4GLZLC', '0685404708', 3, 'KKCaxdlhYB6MTfpbEgzS9ETTtkHdAMJnpfxWqPesC4PsQLvPRc7BQC1QYCYY');
+('vendeur@gmail.com', 'Toulino', 'David', '$2y$10$uK/2emyMVyUAG7FiiaIHdekKZ6QIysZPw0fMvYZOsdgluIX4GLZLC', '0685404708', 3, '12345677654321');
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `admins`
+-- Index pour la table `admins`
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`mailAdmin`);
 
 --
--- Indexes for table `appartenir`
+-- Index pour la table `appartenir`
 --
 ALTER TABLE `appartenir`
   ADD PRIMARY KEY (`numSiretCommerce`,`mailVendeur`);
 
 --
--- Indexes for table `avis`
+-- Index pour la table `avis`
 --
 ALTER TABLE `avis`
   ADD PRIMARY KEY (`numAvis`);
 
 --
--- Indexes for table `clients`
+-- Index pour la table `clients`
 --
 ALTER TABLE `clients`
   ADD PRIMARY KEY (`mailClient`),
   ADD KEY `ID` (`idClient`);
 
 --
--- Indexes for table `commandes`
+-- Index pour la table `commandes`
 --
 ALTER TABLE `commandes`
   ADD PRIMARY KEY (`numCommande`);
 
 --
--- Indexes for table `commerces`
+-- Index pour la table `commerces`
 --
 ALTER TABLE `commerces`
   ADD PRIMARY KEY (`numSiretCommerce`);
 
 --
--- Indexes for table `contenir`
+-- Index pour la table `contenir`
 --
 ALTER TABLE `contenir`
   ADD PRIMARY KEY (`numReservation`,`numProduit`),
   ADD KEY `contenir_produits0_FK` (`numProduit`);
 
 --
--- Indexes for table `coupons`
+-- Index pour la table `coupons`
 --
 ALTER TABLE `coupons`
   ADD PRIMARY KEY (`codeCoupon`);
 
 --
--- Indexes for table `detenir`
+-- Index pour la table `detenir`
 --
 ALTER TABLE `detenir`
   ADD PRIMARY KEY (`numCommande`,`numProduit`);
 
 --
--- Indexes for table `inclure`
+-- Index pour la table `inclure`
 --
 ALTER TABLE `inclure`
   ADD PRIMARY KEY (`numTag`,`numProduit`);
 
 --
--- Indexes for table `jours`
+-- Index pour la table `jours`
 --
 ALTER TABLE `jours`
   ADD PRIMARY KEY (`numJour`);
 
 --
--- Indexes for table `ouvrir`
+-- Index pour la table `ouvrir`
 --
 ALTER TABLE `ouvrir`
   ADD PRIMARY KEY (`numOuvrir`);
 
 --
--- Indexes for table `paniers`
+-- Index pour la table `paniers`
 --
 ALTER TABLE `paniers`
   ADD PRIMARY KEY (`numPanier`);
 
 --
--- Indexes for table `produits`
+-- Index pour la table `produits`
 --
 ALTER TABLE `produits`
   ADD PRIMARY KEY (`numProduit`);
 
 --
--- Indexes for table `reductions`
+-- Index pour la table `reductions`
 --
 ALTER TABLE `reductions`
   ADD PRIMARY KEY (`numReduction`);
 
 --
--- Indexes for table `reservations`
+-- Index pour la table `reservations`
 --
 ALTER TABLE `reservations`
   ADD PRIMARY KEY (`numReservation`);
 
 --
--- Indexes for table `tags`
+-- Index pour la table `tags`
 --
 ALTER TABLE `tags`
   ADD PRIMARY KEY (`numTag`);
 
 --
--- Indexes for table `typeproduits`
+-- Index pour la table `typeproduits`
 --
 ALTER TABLE `typeproduits`
   ADD PRIMARY KEY (`nomTypeProduit`);
 
 --
--- Indexes for table `variantes`
+-- Index pour la table `variantes`
 --
 ALTER TABLE `variantes`
   ADD PRIMARY KEY (`numGroupeVariante`);
 
 --
--- Indexes for table `vendeurs`
+-- Index pour la table `vendeurs`
 --
 ALTER TABLE `vendeurs`
   ADD PRIMARY KEY (`mailVendeur`),
   ADD KEY `ID` (`idVendeur`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `avis`
+-- AUTO_INCREMENT pour la table `avis`
 --
 ALTER TABLE `avis`
   MODIFY `numAvis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `clients`
+-- AUTO_INCREMENT pour la table `clients`
 --
 ALTER TABLE `clients`
   MODIFY `idClient` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `commandes`
+-- AUTO_INCREMENT pour la table `commandes`
 --
 ALTER TABLE `commandes`
   MODIFY `numCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `jours`
+-- AUTO_INCREMENT pour la table `jours`
 --
 ALTER TABLE `jours`
   MODIFY `numJour` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `ouvrir`
+-- AUTO_INCREMENT pour la table `ouvrir`
 --
 ALTER TABLE `ouvrir`
   MODIFY `numOuvrir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `paniers`
+-- AUTO_INCREMENT pour la table `paniers`
 --
 ALTER TABLE `paniers`
   MODIFY `numPanier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `produits`
+-- AUTO_INCREMENT pour la table `produits`
 --
 ALTER TABLE `produits`
   MODIFY `numProduit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `reductions`
+-- AUTO_INCREMENT pour la table `reductions`
 --
 ALTER TABLE `reductions`
   MODIFY `numReduction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `reservations`
+-- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `numReservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `numReservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `tags`
+-- AUTO_INCREMENT pour la table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `numTag` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `variantes`
+-- AUTO_INCREMENT pour la table `variantes`
 --
 ALTER TABLE `variantes`
   MODIFY `numGroupeVariante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `vendeurs`
+-- AUTO_INCREMENT pour la table `vendeurs`
 --
 ALTER TABLE `vendeurs`
   MODIFY `idVendeur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `contenir`
+-- Contraintes pour la table `contenir`
 --
 ALTER TABLE `contenir`
   ADD CONSTRAINT `contenir_produits0_FK` FOREIGN KEY (`numProduit`) REFERENCES `produits` (`numProduit`),
-  ADD CONSTRAINT `contenir_reservations_FK` FOREIGN KEY (`numReservation`) REFERENCES `reservations` (`numReservation`);
+  ADD CONSTRAINT `contenir_reservations_FK` FOREIGN KEY (`numreservation`) REFERENCES `reservations` (`numReservation`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
