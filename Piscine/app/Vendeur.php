@@ -13,7 +13,7 @@ class Vendeur extends Authenticatable
 
     protected $guard = 'seller';
 
-    protected $fillable = ['mailVendeur','nomVendeur','prenomVendeur','telVendeur', 'mdpVendeur','idVendeur'];
+    protected $fillable = ['mailVendeur','nomVendeur','prenomVendeur','telVendeur', 'mdpVendeur','idVendeur','commerceFavori'];
     protected $hidden = ['mdpVendeur'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
@@ -83,6 +83,37 @@ class Vendeur extends Authenticatable
             return Auth::guard('admin')->user()->mailVendeur;
         }
     }
+
+    public static function getIdSeller(){
+        if(Auth::guard('seller')->check()) {
+            return Auth::guard('seller')->user()->idVendeur;
+        }
+        if(Auth::guard('admin')->check()){
+            $seller = self::where('mailVendeur',Auth::guard('admin')->user()->mailVendeur)->first();
+            return $seller->idVendeur;
+        }
+    }
+
+    public static function getMyFavoriteShop(){
+        if(Auth::guard('seller')->check()) {
+            return Auth::guard('seller')->user()->commerceFavori;
+        }
+        if(Auth::guard('admin')->check()){
+            $seller = self::where('mailVendeur',Auth::guard('admin')->user()->mailVendeur)->first();
+            return $seller->commerceFavori;
+        }
+    }
+
+    public static function updateMyFavoriteShop(){
+
+        if(Auth::guard('seller')->check()) {
+            self::where('mailVendeur',Auth::guard('seller')->user()->mailVendeur)->update(['commerceFavori' => request('siretNumber')]);
+        }
+        if(Auth::guard('admin')->check()){
+            self::where('mailVendeur',Auth::guard('admin')->user()->mailVendeur)->update(['commerceFavori' =>request('siretNumber')]);
+        }
+    }
+
 }
 
 

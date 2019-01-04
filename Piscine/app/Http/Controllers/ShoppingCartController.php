@@ -18,10 +18,11 @@ class ShoppingCartController extends Controller
 
     public function show($id)
     {
-        $client = Client::select('mailClient')->where('idClient',$id)->firstOrFail();
+        $id = Client::getIdClient();
+        $client = Client::getClientWithId($id);
         $products = Panier::getPanierClient($client->mailClient);
         if($products->isEmpty()){
-            return view('myShoppingCart');
+            return view('myShoppingCart')->with(['id' => $id]);
         }
 
         $sum = Panier::where('mailClient',$client->mailClient)
@@ -33,7 +34,7 @@ class ShoppingCartController extends Controller
 
         $total = $sum->total;
 
-        return view('myShoppingCart')->with(['products' => $products,'total' => $total]);
+        return view('myShoppingCart')->with(['products' => $products,'total' => $total ,'id' => $id]);
     }
     public function selectForm(Request $request)
     {

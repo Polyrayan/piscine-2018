@@ -147,18 +147,31 @@ class Produit extends Model
     }
 
     public static function noteMoy($avis){
-      $moy = 0;
-      $nb = 0;
-      foreach ($avis as $_avis) {
-        $moy += $_avis->noteAvis;
-        $nb += 1;
+        $moy = 0;
+        $nb = 0;
+        foreach ($avis as $_avis) {
+            $moy += $_avis->noteAvis;
+            $nb += 1;
+        }
+        if ($nb != 0){
+            $moy = $moy / $nb;
+            return $moy;
+        }
+        else{
+            return "Non noté";
+        }
+    }
+
+    public static function whichProduct($numProduct,$color){
+      $product = self::productWithId($numProduct);
+      if(!(request('color') == $product->couleurProduit)){ // si on a le bon produit on fait rien sinon on cherhcer le produit correspondant à la couleur pour le renvoyer
+        $products = self::productsOfThisGroup($product->numGroupeVariante);
+        foreach ($products as $prod) {
+          if(!(request('color') == $prod->couleurProduit)){
+            $product = $prod;
+          }
+        }
       }
-      if ($nb != 0){
-        $moy = $moy / $nb;
-        return $moy;
-      }
-      else{
-        return "Non noté";
-      }
+      return $product;
     }
 }

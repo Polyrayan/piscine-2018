@@ -20,7 +20,7 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-
+        $id = Client::getIdClient();
         $client = Client::getClientWithId($id);
         $reservations = Reservation::bookingsOfThisMailClient($client->mailClient);
         foreach ($reservations as $reservation) {
@@ -36,11 +36,11 @@ class ReservationController extends Controller
             ->select(DB::raw('sum(produits.prixProduit * contenir.qteReservation) as total'))->first();
 
         if ($reservations->isEmpty()) {
-            return view('myReservations');
+            return view('myReservations')->with(['id' => $id]);
         }
         else {
             $total = $sum->total;
-            return view('myReservations')->with(['reservations' => $reservations, 'total' => $total, 'timeLeft' => $timeLeft]);
+            return view('myReservations')->with(['reservations' => $reservations, 'total' => $total, 'timeLeft' => $timeLeft, 'id' => $id]);
         }
     }
 

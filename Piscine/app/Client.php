@@ -59,7 +59,7 @@ class Client extends Authenticatable
     }
 
     public static function getIdClient(){
-        return "2";
+        return Auth::guard('client')->user()->idClient;
     }
 
     public static function validateFormClient(){

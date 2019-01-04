@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Jour;
 use App\Vendeur;
 use App\Client;
@@ -16,13 +17,9 @@ use App\Appartenir;
 use App\TypeProduit;
 use App\Reservation;
 use App\Variante;
-use Illuminate\Support\Facades\Auth;
-use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 use function Sodium\increment;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Redirect;
+
 
 
 class ShopController extends Controller
@@ -32,10 +29,12 @@ class ShopController extends Controller
      */
     public function show()
     {
-        $mailSeller = Vendeur::getSellerMail(); // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
+        $mailSeller = Vendeur::getSellerMail();
+        $favoriteShop = Vendeur::getMyFavoriteShop();
         $shops = Appartenir::shopsOfThisSeller($mailSeller);
         $orders = Commande::OrdersToTreat();
-        return view('sellerShops', ['shops' => $shops, 'mailSeller' => $mailSeller , 'orders' => $orders]);
+        $adminConnected = Admin::isConnected();
+        return view('sellerShops', ['shops' => $shops, 'mailSeller' => $mailSeller , 'orders' => $orders, 'favoriteShop' => $favoriteShop , 'adminConnected' => $adminConnected]);
     }
 
     /*
@@ -57,6 +56,10 @@ class ShopController extends Controller
         }
         elseif ($request->has('sales')) {
             return redirect(url()->current().'/'.request('siretNumber').'/ventes');
+        }
+        elseif ($request->has('favorite')) {
+            Vendeur::updateMyFavoriteShop();
+            return back();
         }
 
         // view myShop
@@ -102,9 +105,12 @@ class ShopController extends Controller
         $types = TypeProduit::all();
         $days = Jour::all();
         $schedulesOfWork = Ouvrir::schedulesOfThisShop($numSiretCommerce);
+        $favoriteShop = Vendeur::getMyFavoriteShop();
+        $adminConnected = Admin::isConnected();
         return view('myShop', ['sellers' => $sellers, 'numShop' => $numSiretCommerce,
                     'shop' => $shop, 'products' => $products, 'types' => $types ,
-                    'days' =>$days , 'schedulesOfWork' => $schedulesOfWork, 'groups' => $groups]);
+                    'days' =>$days , 'schedulesOfWork' => $schedulesOfWork, 'groups' => $groups,
+                    'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected]);
     }
 
     /*

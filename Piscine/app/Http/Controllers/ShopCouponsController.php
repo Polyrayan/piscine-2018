@@ -1,59 +1,59 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Commerce;
 use App\Admin;
-use App\Jour;
 use App\Ouvrir;
 use App\Vendeur;
+use App\Coupon;
 use Illuminate\Http\Request;
-
-class ShopScheduleController extends Controller
+class ShopCouponsController extends Controller
 {
     /*
      * @param : numSiret
-     * @return : view to show all orders in progress and all completed orders
+     * @return : view to show all coupons of a store
      */
     public function show($siretNumber)
     {
-        $days = Jour::all();
-        $daysOfShop = Ouvrir::where('numSiretCommerce', $siretNumber)->get();
-        $schedules = Ouvrir::where('numSiretCommerce', $siretNumber)
-            ->leftjoin('jours', 'ouvrir.nomJour', '=', 'jours.nomJour')->groupBy('numJour')
-            ->orderBy('numJour')->get();
+        $coupons = Coupon::where('numSiretCommerce' , $siretNumber)->get();
+        $nomCommerce = Commerce::nameOfThisShop($siretNumber);
         $favoriteShop = Vendeur::getMyFavoriteShop();
         $adminConnected = Admin::isConnected();
-        if ($daysOfShop->isEmpty()){
-            return view('editSchedule')->with(['days' => $days, 'siretNumber' => $siretNumber, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected]);
+//        foreach ($coupons as $coupon) {
+//            if(!$coupon->nomTypeProduit) {
+//                unset($o->{"property_name"}
+//            }
+//
+//            else {
+//
+//            }
+//        }
+        if ($coupons->isEmpty()){
+            return view('myCoupons')->with(['nomCommerce' => $nomCommerce, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected]);
         }
-        return view('editSchedule')->with(['days'=> $days , 'daysOfShop' =>$daysOfShop, 'siretNumber' => $siretNumber,
-            'schedules' => $schedules, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected ]);
-    }
+        return view('myCoupons')->with(['coupons' => $coupons , 'nomCommerce' => $nomCommerce, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected]);
 
+    }
     public function selectForm(Request $request)
     {
         if ($request->has('add')) {
-            return $this->addSchedule(request('day'),request('siretNumber'),request('start'),request('end'));
+            return $this->addCoupon(request('day'),request('siretNumber'),request('start'),request('end'));
         }
         elseif ($request->has('edit')) {
-            return $this->updateSchedule(request('id'),request('start'), request('end'));
+            return $this->updateCoupon(request('id'),request('start'), request('end'));
         }
         elseif ($request->has('delete')) {
-            return $this->destroySchedule(request('id'));
+            return $this->destroyCoupon(request('id'));
         }
-
     }
-
     public function updateSchedule($id,$start,$end){
         request()->validate([
             'start' => ['required','date_format:H:i'],
             'end' => ['required','date_format:H:i','after:start']
         ]);
-
         Ouvrir::where('numOuvrir',$id)->update(['debut' => $start , 'fin' => $end]);
         return back();
     }
-
     public function addSchedule($day,$siretNumber,$start,$end)
     {
         request()->validate([
@@ -62,8 +62,7 @@ class ShopScheduleController extends Controller
             'start' => ['required','date_format:H:i'],
             'end' => ['required','date_format:H:i','after:start']
         ]);
-
-        Ouvrir::Create([
+        Coupon::Create([
             'nomJour' => $day,
             'numSiretCommerce' => $siretNumber,
             'debut' => $start,
@@ -71,8 +70,8 @@ class ShopScheduleController extends Controller
         ]);
         return back();
     }
-    public function destroySchedule($id){
-        $schedule = Ouvrir::where('numOuvrir', $id)->firstOrFail();
+    public function destroySchedule($codeCoupon){
+        $schedule = Ouvrir::where('codeCoupon', $codeCoupon)->firstOrFail();
         $schedule->delete();
         return back();
     }

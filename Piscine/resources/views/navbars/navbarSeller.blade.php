@@ -6,36 +6,54 @@
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
 <!------ Include the above in your HEAD tag ---------->
 
-<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top ">
+<nav class="navbar navbar-expand-md sticky-top " style="background-color: #dbdcda">
 
-    <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
+    <button class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#collapse_target">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="navbar-collapse collapse" id="collapse_target">
-        <a class="navbar-brand" href=""></a>
-        <a class="navbar-brand" href=""></a>
-        <a class="navbar-brand" href=""></a>
-        <a class="navbar-brand" href=""></a>
-        <a class="navbar-brand" href=""></a>
-        <a class="logo" href="#"><img class="img-responsive logo" src="{{ URL::to('img/cci.png') }}" alt=""></a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
+
+        <a href="#" class="logo"><img class="img-responsive logo" src="{{ URL::to('img/cci.png') }}" alt=""></a>
+        <ul class="navbar-nav mr-auto">
+            <a class="navbar-brand" href=""></a>
+            <a class="navbar-brand" href=""></a>
+            <a class="navbar-brand" href=""></a>
+            <a class="navbar-brand" href=""></a>
+            <a class="navbar-brand" href=""></a>
+
+            <li class="nav-item ">
                 <a href="\Piscine\public\vendeur\commerces" class="nav-link"> Mes commerces </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"> ? </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"> ? </a>
-            </li>
-            <li class="nav-item">
-                <a  href="#" class="nav-link"> ? </a>
-            </li>
+            @if(!is_null($favoriteShop))
+                <li class="nav-item">
+                    <a href="\Piscine\public\vendeur\commerces\{{$favoriteShop}}" class="nav-link"> Visiter </a>
+                </li>
+                <li class="nav-item">
+                    <a href="\Piscine\public\vendeur\commerces\{{$favoriteShop}}\ventes" class="nav-link"> Ventes </a>
+                </li>
+                <li class="nav-item">
+                    <a  href="\Piscine\public\vendeur\commerces\{{$favoriteShop}}\horaires" class="nav-link"> Horaires </a>
+                </li>
+                <li class="nav-item">
+                    <a  href="\Piscine\public\vendeur\commerces\{{$favoriteShop}}\coupons" class="nav-link"> Coupons </a>
+                </li>
+            @endif
 
-            <li class="nav-item">
-                <a  href="\Piscine\public\vendeur\deconnexion" class="nav-link"> Déconnexion </a>
-            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            @if($adminConnected)
+                <li class="nav-item">
+                    <a  href="\Piscine\public\admin" class="nav-link"> <font color="#DF3A01"> arreter l'aide et revenir à la page admin </font> </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a  href="" class="nav-link"> Aide </a>
+                </li>
+                <li class="nav-item">
+                    <a  href="\Piscine\public\vendeur\deconnexion" class="nav-link"> Déconnexion </a>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>

@@ -1,7 +1,7 @@
 @extends('navbars.navbarClient')
 
 @section('content')
-
+    <br>
     <h1> Mon Panier : </h1>
     @if(!@isset($products))
         <div class="alert alert-info text-center" role="alert">

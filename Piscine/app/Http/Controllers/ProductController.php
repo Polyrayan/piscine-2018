@@ -12,7 +12,6 @@ use App\Detenir;
 use Illuminate\Http\Request;
 use App\Client;
 use App\Commerce;
-use Illuminate\Support\Facades\DB;
 
 
 class ProductController extends Controller
@@ -21,16 +20,16 @@ class ProductController extends Controller
     public function show($id)
     {
         $mailClient = Client::getMailClient();
+        $idClient = Client::getIdClient();
         $product = Produit::productWithId($id);
         $avis = Avis::allReviewsOfThisProduct($id);
         $commerce = Commerce::shopWithSiret($product->numSiretCommerce);
         $noteMoy = Produit::noteMoy($avis);
-
         //ajout de toute les couleurs
         $allProducts = Produit::all();
         $product->colors = $product->addColors($allProducts);
 
-        return view('product')->with(['product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'mailClient' => $mailClient]);
+        return view('product')->with(['product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'mailClient' => $mailClient, 'idClient' => $idClient]);
     }
 
     public function selectForm(Request $request)
@@ -45,8 +44,19 @@ class ProductController extends Controller
 
         } elseif ($request->has('add')) {
 
+            if(null == request('quantity')){
+              return back()->withInput()->withErrors(['qte' => "Veuillez choisir une quantité",]);
+            }
+
+            if("rien" == request('color')){
+              return back()->withInput()->withErrors(['color' => "Veuillez choisir une couleur",]);
+            }
+
+            //$product = Produit::whichProduct(request('product'),request('color')); // fonction a tester
+            //$product = Produit::productWithId(request('product')); // sans passer par la fonction (ne marche pass pour $detenir)
+
             request()->validate([
-                'quantity' => ['bail', 'required', 'min:0', 'max:99999']
+                'quantity' => ['bail', 'required', 'min:0']
             ]);
 
             $panier = Panier::firstOrNewPanier(request('mailClient'));
@@ -55,7 +65,7 @@ class ProductController extends Controller
             $commande = Commande::firstOrNewCommande($panier,request('numSiret'));
             Commande::addPriceToThisOrder($commande,request('productPrice'),request('quantity'));
 
-            $detenir = Detenir::firstOrNewDetenir($commande,request('product'));
+            $detenir = Detenir::firstOrNewDetenir($commande,request('product')); //request('product') == $$product->numProduit
             Detenir::storeQuantity($detenir,request('quantity'));
 
             return back();
