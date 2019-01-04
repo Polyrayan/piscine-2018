@@ -162,16 +162,25 @@ class Produit extends Model
         }
     }
 
-    public static function whichProduct($numProduct,$color){
-      $product = self::productWithId($numProduct);
-      if(!(request('color') == $product->couleurProduit)){ // si on a le bon produit on fait rien sinon on cherhcer le produit correspondant à la couleur pour le renvoyer
-        $products = self::productsOfThisGroup($product->numGroupeVariante);
-        foreach ($products as $prod) {
-          if(!(request('color') == $prod->couleurProduit)){
-            $product = $prod;
-          }
+    public static function whichProduct(){
+        $product = self::productWithId(request('productNumber'));
+        if(empty(request('color')) and empty(request('size'))){
+            return request('productNumber');
         }
-      }
-      return $product;
+        if(!empty(request('color')) and  empty(request('size'))){  // s'il y a une couleur mais pas de taille
+              $groupeVariante = $product->numGroupeVariante;
+              $goodProduct = self::where("numGroupeVariante", $groupeVariante)->where("couleurProduit",request('color'))->first();
+              return $goodProduct->numProduit;
+            }
+          if(empty(request('color')) and  empty(request('size'))){  // s'il y a une taille mais pas de couleur
+              $groupeVariante = $product->numGroupeVariante;
+              $goodProduct = self::where("numGroupeVariante", $groupeVariante)->where("tailleProduit",request('size'))->first();
+        return $goodProduct->numProduit;
+        }
+         if(!empty(request('color')) and  !empty(request('size'))){  // s'il y a une taille  et une  couleur
+             $groupeVariante = $product->numGroupeVariante;
+             $goodProduct = self::where("numGroupeVariante", $groupeVariante)->where("couleurProduit",request('color'))->where("tailleProduit",request('size'))->first();
+             return $goodProduct->numProduit;
+        }
     }
 }

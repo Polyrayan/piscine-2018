@@ -1,4 +1,4 @@
-@extends('navbars.navbar')
+@extends('navbars.navbarClient')
 
 @section('content')
     <br>
@@ -58,7 +58,7 @@
                                 @endif
                             <input type="hidden" name="mailClient" value="{{$mailClient}}">
                             <input type="hidden" name="productPrice" value="{{$product->prixProduit}}">
-                            <input type="hidden" name="product" value="{{$product}}">
+                            <input type="hidden" name="productNumber" value="{{$product->numProduit}}">
                             <input name="numSiret" type="hidden" value="{{ $product->numSiretCommerce }}">
 
 
@@ -66,14 +66,14 @@
                             <button name="add" class="btn btn-success btn-lg btn-block text-uppercase">
                                 <i class="fa fa-shopping-cart"></i> Ajouter au panier
                             </button>
-                            <a class="pull-right" href="..\client\{{$idClient}}\panier">Voir mon panier</a>
+                            <a class="pull-right" href="..\client\{{$id}}\panier">Voir mon panier</a>
 
                         </form>
                         <div class="product_rassurance">
                             <ul class="list-inline">
                                 <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br/>Livraison rapide</li>
                                 <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br/>Paiement sécurisé</li>
-                                <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br/>{{$commerce->telCommerce}}</li>
+                                <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br/><a class="nomargin" href="">{{$commerce->telCommerce}}</a></li>
                             </ul>
                         </div>
                         <div class="reviews_product p-3 mb-2 ">
