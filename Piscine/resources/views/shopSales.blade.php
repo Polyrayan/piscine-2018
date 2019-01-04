@@ -1,7 +1,7 @@
-@extends('navbars.navbarClient')
+@extends('navbars.navbarSeller')
 
 @section('content')
-
+    <br>
     <h1><u> Commandes en traitement du commerce {{ $shop->nomCommerce }} </u></h1>
     <div class="container-fluid">
         @if($ordersToTreat->count() <= 0 )

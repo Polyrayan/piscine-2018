@@ -50,6 +50,15 @@ class Admin extends Authenticatable
             ]);
     }
 
+    public static function isConnected(){
+        if(Auth::guard('admin')->check()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }
 
 

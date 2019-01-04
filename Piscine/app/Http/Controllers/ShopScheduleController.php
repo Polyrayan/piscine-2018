@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Commande;
-use App\Commerce;
+use App\Admin;
 use App\Jour;
 use App\Ouvrir;
-use App\Produit;
-use App\TypeProduit;
+use App\Vendeur;
 use Illuminate\Http\Request;
-use function Symfony\Component\Console\Tests\Command\createClosure;
 
 class ShopScheduleController extends Controller
 {
@@ -21,11 +18,16 @@ class ShopScheduleController extends Controller
     {
         $days = Jour::all();
         $daysOfShop = Ouvrir::where('numSiretCommerce', $siretNumber)->get();
-        $schedules = Ouvrir::where('numSiretCommerce', $siretNumber)->leftjoin('jours', 'ouvrir.nomJour', '=', 'jours.nomJour')->groupBy('numJour')->orderBy('numJour')->get();
+        $schedules = Ouvrir::where('numSiretCommerce', $siretNumber)
+            ->leftjoin('jours', 'ouvrir.nomJour', '=', 'jours.nomJour')->groupBy('numJour')
+            ->orderBy('numJour')->get();
+        $favoriteShop = Vendeur::getMyFavoriteShop();
+        $adminConnected = Admin::isConnected();
         if ($daysOfShop->isEmpty()){
-            return view('editSchedule')->with(['days' => $days, 'siretNumber' => $siretNumber]);
+            return view('editSchedule')->with(['days' => $days, 'siretNumber' => $siretNumber, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected]);
         }
-        return view('editSchedule')->with(['days'=> $days , 'daysOfShop' =>$daysOfShop, 'siretNumber' => $siretNumber, 'schedules' => $schedules    ]);
+        return view('editSchedule')->with(['days'=> $days , 'daysOfShop' =>$daysOfShop, 'siretNumber' => $siretNumber,
+            'schedules' => $schedules, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected ]);
     }
 
     public function selectForm(Request $request)

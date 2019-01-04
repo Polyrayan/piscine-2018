@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Commande;
 use App\Commerce;
-use App\Produit;
-use App\TypeProduit;
+use App\Vendeur;
+use App\Admin;
 use Illuminate\Http\Request;
 
 class ShopSalesController extends Controller
@@ -16,7 +16,6 @@ class ShopSalesController extends Controller
      */
     public function mySales($numSiretCommerce)
     {
-        // todo : middleware pour vérifier que le vendeur est connecté et appartient aux vendeurs
         $shop = Commerce::where('numSiretCommerce', $numSiretCommerce)->firstOrFail();
 
         $ordersToTreat = Commande::where('commandes.numSiretCommerce',$numSiretCommerce)
@@ -43,7 +42,13 @@ class ShopSalesController extends Controller
             ->orderBy('dateCommande','desc')
             ->get();
 
-        return view('shopSales', [ 'numShop' => $numSiretCommerce, 'shop' => $shop , 'ordersToDeliver' => $ordersToDeliver , 'onSiteOrders' => $onSiteOrders , 'completedOrders' => $completedOrders , 'ordersToTreat'=> $ordersToTreat]);
+        $favoriteShop = Vendeur::getMyFavoriteShop();
+        $adminConnected = Admin::isConnected();
+
+        return view('shopSales', [ 'numShop' => $numSiretCommerce, 'shop' => $shop ,
+            'ordersToDeliver' => $ordersToDeliver , 'onSiteOrders' => $onSiteOrders ,
+            'completedOrders' => $completedOrders , 'ordersToTreat'=> $ordersToTreat,
+            'favoriteShop' => $favoriteShop , 'adminConnected'=> $adminConnected]);
     }
 
     public function selectForm(Request $request)

@@ -9,7 +9,6 @@ use App\Reservation;
 use Illuminate\Http\Request;
 use App\Client;
 use App\Commerce;
-use Illuminate\Support\Facades\DB;
 
 
 class ProductController extends Controller
@@ -21,11 +20,9 @@ class ProductController extends Controller
         $avis = Avis::allReviewsOfThisProduct($id);
         $commerce = Commerce::shopWithSiret($product->numSiretCommerce);
         $noteMoy = Produit::noteMoy($avis);
-
         //ajout de toute les couleurs
         $allProducts = Produit::all();
         $product->colors = $product->addColors($allProducts);
-
         return view('product')->with(['product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy]);
     }
 

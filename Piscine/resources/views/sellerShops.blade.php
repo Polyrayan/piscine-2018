@@ -40,6 +40,12 @@
                                     <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}} </span> </button>
                                     <!-- quit  -->
                                     <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
+                                    <!favorite>
+                                    @if ($shop->numSiretCommerce == $favoriteShop)
+                                        <button class="btn bg-light" name="favorite"><i class="fas fa-star"></i>
+                                    @else
+                                        <button class="btn bg-light" name="favorite"> <i class="far fa-star"></i> </button>
+                                    @endif
                                 </div>
                             </div>
                     </div>

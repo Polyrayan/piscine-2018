@@ -1,17 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Commande;
 use App\Commerce;
-use App\Jour;
+use App\Admin;
 use App\Ouvrir;
-use App\Produit;
+use App\Vendeur;
 use App\Coupon;
-use App\TypeProduit;
 use Illuminate\Http\Request;
-use function Symfony\Component\Console\Tests\Command\createClosure;
-
 class ShopCouponsController extends Controller
 {
     /*
@@ -22,6 +17,8 @@ class ShopCouponsController extends Controller
     {
         $coupons = Coupon::where('numSiretCommerce' , $siretNumber)->get();
         $nomCommerce = Commerce::nameOfThisShop($siretNumber);
+        $favoriteShop = Vendeur::getMyFavoriteShop();
+        $adminConnected = Admin::isConnected();
 //        foreach ($coupons as $coupon) {
 //            if(!$coupon->nomTypeProduit) {
 //                unset($o->{"property_name"}
@@ -32,14 +29,11 @@ class ShopCouponsController extends Controller
 //            }
 //        }
         if ($coupons->isEmpty()){
-            return view('myCoupons');
+            return view('myCoupons')->with(['nomCommerce' => $nomCommerce, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected]);
         }
-        else {
-            return view('myCoupons')->with(['coupons' => $coupons , 'nomCommerce' => $nomCommerce]);
-        }
+        return view('myCoupons')->with(['coupons' => $coupons , 'nomCommerce' => $nomCommerce, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected]);
 
     }
-
     public function selectForm(Request $request)
     {
         if ($request->has('add')) {
@@ -51,19 +45,15 @@ class ShopCouponsController extends Controller
         elseif ($request->has('delete')) {
             return $this->destroyCoupon(request('id'));
         }
-
     }
-
     public function updateSchedule($id,$start,$end){
         request()->validate([
             'start' => ['required','date_format:H:i'],
             'end' => ['required','date_format:H:i','after:start']
         ]);
-
         Ouvrir::where('numOuvrir',$id)->update(['debut' => $start , 'fin' => $end]);
         return back();
     }
-
     public function addSchedule($day,$siretNumber,$start,$end)
     {
         request()->validate([
@@ -72,7 +62,6 @@ class ShopCouponsController extends Controller
             'start' => ['required','date_format:H:i'],
             'end' => ['required','date_format:H:i','after:start']
         ]);
-
         Coupon::Create([
             'nomJour' => $day,
             'numSiretCommerce' => $siretNumber,

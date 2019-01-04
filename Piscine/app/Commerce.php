@@ -54,7 +54,8 @@ class Commerce extends Model
     }
 
     public static function nameOfThisShop($siret){
-        return self::where('numSiretCommerce', $siret)->firstOrFail(['nomCommerce']);
+        $shop =  self::where('numSiretCommerce', $siret)->firstOrFail();
+        return $shop->nomCommerce;
     }
 
     public static function matchSiretAndCode($siret,$code){
@@ -70,5 +71,4 @@ class Commerce extends Model
         $shop = self::where('numSiretCommerce',$siret)->firstOrFail();
         return $shop->villeCommerce;
     }
-
 }

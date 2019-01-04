@@ -8,6 +8,13 @@
 
         <h3> ce qu'il manque : </h3>
         <ul>
+            <li> faire le edit dans shopProductsController</li>
+            <li> ajouter un footer dans toutes les views pour faire plus PRO , vous amusez pas a faire un footer dans chaque view utiliser blade c'est comme l'extension de la navbar mais inversé </li>
+            <li> Par conte quand on est connecté en tant que client on a accès aux réservations des autres clients pour l’instant ...</li>
+            <li> formulaire produit : ajouter une image </li>
+            <li> formulaire commerce : ajouter une image </li>
+            <li> un admin peut supprimer des avis </li>
+            <li> ajouter profil dans les navbar client vendeur</li>
             <li> refered et js</li>
             <li> refaire la navbar </li>
             <li> trier par categorie </li>

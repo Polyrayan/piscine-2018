@@ -2,9 +2,9 @@
     position: absolute;
     z-index: 1;
     left: 10px;
-    top: 12px;
-    height: 65px;
-    width: 65px;
+    top: 15px;
+    height: 55px;
+    width: 55px;
 }
 
 .nav-link{

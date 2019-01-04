@@ -22,6 +22,7 @@ class HomeController extends Controller
     public function show()
     {
         $mailClient = Client::getMailClient(); // todo: récuperer l'email automatiquement  une fois l'authentification fonctionnelle
+        $id = Client::getIdClient();
         $products = Produit::productsGroupedByVariant();
         $coordinatesOfClients = Geocoder::getCoordinatesForAddress(Client::getMyAddress());
         $allProducts = Produit::all();
@@ -35,7 +36,7 @@ class HomeController extends Controller
             //sizes
             $product->sizes = $product->addSizes($allProducts);
         }
-        return view('welcome', ['products' => $products, 'mailClient' => $mailClient]);
+        return view('welcome', ['products' => $products, 'mailClient' => $mailClient, 'id' => $id]);
     }
 
     public function selectForm(Request $request)

@@ -1,7 +1,7 @@
 @extends('navbars.navbarSeller')
 
 @section('content')
-</br>
+    <br>
 
     <h1>Fiche du produit n°{{$product->numProduit}}</h1>
     <div class="container">
@@ -10,15 +10,15 @@
             <div class="col-12 col-lg-6">
                 <div class="card bg-light mb-3">
                     <div class="card-body">
-                      <center>
+                        <center>
                         <a href="" data-toggle="modal" data-target="#productModal">
-                          @if(empty($product->imageProduit))
-                              <img src="http://placehold.it/100x100" style="width:410px; height: 410px;" alt="..." class=" img img-thumbnail"/>
-                          @else
-                            <img class="img-fluid" src="{{$product->imageProduit}}" style="width:410px; height: 410px;"/>
-                          @endif
+                            @if(empty($product->imageProduit))
+                                <img src="http://placehold.it/100x100" style="width:410px; height: 410px;" alt="..." class=" img img-thumbnail"/>
+                            @else
+                                <img class="img-fluid" src="{{$product->imageProduit}}" style="width:410px; height: 410px;"/>
+                            @endif
                         </a>
-                          <h3 class="nom" >{{$product->nomProduit}}</h3>
+                            <h3 class="nom" >{{$product->nomProduit}}</h3>
                         </center>
                     </div>
                 </div>
@@ -30,9 +30,8 @@
                     <div class="card-body">
                         <p class="price">Prix : {{$product->prixProduit}} €</p>
                         <p class="price_total">Total : {{$product->prixProduit}} €</p>
-
                         <form method="get" action="cart.html">
-                          @if(!empty($product->couleurProduit))
+                            @if(!empty($product->couleurProduit))
                             <div class="form-group">
                                 <label for="colors">Color</label>
                                 <select class="custom-select" id="colors">
@@ -42,14 +41,13 @@
                                     @endforeach
                                 </select>
                             </div>
-                          @endif
-
+                            @endif
                             <div class="form-group">
                                 <label>Quantity :</label>
                                 <div class="input-group mb-3">
-                                    
+
                                     <input type="text" class="form-control"  id="quantity" name="quantity" min="1" max="100" value="1">
-                                    
+
                                 </div>
                             </div>
                             <a href="cart.html" class="btn btn-success btn-lg btn-block text-uppercase">
@@ -65,24 +63,24 @@
                         </div>
                         <div class="reviews_product p-3 mb-2 ">
                             @if($noteMoy >= 2)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($noteMoy>=4)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($noteMoy>=6)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($noteMoy>=8)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($noteMoy == 10)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($noteMoy == "Non noté")
-                              <a> {{$noteMoy}}</a>
+                                <a> {{$noteMoy}}</a>
                             @else
-                              <a> {{$noteMoy}}/10</a>
+                                <a> {{$noteMoy}}/10</a>
                             @endif
                             <a class="pull-right" href="#reviews">View all reviews</a>
                         </div>
@@ -115,19 +113,19 @@
                             <meta itemprop="datePublished" content="01-01-2016"> le {{$_avis->dateAvis}}
 
                             @if($_avis->noteAvis >= 2)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($_avis->noteAvis>=4)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($_avis->noteAvis>=6)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($_avis->noteAvis>=8)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             @if($_avis->noteAvis == 10)
-                              <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
                             @endif
                             note : {{$_avis->noteAvis}}/10
                             <p class="blockquote">
@@ -166,3 +164,4 @@
 
 
 @endsection
+

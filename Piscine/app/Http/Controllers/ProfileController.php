@@ -20,10 +20,10 @@ class ProfileController extends Controller
 
     public function show()
     {
-        $mail = Client::getMailClient();
-        $client = Client::getClientWithMail($mail);
-        $points = Reduction::getReductionPoints($mail);
-        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points]);
+        $id = Client::getIdClient();
+        $client = Client::getClientWithId($id);
+        $points = Reduction::getReductionPoints($client->mailClient);
+        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points, 'id' => $id]);
     }
 
 
