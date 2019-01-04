@@ -167,7 +167,7 @@
                                     @endif
                                 </div>
                                 <div class="col-lg-8 col-md-7 col-sm-6">
-                                    <h4 class="nomargin"><b>{{$product->nomProduit}} </b></h4>
+                                    <a class="nomargin" href="./produits/{{$product->numProduit}}"><h3>{{$product->nomProduit}} </h3></a>
                                     <p>{{$product->libelleProduit}}</p>
                                 </div>
                             </div>
