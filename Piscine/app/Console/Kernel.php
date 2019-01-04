@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\ExpiredReservations'
     ];
 
     /**
@@ -24,8 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('expired:reservations')
+            ->everyMinute();
+            //->appendOutputTo("C:\laragon\www\Piscine\piscine-2018\Piscine\out.txt"); // pour debugging
     }
 
     /**
