@@ -278,4 +278,18 @@ class Produit extends Model
              return $goodProduct->numProduit;
         }
     }
+
+    public static function editProduct(){
+        $delivery = request('delivery') - 1;
+        self::where('numProduit',request('id'))
+            ->update(['nomProduit'=> request('name') ,
+                'libelleProduit'=> request('libelle'),
+                'qteStockProduit' => request('qteStockProduit'),
+                'livraisonProduit' => $delivery,
+                'prixProduit' => request('prix'),
+                'couleurProduit' => request('couleurProduit'),
+                'tailleProduit' => request('tailleProduit'),
+                'marqueProduit' => request('marqueProduit')
+            ]);
+    }
 }

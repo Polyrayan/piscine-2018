@@ -71,7 +71,7 @@ class ShopController extends Controller
             return redirect('/produits/'.request('product'));
 
         } elseif ($request->has('edit')) {
-            return 'a faire';
+            return redirect('/vendeur/commerces/produit/'.request('product'));
 
         } elseif ($request->has('variant')) {
             $variant = Produit::productWithId(request('product'));
@@ -89,6 +89,20 @@ class ShopController extends Controller
         } elseif ($request->has('addShoppingCart')) {
             return $this->addToShoppingCart(request('mailClient'),request('product'),request('productPrice'),request('quantity'),request('numSiret'));
 
+        }
+
+        // post de la vue pour modifier un produit deja créé(bouton jaune)
+        elseif ($request->has('selectForm')) {
+          if(request('delivery') == 1 or request('delivery') == 2){
+            Produit::editProduct();
+            flash("Modification du produit effectuée ! ")->success();
+            return back();
+          }
+          else{
+            return back()->withErrors([
+                'delivery' => "Veuilliez choisir l'item Livraison",
+            ]);
+          }
         }
     }
 
@@ -194,6 +208,15 @@ class ShopController extends Controller
         $appartenir = Appartenir::where("numSiretCommerce",$siretNumber)->where("mailVendeur",$mailSeller)->firstOrFail();
         $appartenir->delete();
         return back();
+    }
+
+    public function editProduct($id){
+
+      $favoriteShop = Vendeur::getMyFavoriteShop();
+      $adminConnected = Admin::isConnected();
+      $product = Produit::productWithId($id);
+
+      return view('editProduct', ['favoriteShop' => $favoriteShop , 'adminConnected' => $adminConnected, 'product' => $product]);
     }
 
 }

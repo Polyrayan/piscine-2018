@@ -72,6 +72,9 @@ Route::group(['middleware' => 'App\Http\Middleware\Vendeur'], function () {
     Route::get('/vendeur/commerces/{numSiretCommerce}/variante/{group}','ShopProductsController@show');
     Route::post('/vendeur/commerces/{numSiretCommerce}/variante/{group}','ShopProductsController@selectForm');
 
+    Route::get('/vendeur/commerces/produit/{id}','ShopController@editProduct');
+    Route::post('/vendeur/commerces/produit/{id}','ShopController@selectForm');
+
     Route::get('/vendeur/deconnexion','Auth\LoginController@logoutSeller');
 });
 
@@ -93,5 +96,3 @@ Route::get('/vendeur/{id}','ProfileController@idVendeur');
 
 Route::get('/produits/{id}','ProductController@show');
 Route::post('/produits/{id}','ProductController@selectForm');
-
-
