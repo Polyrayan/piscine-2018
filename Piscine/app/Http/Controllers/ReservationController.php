@@ -37,7 +37,7 @@ class ReservationController extends Controller
             ->select(DB::raw('sum(produits.prixProduit * contenir.qteReservation) as total'))->first();
 
         if ($reservations->isEmpty()) {
-            return view('myReservations')->with(['id' => $id]);
+            return view('myReservations')->with(['id' => $id, 'nbCompare' => $nbCompare]);
         }
         else {
             $total = $sum->total;

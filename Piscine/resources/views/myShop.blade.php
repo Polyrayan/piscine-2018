@@ -60,7 +60,13 @@
                                 {{  csrf_field()  }}
                                 <td data-th="Product">
                                     <div class="row">
-                                        <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                                        <div class="col-sm-4 hidden-xs">
+                                          @if(empty($product->imageProduit))
+                                              <img class="img-fluid" src="http://placehold.it/100x100" alt="..." class="img-responsive"//>
+                                          @else
+                                              <img class="img-fluid" src="{{$product->imageProduit}}" alt="..." class="img-responsive"//>
+                                          @endif
+                                        </div>
                                         <div class="col-sm-8">
                                             <h4 class="nomargin"> <b>{{$product->nomProduit}} </b> </h4>
                                             <p>  {{ str_limit($product->libelleProduit, $limit = 30, $end = '...') }} </p>

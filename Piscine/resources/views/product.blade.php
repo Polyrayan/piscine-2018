@@ -1,4 +1,5 @@
-@extends('navbars.navbarClient')
+@extends('navbars.navbar' . $clientConnected)
+
 
 @section('content')
     <br>

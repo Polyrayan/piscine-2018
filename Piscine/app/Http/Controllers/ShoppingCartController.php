@@ -23,7 +23,7 @@ class ShoppingCartController extends Controller
         $client = Client::getClientWithId($id);
         $products = Panier::getPanierClient($client->mailClient);
         if($products->isEmpty()){
-            return view('myShoppingCart')->with(['id' => $id]);
+            return view('myShoppingCart')->with(['id' => $id, 'nbCompare' => $nbCompare]);
         }
 
         $sum = Panier::where('mailClient',$client->mailClient)

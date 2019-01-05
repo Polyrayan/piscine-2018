@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Produit;
 use App\Vendeur;
+use App\Admin;
 use Illuminate\Http\Request;
 
 class ShopProductsController extends Controller

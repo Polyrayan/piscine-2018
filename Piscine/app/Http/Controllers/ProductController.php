@@ -12,6 +12,8 @@ use App\Detenir;
 use Illuminate\Http\Request;
 use App\Client;
 use App\Commerce;
+use App\Admin;
+use App\Vendeur;
 
 
 class ProductController extends Controller
@@ -24,9 +26,17 @@ class ProductController extends Controller
         $commerce = Commerce::shopWithSiret($product->numSiretCommerce);
         $noteMoy = Produit::noteMoy($avis);
         $products = Produit::productsOfThisGroup($product->numGroupeVariante);
-        $nbCompare = Client::calculNumberOfProductToCompare();
-        $id = Client::getIdClient();
-        return view('product')->with(['products' => $products ,'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'id' => $id,'nbCompare' => $nbCompare]);
+        $clientConnected = Client::isConnected();
+        if($clientConnected){
+          $nbCompare = Client::calculNumberOfProductToCompare();
+          $id = Client::getIdClient();
+          return view('product')->with(['products' => $products ,'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'id' => $id,'nbCompare' => $nbCompare, 'clientConnected' => 'Client']);
+        }
+        else{
+          $favoriteShop = Vendeur::getMyFavoriteShop();
+          $adminConnected = Admin::isConnected();
+          return view('product')->with(['products' => $products ,'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy , 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected,'clientConnected' => 'Seller']);
+        }
     }
 
     public function selectForm(Request $request)
