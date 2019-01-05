@@ -10,6 +10,7 @@
         <ul>
             <li> calculer et afficher si le client est ouvert ou fermé dans la view commerce/{numSiret}</li>
             <li> probleme quand on achete 1 table rouge puis 3 table bleu dans le panier on a 3 table rouge et 3 table bleu </li>
+            <li> faire le edit dans shopProductsController</li>
             <li> ajouter un footer dans toutes les views pour faire plus PRO , vous amusez pas a faire un footer dans chaque view utiliser blade c'est comme l'extension de la navbar mais inversé </li>
             <li> Par conte quand on est connecté en tant que client on a accès aux réservations des autres clients pour l’instant ...</li>
             <li> formulaire produit : ajouter une image </li>

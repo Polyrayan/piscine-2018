@@ -38,6 +38,9 @@ Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
     Route::get('/client/{id}/panier/confirmation', 'ShoppingCartController@showConfirmation' );
     Route::post('/client/{id}/panier/confirmation', 'ShoppingCartController@selectForm' );
 
+    Route::get('/client/{id}/panier/confirmation/facture', 'OrderOkController@showReceipt' );
+    Route::post('/client/{id}/panier/confirmation/facture', 'OrderOkController@selectForm' );
+
     Route::get('/client/{id}/commandes', 'ProfileController@purchaseClient' );
     Route::post('/client/{id}/commandes', 'ProfileController@selectForm' );
 

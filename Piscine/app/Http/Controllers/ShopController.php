@@ -72,12 +72,12 @@ class ShopController extends Controller
 
         } elseif ($request->has('edit')) {
           if(request('variant') == null){
-            return redirect('/vendeur/commerces/produit/'.request('variant'));
-            }
-            else{
-              return redirect('/vendeur/commerces/produit/'.request('product'));
+          return redirect('/vendeur/commerces/produit/'.request('variant'));
+          }
+          else{
+            return redirect('/vendeur/commerces/produit/'.request('product'));
 
-            }
+          }
 
         } elseif ($request->has('variant')) {
             $variant = Produit::productWithId(request('product'));
