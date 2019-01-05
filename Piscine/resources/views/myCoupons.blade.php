@@ -1,3 +1,10 @@
+<link href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.min.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+<script src="http://momentjs.com/downloads/moment.min.js"></script>
+<!-- Script provides the `snippet` object, see http://meta.stackexchange.com/a/242144/134069 -->
+<script src="http://tjcrowder.github.io/simple-snippets-console/snippet.js"></script>
+
 @extends('navbars.navbarSeller')
 
 @section('content')
@@ -65,7 +72,7 @@
                                     <div class="col-sm-10">
                                         <?php
                                         if($coupon->valeur) {
-                                            $valeur = $coupon->valeur;
+                                            $valeur = $coupon->valeur . "€";
                                         }
                                         else {
                                             $valeur = $coupon->valeurPourcentage . "%";
@@ -96,6 +103,119 @@
                 <tfoot>
                 </tfoot>
             </table>
+        </div>
+
+
+
+
+
+
+        <div class="form col-lg-4">
+            <h3> Ajouter un coupon : </h3> <br>
+
+            <form action="" method="post">
+                {{  csrf_field()  }}
+                <div class="form">
+                    <!-- codeCoupon -->
+                    <div class="row">
+                        <label class="col-sm-4 col-form-label"> Code Coupon :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="codeCoupon" placeholder="Code Coupon *" >
+                            @if ($errors->has('codeCoupon'))
+                                <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('codeCoupon') }} </div> </small>
+                            @endif
+                        </div>
+
+
+                        <!-- numSiret -->
+                        <input name="numSiretCommerce" type="hidden" value="{{$numCommerce}}">
+
+                        <!-- nomTypeProduit -->
+                        <label class="col-sm-4 col-form-label"> Catégorie Produit :</label>
+                        <div class="col-sm-8">
+
+                            <select name="nomTypeProduit" class="form-control form-control-sm col-sm-12">
+                                <option label=" "></option>
+                                @foreach ($types as $type)
+                                    <option value="{{$type->nomTypeProduit}}"> {{$type->nomTypeProduit}}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('nomTypeProduit'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('nomTypeProduit') }} </div>  </small>
+                            @endif
+
+                        </div>
+
+                        <!-- nomProduit -->
+                        <label class="col-sm-4 col-form-label"> Nom Produit :</label>
+                        <div class="col-sm-8">
+                            <select type="text" class="form-control" name="nomProduit">
+                                <option label=" "></option>
+                            @foreach ($nomsProduits as $nomProduit)
+                                <option value="{{$nomProduit}}"> {{$nomProduit}}</option>
+                            @endforeach
+                            </select>
+                        </div>
+
+                        <!-- valeur -->
+                        <label class="col-sm-4 col-form-label"> Valeur en euros :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="valeur" placeholder="valeur en euros *">
+                            @if ($errors->has('valeur'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('valeur') }} </div>  </small>
+                            @endif
+                        </div>
+
+                        <!-- valeurPourcentage -->
+                        <label class="col-sm-4 col-form-label"> Valeur en pourcentage :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="valeurPourcentage" placeholder="valeur en % *">
+                            @if ($errors->has('valeur'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('valeurPourcentage') }} </div>  </small>
+                            @endif
+                        </div>
+
+                        <!-- description-->
+                        <label class="col-sm-4 col-form-label"> Description :</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" name="description" rows="2" placeholder="description du produit *" value="{{ old('description') }}"></textarea>
+                            @if ($errors->has('description'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('description') }} </div>  </small>
+                            @endif
+                        </div>
+
+                        <!-- dateLimite-->
+                        <label class="col-sm-4 col-form-label"> Fin du periode du coupon :</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id = "dateLimite" name="dateLimite" placeholder="derniere jour de valabilite du coupon*">
+                            <script>
+                                $("#dateLimite").datepicker();
+                            </script>
+                            @if ($errors->has('dateLimite'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('dateLimite') }} </div>  </small>
+                            @endif
+                        </div>
+
+
+                        <!-- quantiteMax-->
+                        <label class="col-sm-4 col-form-label"> Quantite maximale des produits achetes avec un coupon :</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" name="quantiteMax" rows="2" placeholder="quantite maximale *" value="{{ old('description') }}"></textarea>
+                            @if ($errors->has('quantiteMax'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('quantiteMax') }} </div>  </small>
+                            @endif
+                        </div>
+
+                        <!-- button to add the coupon -->
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6">
+                            <button type="submit" class="btnSubmit btn-primary" name="add"> Ajouter </button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
         </div>
     @endisset
 @endsection

@@ -6,6 +6,7 @@
         <div class="row">
             <div class = "col-lg-3 ">
                 <h1> Commerce : {{ $shop->nomCommerce }} </h1>
+                <a href="{{url()->current()}}/coupons">  <h3> Mes coupons </h3> </a> <br/>
 
             </div>
             <div class="col-lg-6">
