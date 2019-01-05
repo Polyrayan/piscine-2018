@@ -25,7 +25,7 @@
                 <a href="\Piscine\public\" class="nav-link"> Accueil </a>
             </li>
             <li class="nav-item ">
-                <a href="\Piscine\public\reductions" class="nav-link"> Les bons plans </a>
+                <a href="\Piscine\public\client\{{$id}}\bonsPlans" class="nav-link"> Les bons plans </a>
             </li>
             <li class="nav-item">
                 <a href="\Piscine\public\client\profil" class="nav-link">Profil & Points</a>

@@ -49,6 +49,8 @@ Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
 
     Route::get('/client/{id}/reservationsConfirmed','ReservationsConfirmedController@show');
 
+    Route::get('/client/{id}/bonsPlans', 'AllCouponsController@show');
+
     Route::get('/client/deconnexion','Auth\LoginController@logoutClient');
 });
 

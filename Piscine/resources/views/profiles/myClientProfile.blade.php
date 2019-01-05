@@ -114,37 +114,38 @@
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th style="width:10%">Commande Code</th>
-                    <th class="text-center"  style="width:20%">Prix</th>
-                    <th class="text-center"  style="width:20%">Magasin</th>
-                    <th class="text-center"  style="width:30%">Produits</th>
-                    <th class="text-center"  style="width:20%">Date achat</th>
+                    <th rowspan="2" style="width:10%">Commande Code</th>
+                    <th rowspan="2" class="text-center"  style="width:20%">Prix</th>
+                    <th rowspan="2" class="text-center"  style="width:20%">Magasin</th>
+                    <th colspan="2" class="text-center" style="width:20%">Produits</th>
+                    <th rowspan="2" class="text-left"  style="width:30%">Date achat</th>
                 </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Qte</th>
+                    </tr>
                 </thead>
                 <tbody>
                 @foreach($completedOrders as $completed)
                     <tr>
-                        <td data-th="Id"> {{$completed->numCommande}}</td>
-                        <td data-th="Price" class="text-center" ><b>{{$completed->prixCommande}}€</b></td>
-                        <td data-th="Store" class="text-center" ><b>{{$completed->store}}</b></td>
-                        <div class = "container-fluid">
-                            <table style="width: 100%" id="produits" class="table table-hover table-condensed">
-                                <thead>
-                                <tr>
-                                    <th style="width:70%">Nom produit</th>
-                                    <th style="width:30%">Quantite produit</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($completed->produits as $produit)
-                                    <tr><td data-th="Nom produit" class="text-center" ><b>{{$produit[0]}}</b></td>
-                                    <td data-th="Quantite" class="text-center" ><b>{{$produit[1]}}</b></td></tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <td data-th="Purchase date" class="text-center"><b>{{$completed->dateCommande}}</b></td>
+                        <td data-th="Commande Code"> {{$completed->numCommande}}</td>
+                        <td data-th="Prix" class="text-center" ><b>{{$completed->prixCommande}}€</b></td>
+                        <td data-th="Magasin" class="text-center" ><b>{{$completed->store}}</b></td>
+                        <td data-th="Produits" class = "container-fluid" >
+                            <div class = "container-fluid">
+                                <table id="cart" class="table table-hover table-condensed">
+                                    <tbody>
+                                    @foreach($completed->produits as $produit)
+                                        <tr>
+                                            <td data-th="Nom">{{$produit[0]}}</td>
+                                            <td data-th="Qte">{{$produit[1]}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                        <td data-th="Purchase date" class="text-right"><b>{{$completed->dateCommande}}</b></td>
 
                     </tr>
                 @endforeach
