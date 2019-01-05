@@ -79,15 +79,11 @@
                                 <td  class="text-center">
                                     <select name="variant" class="form-control form-control-sm col-sm-12">
                                         @foreach($groups as $group)
-                                            @if ($group->couleurProduit != null)
-                                                <option value="{{$group->couleurProduit}}"> {{$group->couleurProduit}}</option>
+                                            @if (($product->numGroupeVariante == $group->numGroupeVariante))
+                                                <option value="{{$group->numProduit}}"> {{$group->couleurProduit}} {{$group->tailleProduit}}</option>
                                             @endif
                                         @endforeach
-                                        @foreach($groups as $group)
-                                            @if ($group->tailleProduit != null)
-                                                <option value="{{$group->tailleProduit}}"> {{$group->tailleProduit}}</option>
-                                            @endif
-                                        @endforeach
+
                                     </select>
                                 </td>
 

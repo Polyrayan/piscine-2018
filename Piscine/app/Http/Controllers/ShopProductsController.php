@@ -37,7 +37,7 @@ class ShopProductsController extends Controller
             return back();
 
         } elseif ($request->has('edit')) {
-            return 'a faire';
+            return redirect('/vendeur/commerces/produit/'.request('variant'));
         }
     }
 }

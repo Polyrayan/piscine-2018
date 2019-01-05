@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Client;
 use Faker\Provider\DateTime;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,4 +45,20 @@ class Panier extends Model
             ->join('produits', 'detenir.numProduit', '=' , 'produits.numProduit')
             ->get();
     }
+
+    public static function calculPoints($deliver,$price,$quantity){
+        if ($deliver==1) {
+          return $quantity*$price*0.15;
+        }
+        else {
+          return $quantity*$price*0.10;
+        }
+    }
+
+    public static function getShoppingCartNumber(){
+      $panier = self::where('mailClient', Client::getMailClient())
+      ->where('datePanier','=',null)->first();
+      return $panier->numPanier;
+    }
+
 }

@@ -149,15 +149,15 @@ class ShoppingCartController extends Controller
             ->leftjoin('detenir','detenir.numCommande' , '=' , 'commandes.numCommande')
             //->join('produits','detenir.numProduit' , '=' , 'detenir.numProduit')
             ->get();
-        $date = Date::now()->format('Y-m-d H:i:s');
+        //$date = Date::now()->format('Y-m-d H:i:s');
         foreach ($commandes as $commande){
             $this->substractStocks($commande->numProduit,$commande->qteCommande);
             Detenir::where('numCommande',$commande->numCommande)->where('numProduit',$commande->numProduit)->update(['livrer' => 1]);
         }
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($total*0.15,1)]);
-        Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
-        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
-        return 'success';
+        //Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
+        //Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
+        return redirect(url()->current().'/facture');
     }
 
     public function buyAndDeliverAll($shoppingCartNumber,$total)
@@ -167,15 +167,15 @@ class ShoppingCartController extends Controller
             ->leftjoin('detenir','detenir.numCommande' , '=' , 'commandes.numCommande')
             //->join('produits','detenir.numProduit' , '=' , 'detenir.numProduit')
             ->get();
-        $date = Date::now()->format('Y-m-d H:i:s');
+        //$date = Date::now()->format('Y-m-d H:i:s');
         foreach ($commandes as $commande){
             $this->substractStocks($commande->numProduit,$commande->qteCommande);
             Detenir::where('numCommande',$commande->numCommande)->where('numProduit',$commande->numProduit)->update(['livrer' => 0]);
         }
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($total*0.10,1)]);
-        Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
-        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
-        return 'success';
+        //Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
+        //Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
+        return redirect('../facture');
     }
 
     public function buyWithSelectedDelivery($shoppingCartNumber,$total,$arrayOfSubtotals,$arrayOfProductsToDeliver)
