@@ -19,10 +19,20 @@ class Commande extends Model
             ->get();
     }
 
-    public static function newCommande($panier,$numSiret){
-        return self::create (['numPanier' => $panier->numPanier ,
-            'numSiretCommerce' => $numSiret , 'dateCommande' => null]);
+    public static function completedOrders($id) {
+        return self::where('etatCommande','terminee')
+            ->join('paniers', 'commandes.numPanier', '=', 'paniers.numPanier')
+            ->join('clients', 'paniers.mailClient', '=', 'clients.mailClient')
+            ->where('idClient', $id)
+            ->get();
     }
+
+    public static function newCommande($panier,$numSiret)
+    {
+        return self::create(['numPanier' => $panier->numPanier,
+            'numSiretCommerce' => $numSiret, 'dateCommande' => null]);
+    }
+
     public static function firstOrNewCommande($panier,$numSiret){
         return self::firstOrNew(['numPanier' => $panier->numPanier ,
             'numSiretCommerce' => $numSiret , 'dateCommande' => null]);

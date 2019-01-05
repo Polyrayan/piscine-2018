@@ -26,8 +26,8 @@ Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
     Route::get('/1','testController@show');
     Route::get('/1/action','testController@action')->name('testController.action');
 
-    Route::get('/client/profil','ProfileController@show');
-    Route::post('/client/profil','ProfileController@selectForm');
+    Route::get('/client/{id}/profil','ProfileController@show');
+    Route::post('/client/{id}/profil','ProfileController@selectForm');
 
     Route::get('/client/{id}/reservations', 'ReservationController@show' );
     Route::post('/client/{id}/reservations', 'ReservationController@selectForm' );

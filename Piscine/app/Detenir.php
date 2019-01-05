@@ -20,6 +20,10 @@ class Detenir extends Model
         return self::firstOrNew(['numCommande' => $commande->numCommande, 'numProduit'=> $numProduct]);
     }
 
+    public static function getDetenirForThisCommande($commande){
+        return self::where(['numCommande' => $commande->numCommande])->get();
+    }
+
     public static function storeQuantity($detenir,$quantity){
         if(is_null($detenir->qteCommande)){
             $detenir->qteCommande = $quantity;

@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Appartenir;
 use App\Avis;
 use App\Client;
+use App\Commande;
 
+use App\Commerce;
+use App\Detenir;
 use App\Panier;
+use App\Produit;
 use App\Reduction;
 use App\Vendeur;
 use Jenssegers\Date\Date;
@@ -23,9 +27,22 @@ class ProfileController extends Controller
         $id = Client::getIdClient();
         $client = Client::getClientWithId($id);
         $points = Reduction::getReductionPoints($client->mailClient);
-        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points, 'id' => $id]);
+        $history = Commande::completedOrders($id);
+        foreach ($history as $his){
+            $his->store = Commerce::nameOfThisShop($his->numSiretCommerce);
+            $detenirs = Detenir::getDetenirForThisCommande($his);
+            $aux = array();
+            foreach ($detenirs as $detenir) {
+                $nomProduit = Produit::productWithId($detenir->numProduit)->nomProduit;
+                $numProduit = Produit::productWithId($detenir->numProduit)->numProduit;
+                $qte = Detenir::firstOrNewDetenir($his, $numProduit)->qteCommande;
+                array_push($aux, [$nomProduit, $qte]);
+            }
+            $his->produits = $aux;
+        }
+        //return $history;
+        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points, 'id' => $id, 'completedOrders' => $history]);
     }
-
 
     public function idClient($id){
         $client = Client::getClientWithId($id);
@@ -36,7 +53,7 @@ class ProfileController extends Controller
     {
         $client = Client::getClientWithId($id);
         $commandes = Panier::getPurchaseOfThisMailClient($client->mailClient);
-        return view('myPurchases', ['id' => $id, 'commandes' => $commandes, 'client' => $client]);
+        return view('myPurchases', ['id' => $id,'commandes' => $commandes, 'client' => $client]);
     }
     public function selectForm(Request $request)
     {
@@ -60,7 +77,7 @@ class ProfileController extends Controller
     public function rating($mailClient,$productNumber,$mark,$comment){
 
 
-         return back();
+        return back();
     }
 
     public function idVendeur($id){
