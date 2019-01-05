@@ -71,7 +71,7 @@ class ShopController extends Controller
             return redirect('/produits/'.request('product'));
 
         } elseif ($request->has('edit')) {
-            return redirect('/vendeur/commerces/produit/'.request('product'));
+            return redirect('/vendeur/commerces/produit/'.request('variant'));
 
         } elseif ($request->has('variant')) {
             $variant = Produit::productWithId(request('product'));
