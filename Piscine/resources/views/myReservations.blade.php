@@ -10,74 +10,82 @@
     @endisset
     @isset($reservations)
 
-            <div class="container">
-                <table id="cart" class="table table-hover table-condensed">
-                    <thead>
-                        <tr>
-                            <th style="width:55%">Produit</th>
-                            <th style="width:5%">Prix</th>
-                            <th style="width:5%">Quantité</th>
-                            <th style="width:15%" class="text-center">Temps restant</th>
-                            <th style="width:15%" class="text-center">Sous total</th>
-                            <th style="width:20% "class="text-center">Points gagnés</th>
-                            <th style="width:4%"></th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                        @foreach($reservations as $reservation)
-                            <form class ="input-group" method="POST">
-                                {{  csrf_field()  }}
-                                <input name="productNumber" type="hidden" value="{{ $reservation->numProduit }}">
-                                <input name="reservationNumber" type="hidden" value="{{ $reservation->numReservation }}">
-
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+                        <table  class="table  table-condensed">
+                            <thead>
                                 <tr>
-                                <td data-th="Product">
-                                    <div class="row">
-                                        <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
-                                        <div class="col-sm-8">
-                                    <h4 class="nomargin"><b>{{$reservation->nomProduit}} </b></h4>
-                                    <p>{{$reservation->libelleProduit}}</p>
-                            </div>
-                                </div>
-                            </td>
-                                <td data-th="Price"><b>{{$reservation->prixProduit}}€</b></td>
-                                <td data-th="Quantity">
-                                 <input type="number" class="form-control text-center " name="quantity" value={{$reservation->qteReservation}}>
-                                </td>
-                                <td class="text-center alert" id=timery>
+                                    <th style="width:30%">Produit</th>
+                                    <th style="width:5%" class="text-center">Couleur</th>
+                                    <th style="width:10%" class="text-center">Taille</th>
+                                    <th style="width:5%" class="text-center">Prix</th>
+                                    <th style="width:5%" class="text-center">Quantité</th>
+                                    <th style="width:10%" class="text-center">Temps restant</th>
+                                    <th style="width:10%" class="text-center">Sous total</th>
+                                    <th style="width:10% "class="text-center">Points gagnés</th>
+                                    <th style="width:25%"></th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                @foreach($reservations as $reservation)
+                                    <form class ="input-group" method="POST">
+                                        {{  csrf_field()  }}
+                                        <input name="productNumber" type="hidden" value="{{ $reservation->numProduit }}">
+                                        <input name="reservationNumber" type="hidden" value="{{ $reservation->numReservation }}">
 
-                                    <?php $rnd = rand();
-                                    $strrnd = (string)$rnd;
-                                    ?>
-                                    <p id = {{$strrnd}}>
-                                        <script> makeCounter("{{$rnd}}", "{{ $reservation->dateReservation }}" , "{{ $reservation->timeLeft }}" ) </script>
-                                    </p>
-                                </td>
-                                <td data-th="Subtotal" class="text-center"><b>{{$reservation->prixProduit*$reservation->qteReservation}}€</b></td>
-                                <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.10,1)}} </font>
-                                        <br> magasin: <font color="green"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.15,1)}} </font> </b> </td>
-                                <td class="actions" data-th="">
-                                    <button class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
-                                    <button class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
-                                </td>
-                            </tr>
-                            </form>
-                        </tbody>
-                    @endforeach
-                <tfoot>
-                <tr class="visible-xs">
-                    <td class="text-center"><strong>Total {{ $total }}€</strong></td>
-                </tr>
-                <tr>
-                    <td><a href="./../../" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuer vos achats</a></td>
-                    <td colspan="3  " class="hidden-xs"></td>
-                    <td class="hidden-xs text-center"><strong> Total {{ $total }}€ </strong></td>
+                                        <tr>
+                                            <td data-th="Product">
+                                                <div class="row">
+                                                    <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 "><img src="http://placehold.it/100x100" alt="..." class="img-responsive hidden-sm"/></div>
+                                                    <div class="col-lg-7 col-md-8 col-sm-6 col-xs-8">
+                                                <h4 class="nomargin"><b>{{$reservation->nomProduit}} </b></h4>
+                                                <p>{{$reservation->libelleProduit}}</p>
+                                                </div>
+                                            </div>
+                                            </td>
+                                            <td data-th="Color" class="text-center"> {{ $reservation->couleurProduit }} </td>
+                                            <td data-th="Size" class="text-center"> {{ $reservation->tailleProduit }}</td>
+                                            <td data-th="Price" class="text-center"><b>{{$reservation->prixProduit}}€</b></td>
+                                            <td data-th="Quantity" class="text-center">
+                                                <input type="number" class="form-control text-center " name="quantity" value={{$reservation->qteReservation}}>
+                                            </td>
+                                            <td class="text-center alert text-center" id=timery>
 
-                    <td><a href="./panier" class="btn btn-info btn-block"> Mon panier </a></td>
-                    <td><a href="./reservationsConfirmed" class="btn btn-success btn-block"> Finaliser votre réservation  <i class="fa fa-angle-right"></i></a></td>
-                </tr>
-                </tfoot>
-            </table>
+                                            <?php $rnd = rand();
+                                            $strrnd = (string)$rnd;
+                                            ?>
+                                            <p id = {{$strrnd}}>
+                                                <script> makeCounter("{{$rnd}}", "{{ $reservation->dateReservation }}" , "{{ $reservation->timeLeft }}" ) </script>
+                                            </p>
+                                            </td>
+                                            <td data-th="Subtotal" class="text-center"><b>{{$reservation->prixProduit*$reservation->qteReservation}}€</b></td>
+                                            <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.10,1)}} </font>
+                                                    <br> magasin: <font color="green"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.15,1)}} </font> </b> </td>
+                                            <td class="actions" data-th="">
+                                                <button class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
+                                                <button class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
+                                            </td>
+                                        </tr>
+                                    </form>
+                                </tbody>
+                            @endforeach
+                            <tfoot>
+                                <tr>
+                                    <td><a href="./../../" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuer vos achats</a></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class=" text-center"><strong> Total {{ $total }}€ </strong></td>
+                                    <td colspan="1  " class="hidden-xs"></td>
+                                    <td></td>
+                                    <td><a href="./panier" class="btn btn-info btn-block"> Mon panier </a></td>
+                                    <td><a href="./reservationsConfirmed" class="btn btn-success btn-block"> Finaliser votre réservation  <i class="fa fa-angle-right"></i></a></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
         </div>
 
     @endisset

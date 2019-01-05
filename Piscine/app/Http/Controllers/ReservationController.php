@@ -21,6 +21,7 @@ class ReservationController extends Controller
     public function show($id)
     {
         $id = Client::getIdClient();
+        $nbCompare = Client::calculNumberOfProductToCompare();
         $client = Client::getClientWithId($id);
         $reservations = Reservation::bookingsOfThisMailClient($client->mailClient);
         foreach ($reservations as $reservation) {
@@ -40,7 +41,7 @@ class ReservationController extends Controller
         }
         else {
             $total = $sum->total;
-            return view('myReservations')->with(['reservations' => $reservations, 'total' => $total, 'timeLeft' => $timeLeft, 'id' => $id]);
+            return view('myReservations')->with(['reservations' => $reservations, 'total' => $total, 'timeLeft' => $timeLeft, 'id' => $id,'nbCompare' => $nbCompare]);
         }
     }
 

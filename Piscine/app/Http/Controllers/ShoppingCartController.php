@@ -19,6 +19,7 @@ class ShoppingCartController extends Controller
     public function show($id)
     {
         $id = Client::getIdClient();
+        $nbCompare = Client::calculNumberOfProductToCompare();
         $client = Client::getClientWithId($id);
         $products = Panier::getPanierClient($client->mailClient);
         if($products->isEmpty()){
@@ -34,7 +35,7 @@ class ShoppingCartController extends Controller
 
         $total = $sum->total;
 
-        return view('myShoppingCart')->with(['products' => $products,'total' => $total ,'id' => $id]);
+        return view('myShoppingCart')->with(['products' => $products,'total' => $total ,'id' => $id,'nbCompare' => $nbCompare]);
     }
     public function selectForm(Request $request)
     {
@@ -67,8 +68,9 @@ class ShoppingCartController extends Controller
 
     public function showConfirmation($id)
     {
-        $client = Client::select('mailClient')->where('idClient',$id)->firstOrFail();
-
+        $id = Client::getIdClient();
+        $nbCompare = Client::calculNumberOfProductToCompare();
+        $client = Client::getClientWithId($id);
         $deliverablesProducts = Panier::where('mailClient',$client->mailClient)
             ->where('datePanier','=',null)
             ->join('commandes', 'commandes.numPanier', '=', 'paniers.numPanier')
@@ -95,16 +97,16 @@ class ShoppingCartController extends Controller
 
         // case 1 : [se faire livrer le maximum] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
         if (!($deliverablesProducts->isEmpty()) and !($undeliverablesProducts->isEmpty())) {
-            return view('confirmShoppingCart')->with(['id' => $id, 'deliverablesProducts' => $deliverablesProducts, 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'deliverablesProducts' => $deliverablesProducts, 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare]);
         }
         // case  2 all deliverables : [tout se faire livrer] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
         elseif (!($deliverablesProducts->isEmpty()) and $undeliverablesProducts->isEmpty()) {
-            return view('confirmShoppingCart')->with(['id' => $id, 'productCase2' => $deliverablesProducts, 'total' => $total]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'productCase2' => $deliverablesProducts, 'total' => $total,'nbCompare' => $nbCompare]);
 
         }
         // case 3 all undeliverables : [tout récupérer chez les vendeurs]
         elseif ($deliverablesProducts->isEmpty() and !($undeliverablesProducts->isEmpty())){
-            return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare]);
         }
         else{
             return "Error unknown case";
@@ -152,7 +154,7 @@ class ShoppingCartController extends Controller
             $this->substractStocks($commande->numProduit,$commande->qteCommande);
             Detenir::where('numCommande',$commande->numCommande)->where('numProduit',$commande->numProduit)->update(['livrer' => 1]);
         }
-        Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($total*0.10,1)]);
+        Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($total*0.15,1)]);
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
         Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
         return 'success';

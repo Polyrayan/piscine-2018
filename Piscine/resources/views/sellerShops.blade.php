@@ -42,7 +42,7 @@
                                     <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
                                     <!favorite>
                                     @if ($shop->numSiretCommerce == $favoriteShop)
-                                        <button class="btn bg-light" name="favorite"><i class="fas fa-star"></i>
+                                        <button class="btn bg-light" name="favorite"><i class="fas fa-star"></i></button>
                                     @else
                                         <button class="btn bg-light" name="favorite"> <i class="far fa-star"></i> </button>
                                     @endif

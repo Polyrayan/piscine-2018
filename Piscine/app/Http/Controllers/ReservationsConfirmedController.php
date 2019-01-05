@@ -25,6 +25,7 @@ class ReservationsConfirmedController extends Controller
     public function show($id)
     {
         $id = Client::getIdClient();
+        $nbCompare = Client::calculNumberOfProductToCompare();
         $client = Client::getClientWithId($id);
         $reservations = Reservation::bookingsOfThisMailClient($client->mailClient);
 
@@ -67,7 +68,7 @@ class ReservationsConfirmedController extends Controller
 
         }
 
-        return view('reservationsConfirmed')->with(['id' => $id]);
+        return view('reservationsConfirmed')->with(['id' => $id,'nbCompare' => $nbCompare]);
 
     }
 

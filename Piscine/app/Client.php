@@ -15,7 +15,7 @@ class Client extends Authenticatable
     protected $guard = 'client';
 
     protected $fillable = ['mailClient','mdpClient','nomClient','prenomClient','telClient','sexeClient','dateNaissanceClient',
-                         'adresseClient','codePostalClient','villeClient','idClient'];
+                         'adresseClient','codePostalClient','villeClient','idClient','produit1','produit2'];
     protected $hidden = ['mdpClient'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
@@ -116,7 +116,7 @@ class Client extends Authenticatable
     }
 
     public static function getMyAddress(){
-        $client = self::where('mailClient',self::getMailClient())->firstOrFail();
+        $client = self::where('mailClient',self::getMailClient())->first();
         return "$client->adresseClient , $client->villeClient ";
     }
 
@@ -126,6 +126,119 @@ class Client extends Authenticatable
 
     public static function getClientWithId($id){
         return self::where('idClient',$id)->firstOrFail();
+    }
+
+    public static function getFirstProductToCompare(){
+        return Auth::guard('client')->user()->produit1;
+    }
+
+    public static function getSecondProductToCompare(){
+        return Auth::guard('client')->user()->produit2;
+    }
+    public static function product1And2IsEmpty(){
+        $product1 = self::getFirstProductToCompare();
+        $product2 = self::getSecondProductToCompare();
+        if (empty($product1) and empty($product2)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static function product1Or2IsEmpty(){
+        $product1 = self::getFirstProductToCompare();
+        $product2 = self::getSecondProductToCompare();
+        if (empty($product1) or empty($product2)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static function addAsProduct1($productNumber){
+        return self::where('idClient',self::getIdClient())->update(['produit1'=> $productNumber]);
+    }
+
+    public static function addAsProduct2($productNumber){
+        return self::where('idClient',self::getIdClient())->update(['produit2'=> $productNumber]);
+    }
+
+    public static function categoryOfNotEmptyProduct(){
+        $product1 = self::getFirstProductToCompare();
+        $product2 = self::getSecondProductToCompare();
+        if (!empty($product1)){
+            $firstProduct = Produit::productWithId($product1);
+            return $firstProduct->nomTypeProduit;
+        }
+        if (!empty($product2)){
+            $secondProduct = Produit::productWithId($product2);
+            return $secondProduct->nomTypeProduit;
+        }
+    }
+
+    public static function categoryOfProduct1(){
+        $product1 = Auth::guard('client')->user()->produit1;
+        $firstProduct = Produit::productWithId($product1);
+        return $firstProduct->nomTypeProduit;
+    }
+
+    public static function categoryOfProduct2(){
+        $product2 = Auth::guard('client')->user()->produit2;
+        $secondProduct = Produit::productWithId($product2);
+        return $secondProduct->nomTypeProduit;
+    }
+
+    public static function product1isEmpty(){
+        $product1 = self::getFirstProductToCompare();
+        if (empty($product1)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static function product2isEmpty(){
+        $product2 = self::getSecondProductToCompare();
+        if (empty($product2)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static function deleteProduct1(){
+        return self::where('idClient',self::getIdClient())->update(['produit1'=> null]);
+    }
+
+    public static function deleteProduct2(){
+        return self::where('idClient',self::getIdClient())->update(['produit2'=> null]);
+    }
+
+    public static function NoneEmptyProducts1And2(){
+        $product1 = self::getFirstProductToCompare();
+        $product2 = self::getSecondProductToCompare();
+        if (!empty($product1) and !empty($product2)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static function calculNumberOfProductToCompare(){
+        $nb = 0;
+        if (!empty(Auth::guard('client')->user()->produit1)){
+            $nb++;
+        }
+        if (!empty(Auth::guard('client')->user()->produit2)){
+            $nb++;
+        }
+        return $nb;
+
     }
 
 }

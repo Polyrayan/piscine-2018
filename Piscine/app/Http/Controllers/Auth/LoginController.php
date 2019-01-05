@@ -73,7 +73,7 @@ class LoginController extends Controller
         ]);
 
         if($login){
-            return redirect('/client/profil');
+            return redirect('/');
         }
         return back()->withInput()->withErrors(['mailClient' => "Email ou mot de passe incorrect",]);
     }

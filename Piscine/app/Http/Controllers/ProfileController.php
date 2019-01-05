@@ -6,11 +6,7 @@ use App\Appartenir;
 use App\Avis;
 use App\Client;
 use App\Commande;
-
-use App\Commerce;
-use App\Detenir;
 use App\Panier;
-use App\Produit;
 use App\Reduction;
 use App\Vendeur;
 use Jenssegers\Date\Date;
@@ -27,6 +23,7 @@ class ProfileController extends Controller
         $id = Client::getIdClient();
         $client = Client::getClientWithId($id);
         $points = Reduction::getReductionPoints($client->mailClient);
+        $nbCompare = Client::calculNumberOfProductToCompare();
         $history = Commande::completedOrders($id);
         foreach ($history as $his){
             $his->store = Commerce::nameOfThisShop($his->numSiretCommerce);
@@ -41,8 +38,9 @@ class ProfileController extends Controller
             $his->produits = $aux;
         }
         //return $history;
-        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points, 'id' => $id, 'completedOrders' => $history]);
+        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points, 'id' => $id, 'completedOrders' => $history,'nbCompare' => $nbCompare]);
     }
+
 
     public function idClient($id){
         $client = Client::getClientWithId($id);
@@ -51,9 +49,10 @@ class ProfileController extends Controller
 
     public function purchaseClient($id)
     {
+        $nbCompare = Client::calculNumberOfProductToCompare();
         $client = Client::getClientWithId($id);
         $commandes = Panier::getPurchaseOfThisMailClient($client->mailClient);
-        return view('myPurchases', ['id' => $id,'commandes' => $commandes, 'client' => $client]);
+        return view('myPurchases', ['id' => $id,'commandes' => $commandes, 'client' => $client,'nbCompare' => $nbCompare]);
     }
     public function selectForm(Request $request)
     {
@@ -77,7 +76,7 @@ class ProfileController extends Controller
     public function rating($mailClient,$productNumber,$mark,$comment){
 
 
-        return back();
+         return back();
     }
 
     public function idVendeur($id){

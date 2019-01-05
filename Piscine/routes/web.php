@@ -21,13 +21,13 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function () {
 Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
 
     Route::get('/','HomeController@show');
-    Route::post('/','ShopController@selectForm');
+    Route::post('/','HomeController@selectForm');
 
     Route::get('/1','testController@show');
     Route::get('/1/action','testController@action')->name('testController.action');
 
-    Route::get('/client/{id}/profil','ProfileController@show');
-    Route::post('/client/{id}/profil','ProfileController@selectForm');
+    Route::get('/client/profil','ProfileController@show');
+    Route::post('/client/profil','ProfileController@selectForm');
 
     Route::get('/client/{id}/reservations', 'ReservationController@show' );
     Route::post('/client/{id}/reservations', 'ReservationController@selectForm' );
@@ -43,6 +43,9 @@ Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
 
     Route::get('/commerces/{numSiretCommerce}','ShopController@numSiret');
     Route::post('/commerces/{numSiretCommerce}','ShopController@selectForm');
+
+    Route::get('/MesComparaisons','CompareController@show');
+    Route::post('/MesComparaisons','CompareController@delete');
 
     Route::get('/client/{id}/reservationsConfirmed','ReservationsConfirmedController@show');
 
@@ -90,3 +93,5 @@ Route::get('/vendeur/{id}','ProfileController@idVendeur');
 
 Route::get('/produits/{id}','ProductController@show');
 Route::post('/produits/{id}','ProductController@selectForm');
+
+

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  ven. 04 jan. 2019 à 03:44
+-- Généré le :  sam. 05 jan. 2019 à 08:15
 -- Version du serveur :  10.2.3-MariaDB-log
 -- Version de PHP :  7.1.1
 
@@ -103,18 +103,20 @@ CREATE TABLE `clients` (
   `numReduction` int(11) DEFAULT NULL,
   `sexeClient` char(5) NOT NULL,
   `dateNaissanceClient` date NOT NULL,
-  `idClient` int(5) NOT NULL
+  `idClient` int(5) NOT NULL,
+  `produit1` int(11) DEFAULT NULL,
+  `produit2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `clients`
 --
 
-INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `numReduction`, `sexeClient`, `dateNaissanceClient`, `idClient`) VALUES
-('a@gmail.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', 'zqohqfohoqf', 'qvnqlkknv', '37000', '0685404708', NULL, 'male', '1999-03-03', 1),
-('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '15 rue', 'Toulouse', '15000', '06', NULL, 'male', '1666-05-25', 6),
-('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', NULL, 'male', '1996-06-28', 2),
-('zzz@g.com', 'b', 'bahroun', '$2y$10$YAY5R3Vi.JrQr4MH2M4Zl.3HtlJmkihvIiRsEYK4JNX4pPESD3j.a', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '06854047080', NULL, 'male', '0001-06-06', 11);
+INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `numReduction`, `sexeClient`, `dateNaissanceClient`, `idClient`, `produit1`, `produit2`) VALUES
+('a@gmail.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', 'zqohqfohoqf', 'qvnqlkknv', '37000', '0685404708', NULL, 'male', '1999-03-03', 1, NULL, NULL),
+('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '15 rue', 'Toulouse', '15000', '06', NULL, 'male', '1666-05-25', 6, NULL, NULL),
+('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', NULL, 'male', '1996-06-28', 2, 1, 2),
+('zzz@g.com', 'b', 'bahroun', '$2y$10$YAY5R3Vi.JrQr4MH2M4Zl.3HtlJmkihvIiRsEYK4JNX4pPESD3j.a', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '06854047080', NULL, 'male', '0001-06-06', 11, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -144,7 +146,9 @@ INSERT INTO `commandes` (`numCommande`, `prixCommande`, `prixReduitCommande`, `p
 (14, '89.99', NULL, NULL, '2018-11-25 13:18:54', '22222222222222', 6, 'traitement'),
 (15, '11.75', NULL, NULL, '2018-11-28 21:17:40', '11111111111111', 7, 'traitement'),
 (18, '15.4', NULL, NULL, NULL, '11111111111111', 8, NULL),
-(19, '89.99', NULL, NULL, NULL, '22222222222222', 8, NULL);
+(19, '89.99', NULL, NULL, NULL, '22222222222222', 8, NULL),
+(20, '1080', NULL, NULL, NULL, '22222222222222', 9, NULL),
+(21, '8', NULL, NULL, NULL, '11111111111111', 9, NULL);
 
 -- --------------------------------------------------------
 
@@ -193,7 +197,8 @@ CREATE TABLE `contenir` (
 INSERT INTO `contenir` (`numReservation`, `numProduit`, `qteReservation`) VALUES
 (25, 1, 2),
 (27, 1, 10),
-(28, 1, 2);
+(28, 1, 2),
+(29, 14, 2);
 
 -- --------------------------------------------------------
 
@@ -245,7 +250,9 @@ INSERT INTO `detenir` (`numCommande`, `numProduit`, `livrer`, `qteCommande`) VAL
 (16, 2, NULL, '1'),
 (17, 1, NULL, '1'),
 (18, 2, NULL, '2'),
-(19, 5, NULL, '1');
+(19, 5, NULL, '1'),
+(20, 0, NULL, '2'),
+(20, 7, NULL, '3');
 
 -- --------------------------------------------------------
 
@@ -331,7 +338,8 @@ INSERT INTO `paniers` (`numPanier`, `datePanier`, `prixPanier`, `prixReduitPanie
 (5, '2018-11-20 23:46:43', 929.9, NULL, NULL, 'r@g.com'),
 (6, '2018-11-25 13:18:54', 98.83999999999999, NULL, '14.6', 'r@g.com'),
 (7, '2018-11-28 21:17:40', 11.75, NULL, '1.2', 'r@g.com'),
-(8, NULL, 95.99, NULL, NULL, 'r@g.com');
+(8, NULL, 95.99, NULL, NULL, 'r@g.com'),
+(9, NULL, 359.96, NULL, NULL, 'r@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -367,7 +375,7 @@ INSERT INTO `produits` (`numProduit`, `nomProduit`, `libelleProduit`, `qteStockP
 (5, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 50, 50, 0, '89.99', '22222222222222', 'Meuble', 'marron', '200x80x100', NULL, 4, ''),
 (6, 'frites', 'barquette de frites', 106, 97, 1, '1.5', '11111111111111', 'Nourriture', NULL, 'petite', NULL, 5, ''),
 (7, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 50, 50, 0, '89.99', '22222222222222', 'Meuble', 'bleu', '200x80x100', NULL, 4, ''),
-(14, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 60, 60, 0, '89.99', '22222222222222', 'Meuble', 'rouge', '200x80x100', NULL, 4, ''),
+(14, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 60, 58, 0, '89.99', '22222222222222', 'Meuble', 'rouge', '200x80x100', NULL, 4, ''),
 (16, 'frites', 'barquette de frites', 106, 97, 1, '2', '11111111111111', 'Nourriture', NULL, 'moyenne', NULL, 5, ''),
 (17, 'frites', 'barquette de frites', 106, 97, 1, '2.5', '11111111111111', 'Nourriture', NULL, 'grande', NULL, 5, '');
 
@@ -425,7 +433,8 @@ INSERT INTO `reservations` (`numReservation`, `dateReservation`, `mailClient`) V
 (25, '2018-11-20 15:00:16', 'r@g.com'),
 (26, '2018-12-13 19:31:38', 'r@g.com'),
 (27, '2018-12-13 20:05:50', 'r@g.com'),
-(28, '2019-01-03 15:22:12', 'r@gmail.com');
+(28, '2019-01-03 15:22:12', 'r@gmail.com'),
+(29, '2019-01-05 01:23:45', 'r@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -454,7 +463,7 @@ CREATE TABLE `typeproduits` (
 --
 
 INSERT INTO `typeproduits` (`nomTypeProduit`, `tempsReservation`) VALUES
-('Meuble', '10080'),
+('Meuble', '96'),
 ('Nourriture', '1');
 
 -- --------------------------------------------------------
@@ -655,7 +664,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT pour la table `commandes`
 --
 ALTER TABLE `commandes`
-  MODIFY `numCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `numCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `jours`
@@ -673,7 +682,7 @@ ALTER TABLE `ouvrir`
 -- AUTO_INCREMENT pour la table `paniers`
 --
 ALTER TABLE `paniers`
-  MODIFY `numPanier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `numPanier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `produits`
@@ -691,7 +700,7 @@ ALTER TABLE `reductions`
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `numReservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `numReservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT pour la table `tags`

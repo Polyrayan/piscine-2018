@@ -17,20 +17,17 @@ use App\Commerce;
 class ProductController extends Controller
 {
 
-  public function show($id)
-  {
-      $mailClient = Client::getMailClient();
-      $product = Produit::productWithId($id);
-      $avis = Avis::allReviewsOfThisProduct($id);
-      $commerce = Commerce::shopWithSiret($product->numSiretCommerce);
-      $noteMoy = Produit::noteMoy($avis);
-      //ajout de toute les couleurs
-      $allProducts = Produit::all();
-      $product->colors = $product->addColors($allProducts);
-      
-      $id = Client::getIdClient();
-      return view('product')->with(['product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'mailClient' => $mailClient, 'id' => $id]);
-  }
+    public function show($id)
+    {
+        $product = Produit::productWithId($id);
+        $avis = Avis::allReviewsOfThisProduct($id);
+        $commerce = Commerce::shopWithSiret($product->numSiretCommerce);
+        $noteMoy = Produit::noteMoy($avis);
+        $products = Produit::productsOfThisGroup($product->numGroupeVariante);
+        $nbCompare = Client::calculNumberOfProductToCompare();
+        $id = Client::getIdClient();
+        return view('product')->with(['products' => $products ,'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'id' => $id,'nbCompare' => $nbCompare]);
+    }
 
     public function selectForm(Request $request)
     {
@@ -43,34 +40,21 @@ class ProductController extends Controller
             return $this->deleteQuantity(request('reservationNumber'),request('productNumber'));
 
         } elseif ($request->has('add')) {
+            request()->validate(['quantity' => ['bail', 'required', 'min:0', 'max:99999']]);
 
-            if(null == request('quantity')){
-              return back()->withInput()->withErrors(['qte' => "Veuillez choisir une quantité",]);
-            }
+            $product = Produit::productWithId(request('variant'));
 
-            if("rien" == request('color')){
-              return back()->withInput()->withErrors(['color' => "Veuillez choisir une couleur",]);
-            }
+            $panier = Panier::firstOrNewPanier(Client::getMailClient());
+            Panier::addPriceToThisShoppingCart($panier, $product->prixProduit, request('quantity'));
 
-            $productNumber = Produit::whichProduct(); // fonction a tester
-            //$product = Produit::productWithId(request('product')); // sans passer par la fonction (ne marche pass pour $detenir)
+            $commande = Commande::firstOrNewCommande($panier, $product->numSiretCommerce );
+            Commande::addPriceToThisOrder($commande, $product->prixProduit, request('quantity'));
 
-            request()->validate([
-                'quantity' => ['bail', 'required', 'min:0']
-            ]);
+            $detenir = Detenir::firstOrNewDetenir($commande, $product->numProduit);
+            Detenir::storeQuantity($detenir, request('quantity'));
 
-            $panier = Panier::firstOrNewPanier(request('mailClient'));
-            Panier::addPriceToThisShoppingCart($panier,request('productPrice'),request('quantity'));
-
-            $commande = Commande::firstOrNewCommande($panier,request('numSiret'));
-            Commande::addPriceToThisOrder($commande,request('productPrice'),request('quantity'));
-
-            $detenir = Detenir::firstOrNewDetenir($commande,$productNumber); //request('product') == $product->numProduit
-            Detenir::storeQuantity($detenir,request('quantity'));
-
+            flash("Nouvel ajout au panier ")->success();
             return back();
         }
-
     }
-
 }

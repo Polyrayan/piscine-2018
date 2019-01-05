@@ -11,13 +11,13 @@
                 <div class="card bg-light mb-3">
                     <div class="card-body">
                         <center>
-                        <a href="" data-toggle="modal" data-target="#productModal">
-                            @if(empty($product->imageProduit))
-                                <img src="http://placehold.it/100x100" style="width:410px; height: 410px;" alt="..." class=" img img-thumbnail"/>
-                            @else
-                                <img class="img-fluid" src="{{$product->imageProduit}}" style="width:410px; height: 410px;"/>
-                            @endif
-                        </a>
+                            <a href="" data-toggle="modal" data-target="#productModal">
+                                @if(empty($product->imageProduit))
+                                    <img src="http://placehold.it/100x100" style="width:410px; height: 410px;" alt="..." class=" img img-thumbnail"/>
+                                @else
+                                    <img class="img-fluid" src="{{$product->imageProduit}}" style="width:410px; height: 410px;"/>
+                                @endif
+                            </a>
                             <h3 class="nom" >{{$product->nomProduit}}</h3>
                         </center>
                     </div>
@@ -31,49 +31,46 @@
                         <p class="price">Prix unitaire : {{$product->prixProduit}} €</p>
 
                         <form action="" method="post" >
-                          {{  csrf_field()  }}
-                          @if(!empty($product->couleurProduit))
+                            {{  csrf_field()  }}
                             <div class="form-group">
-                                <label for="colors">Color</label>
-                                <select name="color" class="custom-select" id="colors">
-                                    <option value="rien" selected>Choisissez une couleur</option>
-                                    @foreach($product->colors as $color)
-                                        <option value="{{$color}}"> {{$color}}</option>
-                                    @endforeach
-                                </select>
+                                    <label for="colors">Variantes : </label>
+                                    <select name="variant" class="custom-select" id="colors">
+                                        <option selected>Choisissez une variante</option>
+                                        @foreach($products as $product)
+                                            <option value="{{$product->numProduit}}"> {{$product->couleurProduit}} {{$product->tailleProduit}}</option>
+                                        @endforeach
+                                    </select>
                             </div>
-                            @endif
-                            @if ($errors->has('color'))
-                              <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('color') }} </div>  </small>
+                            @if ($errors->has('variant'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('variant') }} </div>  </small>
                             @endif
                             <div class="form-group">
                                 <label>Quantity :</label>
                                 <div class="input-group mb-3">
-
-                                    <input type="text" class="form-control"  id="quantity" name="quantity" min="1" max="100" value="{{ old('quantity') }}">
-
+                                    <input type="text" class="form-control"  id="quantity" name="quantity" min="1" max="100" value="1">
                                 </div>
                                 @if ($errors->has('qte'))
-                                  <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('qte') }} </div>  </small>
+                                    <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('qte') }} </div>  </small>
                                 @endif
-                            <input type="hidden" name="mailClient" value="{{$mailClient}}">
-                            <input type="hidden" name="productPrice" value="{{$product->prixProduit}}">
-                            <input type="hidden" name="productNumber" value="{{$product->numProduit}}">
-                            <input name="numSiret" type="hidden" value="{{ $product->numSiretCommerce }}">
-
 
                             </div>
-                            <button name="add" class="btn btn-success btn-lg btn-block text-uppercase">
-                                <i class="fa fa-shopping-cart"></i> Ajouter au panier
-                            </button>
-                            <a class="pull-right" href="..\client\{{$id}}\panier">Voir mon panier</a>
+                            <div class="row">
+                                <div class="col-lg-12 btn-group">
+                                    <button name="add" class="btn btn-success btn-lg btn-block text-uppercase">
+                                        <i class="fa fa-shopping-cart"></i> Ajouter au panier
+                                    </button>
+                                </div>
+                            </div>
 
                         </form>
                         <div class="product_rassurance">
                             <ul class="list-inline">
-                                <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br/>Livraison rapide</li>
-                                <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br/>Paiement sécurisé</li>
-                                <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br/><a class="nomargin" href="">{{$commerce->telCommerce}}</a></li>
+                                <div class="text-center">
+                                    <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br/>Livraison rapide</li>
+                                    <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br/>Paiement sécurisé</li>
+                                    <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br/><a class="nomargin" href=""> {{$commerce->telCommerce}} </a></li>
+                                </div>
+
                             </ul>
                         </div>
                         <div class="reviews_product p-3 mb-2 ">
@@ -123,31 +120,31 @@
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-comment"></i> AVIS</div>
                     <div class="card-body">
                         @foreach($avis as $_avis)
-                        <div class="review">
-                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                            <meta itemprop="datePublished" content="01-01-2016"> le {{$_avis->dateAvis}}
+                            <div class="review">
+                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                <meta itemprop="datePublished" content="01-01-2016"> le {{$_avis->dateAvis}}
 
-                            @if($_avis->noteAvis >= 2)
-                                <i class="fa fa-star"></i>
-                            @endif
-                            @if($_avis->noteAvis>=4)
-                                <i class="fa fa-star"></i>
-                            @endif
-                            @if($_avis->noteAvis>=6)
-                                <i class="fa fa-star"></i>
-                            @endif
-                            @if($_avis->noteAvis>=8)
-                                <i class="fa fa-star"></i>
-                            @endif
-                            @if($_avis->noteAvis == 10)
-                                <i class="fa fa-star"></i>
-                            @endif
-                            note : {{$_avis->noteAvis}}/10
-                            <p class="blockquote">
-                            <p class="mb-0"> {{$_avis->commentaireAvis}}</p>
-                            </p>
-                            <hr>
-                        </div>
+                                @if($_avis->noteAvis >= 2)
+                                    <i class="fa fa-star"></i>
+                                @endif
+                                @if($_avis->noteAvis>=4)
+                                    <i class="fa fa-star"></i>
+                                @endif
+                                @if($_avis->noteAvis>=6)
+                                    <i class="fa fa-star"></i>
+                                @endif
+                                @if($_avis->noteAvis>=8)
+                                    <i class="fa fa-star"></i>
+                                @endif
+                                @if($_avis->noteAvis == 10)
+                                    <i class="fa fa-star"></i>
+                                @endif
+                                note : {{$_avis->noteAvis}}/10
+                                <p class="blockquote">
+                                <p class="mb-0"> {{$_avis->commentaireAvis}}</p>
+                                </p>
+                                <hr>
+                            </div>
                         @endforeach
 
                     </div>
