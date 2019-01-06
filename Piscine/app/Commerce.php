@@ -69,4 +69,30 @@ class Commerce extends Model
         $shop = self::where('numSiretCommerce',$siret)->firstOrFail();
         return $shop->villeCommerce;
     }
+
+    public static function validateEditCommerce(){
+        request()->validate([
+            'code' => ['bail','required','min:6'],
+            'name' => ['bail','required','string'],
+            'libelle' => ['bail','required','string'],
+            'numTel' => ['bail','required','numeric'],
+            'adresse' => ['bail','required','string'],
+            'ville' => ['bail','required','string'],
+            'codePostal' => ['bail','required','numeric'],
+            'region' => ['bail','required']
+        ]);
+      }
+
+    public static function editCommerce(){
+        self::where('numSiretCommerce',request('siret'))
+            ->update(['nomCommerce'=> request('name') ,
+                'libelleCommerce'=> request('libelle'),
+                'adresseCommerce' => request('adresse'),
+                'villeCommerce' => request('ville'),
+                'codePostalCommerce' => request('codePostal'),
+                'regionCommerce' => request('region'),
+                'telCommerce' => request('numTel'),
+                'codeRecrutement' => request('code'),
+            ]);
+    }
 }

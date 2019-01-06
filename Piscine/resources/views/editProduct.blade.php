@@ -19,6 +19,9 @@
                             <div class="input-group">
 				                <input type="text" class="form-control" name="name" value="{{$product->nomProduit}}" />
 							</div>
+							@if ($errors->has('name'))
+								<div class="alert alert-danger" role="alert"> Le nom ne doit pas etre vide </div>
+						@endif
 						</div>
 
 						<div class="form-group">
@@ -26,6 +29,9 @@
 								<div class="input-group">
                                     <textarea type="text" class="form-control" rows="2" name="libelle" value="{{$product->libelleProduit}}" />{{$product->libelleProduit}}</textarea>
 							    </div>
+									@if ($errors->has('libelle'))
+										<div class="alert alert-danger" role="alert"> Le libellé ne doit pas etre vide </div>
+								@endif
 						</div>
 
 						<div class="form-group">
@@ -33,6 +39,9 @@
 								<div class="input-group">
 									<input type="text" class="form-control" name="qteStockProduit" value="{{$product->qteStockProduit}}" />
 								</div>
+								@if ($errors->has('qteStockProduit'))
+									<div class="alert alert-danger" role="alert"> La quantité ne doit pas etre vide (peut être égale à 0) </div>
+							@endif
 						</div>
 
                         <div class="form-group ">
@@ -60,6 +69,9 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="prix" value="{{$product->prixProduit}}" />
                                 </div>
+																@if ($errors->has('prix'))
+																	<div class="alert alert-danger" role="alert"> Le prix ne doit pas etre vide </div>
+															@endif
                         </div>
 
                         <div class="form-group">

@@ -81,6 +81,9 @@ Route::group(['middleware' => 'App\Http\Middleware\Vendeur'], function () {
     Route::get('/vendeur/profil','ProfileController@showSeller');
     Route::post('/vendeur/profil','ProfileController@selectForm');
 
+    Route::get('/vendeur/commerces/modifier/{id}','ShopController@editCommerce');
+    Route::post('/vendeur/commerces/modifier/{id}','ShopController@selectForm');
+
     Route::get('/vendeur/deconnexion','Auth\LoginController@logoutSeller');
 });
 

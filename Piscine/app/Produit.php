@@ -297,6 +297,16 @@ class Produit extends Model
         }
     }
 
+    public static function validateEditProduct(){
+        request()->validate([
+            'name' => ['bail', 'required'],
+            'libelle' => ['bail', 'required'],
+            'qteStockProduit' => ['bail', 'required', 'int'],
+            'delivery' => ['bail', 'required'],
+            'prix' => ['bail', 'required', 'numeric'],
+        ]);
+    }
+
     public static function editProduct(){
         self::where('numProduit',request('id'))
             ->update(['nomProduit'=> request('name') ,

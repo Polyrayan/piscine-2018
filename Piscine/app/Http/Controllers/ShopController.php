@@ -65,6 +65,9 @@ class ShopController extends Controller
             return back();
         }
 
+        elseif ($request->has('editCommerce')) {
+          return redirect('/vendeur/commerces/modifier/'.request('siretNumber'));
+          }
         // view myShop
 
         elseif ($request->has('add')) {
@@ -77,6 +80,7 @@ class ShopController extends Controller
           if(request('variant') == null){
           return redirect('/vendeur/commerces/produit/'.request('variant'));
           }
+
           else{
             return redirect('/vendeur/commerces/produit/'.request('product'));
 
@@ -102,8 +106,17 @@ class ShopController extends Controller
 
         // post de la vue pour modifier un produit deja créé(bouton jaune)
         elseif ($request->has('editMyProduct')) {
+            Produit::validateEditProduct();
             Produit::editProduct();
             flash("Modification du produit effectuée ! ")->success();
+            return back();
+        }
+
+        // post de la vue pour modifier un commerce
+        elseif ($request->has('Commerce')) {
+            Commerce::validateEditCommerce();
+            Commerce::editCommerce();
+            flash("Modification du commerce effectuée ! ")->success();
             return back();
         }
     }
@@ -231,6 +244,15 @@ class ShopController extends Controller
         Commerce::createShop();
         Appartenir::createAppartenir(request('numSiret'), request('sellerMail'));
         return redirect('/vendeur/commerces');
+    }
+
+    public function editCommerce($siretNumber){
+
+      $favoriteShop = Vendeur::getMyFavoriteShop();
+      $adminConnected = Admin::isConnected();
+      $shop = Commerce::shopWithSiret($siretNumber);
+
+      return view('editCommerce', ['favoriteShop' => $favoriteShop,'adminConnected' => $adminConnected, 'shop' => $shop]);
     }
 
 }
