@@ -102,3 +102,7 @@ Route::get('/vendeur/{id}','ProfileController@idVendeur');
 
 Route::get('/produits/{id}','ProductController@show');
 Route::post('/produits/{id}','ProductController@selectForm');
+
+Route::get('/contact', 'ContactController@show');
+
+Route::get('/credits', 'CreditsController@show');
