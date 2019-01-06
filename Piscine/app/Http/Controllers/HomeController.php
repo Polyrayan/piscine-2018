@@ -10,6 +10,8 @@ use App\Panier;
 use App\Produit;
 use App\Reservation;
 
+use App\TypeProduit;
+use function foo\func;
 use Illuminate\Http\Request;
 use App\Client;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +26,10 @@ class HomeController extends Controller
         $mailClient = Client::getMailClient();
         $id = Client::getIdClient();
         $nbCompare = Client::calculNumberOfProductToCompare();
-        $products = Produit::productsGroupedByVariant();
+        $products = Produit::productsGroupedByVariantPaginate();
         $coordinatesOfClient = Geocoder::getCoordinatesForAddress(Client::getMyAddress());
         $allProducts = Produit::all();
+        $categories = TypeProduit::orderBy('nomTypeProduit')->get();
         foreach ($products as $product) {
             //distance
             $product->addDistance($coordinatesOfClient);
@@ -37,7 +40,7 @@ class HomeController extends Controller
             //sizes
             $product->sizes = $product->addSizes($allProducts);
         }
-        return view('welcome', ['products' => $products, 'allProducts' =>$allProducts, 'mailClient' => $mailClient, 'id' => $id, 'nbCompare' => $nbCompare]);
+        return view('welcome', ['products' => $products, 'allProducts' =>$allProducts, 'mailClient' => $mailClient, 'id' => $id, 'nbCompare' => $nbCompare, 'categories' => $categories]);
     }
 
     public function selectForm(Request $request)
@@ -72,6 +75,54 @@ class HomeController extends Controller
             return back();
         } elseif ($request->has('compare')) {
             return $this->addToCompare();
+
+        } elseif ($request->has('searchProducts')) {
+
+
+            $search = request('search');
+            $category = request('category');
+            $min = request('minSearch');
+            $max = request('maxSearch');
+            $region = request('region');
+            $city = request('citySearch');
+            $results = Produit::join('commerces', 'commerces.numSiretCommerce', '=','produits.numSiretCommerce')
+            ->when(!empty($search), function ($query) use ($search) {
+                return $query->where('nomProduit', 'like', '%' . $search . '%')->orWhere('couleurProduit', 'like', '%' . $search . '%')
+                    ->orWhere('tailleProduit', 'like', '%' . $search . '%')
+                    ->orWhere('libelleProduit', 'like', '%' . $search . '%')
+                    ->orWhere('marqueProduit', 'like', '%' . $search . '%');
+            })->when($category != "Toutes catégories", function ($query) use ($category){
+                return $query->where('nomTypeProduit',$category);
+            })->when(!empty($min) , function ($query) use($min) {
+                return $query->where('prixProduit','>=',$min);
+            })->when(!empty($max) , function ($query) use($max) {
+                return $query->where('prixProduit', '<=', $max);
+            })->when(!empty($city) , function ($query) use($city) {
+                return $query->where('villeCommerce', $city);
+            })->when(!empty($region) and $region != "Languedoc-Roussillon" , function ($query) use($region) {
+                return $query->where('regionCommerce', $region);
+            })->groupBy('numGroupeVariante')->paginate();
+
+            //return $results;
+            $categories = TypeProduit::orderBy('nomTypeProduit')->get();
+            $mailClient = Client::getMailClient();
+            $id = Client::getIdClient();
+            $nbCompare = Client::calculNumberOfProductToCompare();
+            $coordinatesOfClient = Geocoder::getCoordinatesForAddress(Client::getMyAddress());
+            $allProducts = Produit::all();
+            foreach ($results as $product) {
+                //distance
+                $product->addDistance($coordinatesOfClient);
+                //city
+                $product->addCity();
+                //colors
+                $product->colors = $product->addColors($allProducts);
+                //sizes
+                $product->sizes = $product->addSizes($allProducts);
+            }
+            return view('welcome', ['products' => $results , 'allProducts' =>$allProducts, 'mailClient' => $mailClient,
+                'id' => $id, 'nbCompare' => $nbCompare , 'categories' => $categories, 'search' => $search, 'category' => $category,
+                'min' => $min, 'max' => $max, 'region' => $region , 'city' => $city]);
         }
     }
 

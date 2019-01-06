@@ -6,22 +6,20 @@ use App\Appartenir;
 use App\Avis;
 use App\Client;
 use App\Commande;
-use App\Commerce;
-use App\Detenir;
 use App\Panier;
-use App\Produit;
 use App\Reduction;
 use App\Vendeur;
-use Jenssegers\Date\Date;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Commerce;
+use App\Detenir;
+use App\Produit;
+use App\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
 
-    public function show()
+    public function showClient()
     {
         $id = Client::getIdClient();
         $client = Client::getClientWithId($id);
@@ -35,15 +33,43 @@ class ProfileController extends Controller
             foreach ($detenirs as $detenir) {
                 $nomProduit = Produit::productWithId($detenir->numProduit)->nomProduit;
                 $numProduit = Produit::productWithId($detenir->numProduit)->numProduit;
+                $couleur = Produit::productWithId($detenir->numProduit)->couleurProduit;
+                $taille = Produit::productWithId($detenir->numProduit)->tailleProduit;
                 $qte = Detenir::firstOrNewDetenir($his, $numProduit)->qteCommande;
-                array_push($aux, [$nomProduit, $qte]);
+                $livrer = Detenir::firstOrNewDetenir($his, $numProduit)->livrer;
+                array_push($aux, [$nomProduit, $qte , $couleur , $taille, $livrer]);
             }
             $his->produits = $aux;
         }
-        //return $history;
-        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points, 'id' => $id, 'completedOrders' => $history,'nbCompare' => $nbCompare]);
+        $processingOrders = Commande::processingOrders($id);
+        foreach ($processingOrders as $his){
+            $his->store = Commerce::nameOfThisShop($his->numSiretCommerce);
+            $detenirs = Detenir::getDetenirForThisCommande($his);
+            $aux = array();
+            foreach ($detenirs as $detenir) {
+                $nomProduit = Produit::productWithId($detenir->numProduit)->nomProduit;
+                $numProduit = Produit::productWithId($detenir->numProduit)->numProduit;
+                $couleur = Produit::productWithId($detenir->numProduit)->couleurProduit;
+                $taille = Produit::productWithId($detenir->numProduit)->tailleProduit;
+                $qte = Detenir::firstOrNewDetenir($his, $numProduit)->qteCommande;
+                $livrer = Detenir::firstOrNewDetenir($his, $numProduit)->livrer;
+                array_push($aux, [$nomProduit, $qte , $couleur , $taille, $livrer]);
+            }
+            $his->produits = $aux;
+        }
+
+        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders,'nbCompare' => $nbCompare]);
     }
 
+    public function showSeller()
+    {
+        $sellerMail = Vendeur::getSellerMail();
+        $seller = Vendeur::sellerWithThisMail($sellerMail);
+        $adminConnected = Admin::isConnected();
+        $favoriteShop = Vendeur::getMyFavoriteShop();
+
+        return view('profiles.mySellerProfile')->with(['seller' => $seller , 'adminConnected' => $adminConnected , 'favoriteShop' => $favoriteShop ]);
+    }
 
     public function idClient($id){
         $client = Client::getClientWithId($id);
@@ -72,6 +98,15 @@ class ProfileController extends Controller
         elseif ($request->has('editClient')){
             Client::validateUpdate();
             Client::updateClient();
+            flash('modification prise en compte')->success();
+            return back();
+        }
+
+        // view mySellerProfile
+        elseif ($request->has('editSeller')) {
+            Vendeur::validateUpdate();
+            Vendeur::updateSeller();
+            flash('modification prise en compte')->success();
             return back();
         }
     }

@@ -25,6 +25,10 @@
             <li class="nav-item ">
                 <a href="\Piscine\public\vendeur\commerces" class="nav-link"> Mes commerces </a>
             </li>
+
+            <li class="nav-item ">
+                <a href="\Piscine\public\vendeur\profil" class="nav-link"> profil </a>
+            </li>
             @if(!is_null($favoriteShop))
                 <li class="nav-item">
                     <a href="\Piscine\public\vendeur\commerces\{{$favoriteShop}}" class="nav-link"> Visiter </a>

@@ -1,21 +1,41 @@
-@extends('navbars.navbar')
+@extends('navbars.navbarClient')
 
 @section('content')
-
+    <br>
     <div class="container-fluid">
         <div class="row">
             <div class = "col-lg-9 ">
                 <h1> Commerce : {{ $shop->nomCommerce }} </h1>
-
+                <h6> <b>Description : </b> {{$shop->libelleCommerce}}</h6>
+                <h6> <b>Adresse :</b> {{$shop->adresseCommerce}} , {{$shop->codePostalCommerce}} , {{$shop->villeCommerce}} </h6>
+                <h6> <b>Numéro de téléphone : </b><a href=""> {{$shop->telCommerce}} </a></h6>
+                <h6> <b>Numéro de SIRET :</b> <a href=""> {{$shop->numSiretCommerce}} </a></h6>
             </div>
             <div class="col-lg-3">
                 <h4> commerçants : </h4>
                 @foreach($sellers as $seller)
                     <li> {{$seller->nomVendeur}} <a href="\Piscine\public\vendeur\{{$seller->idVendeur}}"> infos </a> </li>
                 @endforeach
+
+                <br>
+                <div class="form-inline">
+                    <h4> Horaires : </h4> <a href="{{url()->current()}}/horaires"> (éditer) </a> <br/>
+                </div>
+                @foreach($days as $day)
+                    <li>
+                        <strong>{{$day->nomJour}}</strong>
+                        @if(($schedulesOfWork->where('nomJour', $day->nomJour))->count() > 0)
+                            ouvert @foreach($schedulesOfWork->where('nomJour', $day->nomJour) as $scheduleOfWork)
+                                de {{$scheduleOfWork->debut}} à {{$scheduleOfWork->fin}}
+                            @endforeach
+                        @else
+                            fermé
+                        @endif
+                    </li>
+                @endforeach
             </div>
         </div>
-
+        <br>
     </div>
 
         <div class="container-fluid">
@@ -26,9 +46,10 @@
                         <thead>
                             <tr>
                                 <th style="width:45%">Produit</th>
-                                <th style="width:10%">Prix</th>
-                                <th style="width:8%"> Quantité </th>
-                                <th style="width:17%" class="text-center">Sous-total</th>
+                                <th style="width:10%"class="text-center">Couleur</th>
+                                <th style="width:10%"class="text-center">Taille</th>
+                                <th style="width:10%"class="text-center">Prix</th>
+                                <th style="width:5%" class="text-center"> Quantité </th>
                                 <th style="width:30%"></th>
                             </tr>
                         </thead>
@@ -50,11 +71,12 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td data-th="Price">{{$product->prixProduit}}</td>
-                                    <td data-th="Quantity">
+                                    <td data-th="Color" class="text-center">{{$product->couleurProduit}}</td>
+                                    <td data-th="Size"class="text-center">{{$product->tailleProduit}}</td>
+                                    <td data-th="Price"class="text-center">{{$product->prixProduit}}€</td>
+                                    <td data-th="Quantity"class="text-center">
                                         <input type="number" name="quantity" class="form-control text-center" value="1">
                                     </td>
-                                    <td data-th="Subtotal" class="text-center"> {{$product->prixProduit*1}} </td>
                                     <td class="actions" data-th="">
                                         <button class="btn btn-success btn-group" name="book"> <i class="far fa-clock"></i> </button>
                                         <button class="btn btn-warning btn-group" name="addShoppingCart"> <i class="fas fa-cart-arrow-down"></i> </button>
@@ -73,8 +95,8 @@
                             <td></td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="...">
-                                        <a href="./../client/{{$idClient}}/reservations" class="btn btn-success"> <i class="fa fa-angle-left"></i> mes réservations </a>
-                                        <a href="./../client/{{$idClient}}/panier" class="btn btn-warning"> mon panier <i class="fa fa-angle-right"></i></a>
+                                        <a href="./../client/{{$id}}/reservations" class="btn btn-success"> <i class="fa fa-angle-left"></i> mes réservations </a>
+                                        <a href="./../client/{{$id}}/panier" class="btn btn-warning"> mon panier <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </td>
                         </tr>

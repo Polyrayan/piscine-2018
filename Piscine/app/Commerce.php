@@ -8,7 +8,7 @@ class Commerce extends Model
 {
     protected $fillable = ['numSiretCommerce','nomCommerce','libelleCommerce','adresseCommerce',
                             'villeCommerce','codePostalCommerce','telCommerce',
-                            'codeReduction','codeRecrutementVendeur'];
+                            'codeReduction','codeRecrutementVendeur','regionCommerce'];
     public $timestamps = false;
     protected $primaryKey ='numSiretCommerce';
     protected $keyType = 'string';

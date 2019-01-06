@@ -152,11 +152,15 @@ class ShopController extends Controller
     public function numSiret($numSiret)
     {
         $mailClient = Client::getMailClient();
-        $idClient = Client::getIdClient();
-        $shop = Commerce::nameOfThisShop($numSiret);
+        $id = Client::getIdClient();
+        $nbCompare = Client::calculNumberOfProductToCompare();
+        $shop = Commerce::shopWithSiret($numSiret);
+        $days = Jour::all();
+        $schedulesOfWork = Ouvrir::schedulesOfThisShop($numSiret);
         $sellers = Appartenir::sellersOfThisShop($numSiret);
         $products = Produit::productsOfThisShop($numSiret);
-        return view('shop')->with(['sellers' => $sellers, 'numSiret' => $numSiret, 'shop' => $shop, 'products' => $products, 'mailClient' => $mailClient, 'idClient' => $idClient]);
+        return view('shop')->with(['sellers' => $sellers, 'numSiret' => $numSiret, 'shop' => $shop, 'products' => $products,
+            'days' =>$days , 'schedulesOfWork' => $schedulesOfWork, 'mailClient' => $mailClient, 'id' => $id, 'nbCompare' => $nbCompare]);
     }
 
     /*

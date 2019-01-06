@@ -10,11 +10,13 @@
             {{  csrf_field()  }}
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <table id="cart" class="table table-hover table-condensed">
                         <thead>
                         <tr>
                             <th style="width:30%">Produit</th>
+                            <th style="width:5%">Couleur</th>
+                            <th style="width:5%">Taille</th>
                             <th style="width:5%">Prix</th>
                             <th style="width:5%">Quantité</th>
                             <th style="width:15%" class="text-center">Sous total</th>
@@ -40,7 +42,8 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td data-th="Price" class="text-center" ><b>{{$product->prixProduit}}€</b></td>
+                                    <td data-th="Color" class="text-center"> <b>{{$product->couleurProduit}}</b> </td>
+                                    <td data-th="Size" class="text-center"> <b>{{$product->tailleProduit}}</b> </td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
                                     <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
@@ -70,6 +73,8 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td data-th="Color" class="text-center"> <b>{{$product->couleurProduit}}</b> </td>
+                                    <td data-th="Size" class="text-center"> <b>{{$product->tailleProduit}}</b> </td>
                                     <td data-th="Price" class="text-center" ><b>{{$product->prixProduit}}€</b></td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
@@ -80,7 +85,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-lg-2"></div>
+                <div class="col-lg-1"></div>
                 <div class="col-lg-3">
                         <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
                         <input name="total" type="hidden" value="{{ $total }}">
@@ -89,7 +94,7 @@
                             <h3>Validez votre commande : </h3>
                         </div>
                         <div class="text-center">
-                            <input name="code" class="" placeholder="Code réduction"> <button  type="button" class="btn btn-info btn-sm"  name="code">valider</button>
+                            <input name="code" class="text-center" placeholder="Code réduction"> <button  type="button" class="btn btn-info btn-sm"  name="code">valider</button>
                         </div>
                         <div class="text-center">
                             </br>
@@ -110,11 +115,13 @@
         <h1> liste des produits case 2  :</h1>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <table id="cart" class="table table-hover table-condensed">
                         <thead>
                         <tr>
                             <th style="width:30%">Produit</th>
+                            <th style="width:5%">Couleur</th>
+                            <th style="width:5%">Taille</th>
                             <th style="width:5%">Prix</th>
                             <th style="width:5%">Quantité</th>
                             <th style="width:15%" class="text-center">Sous total</th>
@@ -138,17 +145,20 @@
                                         <div class="row">
                                             <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
                                             <div class="col-sm-8">
-                                                <h4 class="nomargin"><b>{{$product->nomProduit}} </b></h4>
+                                                <h4><b>{{$product->nomProduit}} </b></h4>
+                                                <p> {{$product->libelleProduit}}</p>
                                             </div>
                                         </div>
                                     </td>
+                                    <td data-th="Color" class="text-center"> <b>{{$product->couleurProduit}}</b> </td>
+                                    <td data-th="Size" class="text-center"> <b>{{$product->tailleProduit}}</b> </td>
                                     <td data-th="Price" class="text-center" ><b>{{$product->prixProduit}}€</b></td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
                                     <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
                                             <br> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
-                                    <td  class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="{{$product->numProduit}}" id="{{$product->numProduit}}">
+                                    <td>
+                                        <input  type="checkbox" value="{{$product->numProduit}}" id="{{$product->numProduit}}">
                                         <label class="form-check-label" for="{{$product->numProduit}}">
                                             <i class="btn btn-success fa fa-shipping-fast"></i>
                                         </label>
@@ -159,9 +169,9 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-lg-2"></div>
+                <div class="col-lg-1"></div>
                 <div class="col-lg-3">
-                    <form class ="input-group" method="POST">
+                    <form method="POST">
                         {{  csrf_field()  }}
                         <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
                         <input name="total" type="hidden" value="{{ $total }}">
@@ -169,10 +179,9 @@
                             <h3>Validez votre commande : </h3>
                         </div>
                         <div class="text-center">
-                            <input name="code" class="" placeholder="Code réduction"> <button  type="button" class="btn btn-info btn-sm"  name="code">valider</button>
+                            <input name="code" class="text-center" placeholder="Code réduction"> <button  type="button" class="btn btn-info btn-sm"  name="code">valider</button>
                         </div>
                         <div class="text-center">
-                            </br>
                             <strong>Total {{ $total }}€ </strong>
                             <p> dont TVA :{{ $total*0.2 }}€ </p>
                         </div>
@@ -192,11 +201,13 @@
             <h1> liste des produits case 3 :</h1>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <table id="cart" class="table table-hover table-condensed">
                             <thead>
                             <tr>
                                 <th style="width:50%">Produit</th>
+                                <th style="width:5%">Couleur</th>
+                                <th style="width:5%">Taille</th>
                                 <th style="width:5%">Prix</th>
                                 <th style="width:5%">Quantité</th>
                                 <th style="width:15%" class="text-center">Sous total</th>
@@ -223,6 +234,8 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        <td data-th="Color" class="text-center"> <b>{{$product->couleurProduit}}</b> </td>
+                                        <td data-th="Size" class="text-center"> <b>{{$product->tailleProduit}}</b> </td>
                                         <td data-th="Price" class="text-center" ><b>{{$product->prixProduit}}€</b></td>
                                         <td data-th="Quantity"class="text-center"><b>{{$product->qteCommande}}</b></td>
                                         <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
@@ -234,10 +247,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-1">
                     </div>
                     <div class="col-lg-3">
-                        <form class ="input-group" method="POST">
+                        <form method="POST">
                             {{  csrf_field()  }}
                             <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
                             <input name="total" type="hidden" value="{{ $total }}">

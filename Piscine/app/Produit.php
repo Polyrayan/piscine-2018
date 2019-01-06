@@ -205,6 +205,13 @@ class Produit extends Model
         return self::groupBy('numGroupeVariante')->get();
     }
 
+    /**
+     *
+     * @return mixed
+     */
+    public static function productsGroupedByVariantPaginate(){
+        return self::groupBy('numGroupeVariante')->paginate(10);
+    }
 
     /**
      * recupere les tailles et les couleurs du commerce

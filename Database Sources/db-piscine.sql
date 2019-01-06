@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  sam. 05 jan. 2019 à 08:15
+-- Généré le :  Dim 06 jan. 2019 à 04:11
 -- Version du serveur :  10.2.3-MariaDB-log
 -- Version de PHP :  7.1.1
 
@@ -147,8 +147,10 @@ INSERT INTO `commandes` (`numCommande`, `prixCommande`, `prixReduitCommande`, `p
 (15, '11.75', NULL, NULL, '2018-11-28 21:17:40', '11111111111111', 7, 'traitement'),
 (18, '15.4', NULL, NULL, NULL, '11111111111111', 8, NULL),
 (19, '89.99', NULL, NULL, NULL, '22222222222222', 8, NULL),
-(20, '1080', NULL, NULL, NULL, '22222222222222', 9, NULL),
-(21, '8', NULL, NULL, NULL, '11111111111111', 9, NULL);
+(20, '1350', NULL, 0, '2019-01-05 19:49:17', '22222222222222', 9, 'traitement'),
+(21, '8', NULL, 0, '2019-01-05 19:49:17', '11111111111111', 9, 'traitement'),
+(22, '2', NULL, 0, '2019-01-05 19:53:01', '11111111111111', 10, 'traitement'),
+(23, '540', NULL, 0, '2019-01-05 20:28:31', '22222222222222', 11, 'terminee');
 
 -- --------------------------------------------------------
 
@@ -163,6 +165,7 @@ CREATE TABLE `commerces` (
   `adresseCommerce` varchar(80) NOT NULL,
   `villeCommerce` varchar(30) NOT NULL,
   `codePostalCommerce` char(5) NOT NULL,
+  `regionCommerce` varchar(25) NOT NULL,
   `telCommerce` char(10) NOT NULL,
   `codeReduction` varchar(10) DEFAULT NULL,
   `codeRecrutement` varchar(6) NOT NULL
@@ -172,11 +175,10 @@ CREATE TABLE `commerces` (
 -- Déchargement des données de la table `commerces`
 --
 
-INSERT INTO `commerces` (`numSiretCommerce`, `nomCommerce`, `libelleCommerce`, `adresseCommerce`, `villeCommerce`, `codePostalCommerce`, `telCommerce`, `codeReduction`, `codeRecrutement`) VALUES
-('11111111111111', 'KFC', 'restauration rapide de poulet', '495 Avenue du Mas d\'Argelliers', 'Montpellier', '34000', '0658957426', NULL, '123456'),
-('12345677654321', 'Adidas', 'marque de sport', '400 Avenue Claude Baillet', 'Nimes', '30000', '0559782356', '', '123123'),
-('22222222222222', 'Ikea', 'magasin spécialisé dans la conception et la vente de détail de mobilier et objets de décoration prêts à poser ou à monter en kit.', '1 Place de Troie', 'Montpellier', '34900', '0775957595', NULL, '000000'),
-('44444444444444', 'n', 'n', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '0685404708', NULL, '');
+INSERT INTO `commerces` (`numSiretCommerce`, `nomCommerce`, `libelleCommerce`, `adresseCommerce`, `villeCommerce`, `codePostalCommerce`, `regionCommerce`, `telCommerce`, `codeReduction`, `codeRecrutement`) VALUES
+('11111111111111', 'KFC', 'restauration rapide de poulet', '495 Avenue du Mas d\'Argelliers', 'Montpellier', '34000', 'Hérault', '0658957426', NULL, '123456'),
+('12345677654321', 'Adidas', 'marque de sport', '400 Avenue Claude Baillet', 'Nimes', '30000', 'Gard', '0559782356', '', '123123'),
+('22222222222222', 'Ikea', 'magasin spécialisé dans la conception et la vente de détail de mobilier et objets de décoration prêts à poser ou à monter en kit.', '1 Place de Troie', 'Montpellier', '34900', 'Hérault', '0775957595', NULL, '000000');
 
 -- --------------------------------------------------------
 
@@ -251,8 +253,11 @@ INSERT INTO `detenir` (`numCommande`, `numProduit`, `livrer`, `qteCommande`) VAL
 (17, 1, NULL, '1'),
 (18, 2, NULL, '2'),
 (19, 5, NULL, '1'),
-(20, 0, NULL, '2'),
-(20, 7, NULL, '3');
+(20, 7, 1, '4'),
+(20, 14, 1, '2'),
+(22, 1, 0, '1'),
+(23, 7, 1, '4'),
+(23, 14, 1, '2');
 
 -- --------------------------------------------------------
 
@@ -339,7 +344,9 @@ INSERT INTO `paniers` (`numPanier`, `datePanier`, `prixPanier`, `prixReduitPanie
 (6, '2018-11-25 13:18:54', 98.83999999999999, NULL, '14.6', 'r@g.com'),
 (7, '2018-11-28 21:17:40', 11.75, NULL, '1.2', 'r@g.com'),
 (8, NULL, 95.99, NULL, NULL, 'r@g.com'),
-(9, NULL, 359.96, NULL, NULL, 'r@gmail.com');
+(9, '2019-01-05 19:49:17', 629.93, NULL, '81.0', 'r@gmail.com'),
+(10, '2019-01-05 19:53:01', 2, NULL, '0.2', 'r@gmail.com'),
+(11, '2019-01-05 20:28:31', 539.9399999999999, NULL, '81.0', 'r@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -369,15 +376,16 @@ CREATE TABLE `produits` (
 --
 
 INSERT INTO `produits` (`numProduit`, `nomProduit`, `libelleProduit`, `qteStockProduit`, `qteStockDispoProduit`, `livraisonProduit`, `prixProduit`, `numSiretCommerce`, `nomTypeProduit`, `couleurProduit`, `tailleProduit`, `marqueProduit`, `numGroupeVariante`, `imageProduit`) VALUES
-(1, 'wings', 'aile de poulet fris', 156, 144, 0, '2', '11111111111111', 'Nourriture', NULL, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs0qLwurYDYph7EotV-jOiLZh_KHGlhXDogAqigHloeOZNxS-v'),
-(2, 'tenders', 'filet de poulet fris', 306, 306, 0, '3', '11111111111111', 'Nourriture', NULL, NULL, NULL, 2, 'http://allopizza77.fr/emporter/88-large_default/tenders.jpg'),
+(1, 'wings', 'aile de poulet frit', 154, 142, 0, '2', '11111111111111', 'Nourriture', NULL, NULL, NULL, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs0qLwurYDYph7EotV-jOiLZh_KHGlhXDogAqigHloeOZNxS-v'),
+(2, 'tenders', 'filet de poulet frit', 306, 306, 0, '3', '11111111111111', 'Nourriture', NULL, NULL, NULL, 2, 'http://allopizza77.fr/emporter/88-large_default/tenders.jpg'),
 (3, 'pilon', 'partie inférieur de la cuisse de poulet', 130, 130, 0, '2.35', '11111111111111', 'Nourriture', NULL, NULL, NULL, 3, ''),
 (5, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 50, 50, 0, '89.99', '22222222222222', 'Meuble', 'marron', '200x80x100', NULL, 4, ''),
 (6, 'frites', 'barquette de frites', 106, 97, 1, '1.5', '11111111111111', 'Nourriture', NULL, 'petite', NULL, 5, ''),
-(7, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 50, 50, 0, '89.99', '22222222222222', 'Meuble', 'bleu', '200x80x100', NULL, 4, ''),
-(14, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 60, 58, 0, '89.99', '22222222222222', 'Meuble', 'rouge', '200x80x100', NULL, 4, ''),
+(7, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 18, 18, 0, '89.99', '22222222222222', 'Meuble', 'bleu', '200x80x100', NULL, 4, ''),
+(14, 'table ikluflux', 'table 200cm x 80 cm x 100 cm', 44, 42, 0, '89.99', '22222222222222', 'Meuble', 'rouge', '200x80x100', NULL, 4, ''),
 (16, 'frites', 'barquette de frites', 106, 97, 1, '2', '11111111111111', 'Nourriture', NULL, 'moyenne', NULL, 5, ''),
-(17, 'frites', 'barquette de frites', 106, 97, 1, '2.5', '11111111111111', 'Nourriture', NULL, 'grande', NULL, 5, '');
+(17, 'frites', 'barquette de frites', 106, 97, 1, '2.5', '11111111111111', 'Nourriture', NULL, 'grande', NULL, 5, ''),
+(18, 'CHAUSSURE NMD_R1', 'Une sneaker confortable agrémentée de détails rétr', 50, 50, 0, '139.95', '12345677654321', 'Chaussure', 'gris', '41', 'Adidas', 11, NULL);
 
 -- --------------------------------------------------------
 
@@ -463,6 +471,7 @@ CREATE TABLE `typeproduits` (
 --
 
 INSERT INTO `typeproduits` (`nomTypeProduit`, `tempsReservation`) VALUES
+('Chaussure', '96'),
 ('Meuble', '96'),
 ('Nourriture', '1');
 
@@ -488,7 +497,10 @@ INSERT INTO `variantes` (`numGroupeVariante`) VALUES
 (5),
 (6),
 (7),
-(8);
+(8),
+(9),
+(10),
+(11);
 
 -- --------------------------------------------------------
 
@@ -515,7 +527,7 @@ INSERT INTO `vendeurs` (`mailVendeur`, `nomVendeur`, `prenomVendeur`, `mdpVendeu
 ('mathieu@gmail.com', 'r', 'r', '$2y$10$g8X9Vsug0fic9zBBurg/A.T/4j/4NwW9S1tuar1crwJMWP0YffrKW', '0685404708', 1, NULL),
 ('pepito24@yahoo.fr', 'pepito', 'aïe', '$2y$10$mVE932fpgExRzJce7ajxme2SfZnoRGI3GnpKzndPspms4xflKiZ2a', '0150426988', 2, NULL),
 ('vdd@gmail.com', 'vdd', 'vdd', '$2y$10$7OoagxKe1bTnbAl/v9XgUOoxgR9.Z/HqB9k9zIjiIJ/xygMsdgr2.', '0202020202', 28, NULL),
-('vendeur@gmail.com', 'Toulino', 'David', '$2y$10$uK/2emyMVyUAG7FiiaIHdekKZ6QIysZPw0fMvYZOsdgluIX4GLZLC', '0685404708', 3, '12345677654321');
+('vendeur@gmail.com', 'Toulino', 'David', '$2y$10$uK/2emyMVyUAG7FiiaIHdekKZ6QIysZPw0fMvYZOsdgluIX4GLZLC', '0685404707', 3, '12345677654321');
 
 --
 -- Index pour les tables déchargées
@@ -664,7 +676,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT pour la table `commandes`
 --
 ALTER TABLE `commandes`
-  MODIFY `numCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `numCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `jours`
@@ -682,13 +694,13 @@ ALTER TABLE `ouvrir`
 -- AUTO_INCREMENT pour la table `paniers`
 --
 ALTER TABLE `paniers`
-  MODIFY `numPanier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `numPanier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `produits`
 --
 ALTER TABLE `produits`
-  MODIFY `numProduit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `numProduit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `reductions`
@@ -712,7 +724,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT pour la table `variantes`
 --
 ALTER TABLE `variantes`
-  MODIFY `numGroupeVariante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `numGroupeVariante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `vendeurs`

@@ -3,9 +3,9 @@
 @section('content')
 
     <br>
-    <h1> Modification Client: </h1>
 
     <div class="container-fluid">
+        <h1> Modification Client: </h1>
         <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-3">
@@ -96,17 +96,86 @@
             </div>
             <div class="col-lg-1"></div>
             <div class="col-lg-4">
-                <h3> Points de réductions : {{ $points }}</h3>
+                <h3> Points disponibles : {{ $points }}</h3>
             </div>
         </div>
     </div>
     <br>
     <div class = "container-fluid">
-        <h3> Historique d'achats de {{$client->nomClient}} </h3>
+        <h3> Votre historique d'achats :</h3>
     </div>
+    <br>
+    @if($processingOrders->count() != 0)
+        <div class = "container-fluid">
+            <h3>  Commande en cours : </h3>
+            <table id="cart" class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th style="width:5%">n° Commande</th>
+                    <th class="text-center"  style="width:10%">Prix</th>
+                    <th class="text-center"  style="width:10%">Magasin</th>
+                    <th class="text-center"  style="width:40%">Produits</th>
+                    <th class="text-center"  style="width:10%">Date achat</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($processingOrders as $completed)
+                    <tr>
+                        <td data-th="Id" class="text-center" > {{$completed->numCommande}}</td>
+                        <td data-th="Price" class="text-center" ><b>{{$completed->prixCommande}}€</b></td>
+                        <td data-th="Store" class="text-center" ><b>{{$completed->store}}</b></td>
+                        <td>
+                        <div class = "container">
+                            <table id="produits" class="table table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%"class="text-center">Nom produit</th>
+                                        <th style="width:10%"class="text-center">Quantite</th>
+                                        <th style="width:20%"class="text-center"> Couleur</th>
+                                        <th style="width:20%"class="text-center"> Taille</th>
+                                        <th style="width:30%"class="text-center"> Informations </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($completed->produits as $produit)
+                                    <tr><td data-th="Nom produit" class="text-center" ><b>{{$produit[0]}}</b></td>
+                                        <td data-th="Quantite" class="text-center" ><b>{{$produit[1]}}</b></td>
+                                        <td data-th="Couleur" class="text-center"><b>{{$produit[2]}}</b></td>
+                                        <td data-th="Size" class="text-center"><b>{{$produit[3]}}</b></td>
+                                        <td data-th="method" class="text-center">
+                                            @if($produit[4] == 1)
+                                                <b><font color="red"> produit à recupérer en magasin</font></b>
+                                            @else
+                                                <b> en livraison </b>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                                <tfoot>
+                                <td colspan="5" class="hidden-xs"></td>
+                                </tfoot>
+                            </table>
+                        </div>
+                        </td>
+                        <td data-th="Purchase date" class="text-center"><b>{{$completed->dateCommande}}</b></td>
+                    </tr>
+                @endforeach
+                </tbody>
+                <tfoot>
+                <td colspan="5" class="hidden-xs"></td>
+                </tfoot>
+            </table>
+        </div>
+    @endif
+    <br>
+    <div class="container-fluid">
+        <h3>  Commandes terminées : </h3>
+    </div>
+    <br>
     @if($completedOrders->count() <= 0)
         <div class = "container-fluid">
-            <h4> Votre historique d'achat est vide <h4>
+            <h4> Votre historique d'achat est vide </h4>
         </div>
     @endif
     @if($completedOrders->count() != 0)
@@ -114,42 +183,60 @@
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th rowspan="2" style="width:10%">Commande Code</th>
-                    <th rowspan="2" class="text-center"  style="width:20%">Prix</th>
-                    <th rowspan="2" class="text-center"  style="width:20%">Magasin</th>
-                    <th colspan="2" class="text-center" style="width:20%">Produits</th>
-                    <th rowspan="2" class="text-left"  style="width:30%">Date achat</th>
+                    <th style="width:5%">n° Commande</th>
+                    <th class="text-center"  style="width:10%">Prix</th>
+                    <th class="text-center"  style="width:10%">Magasin</th>
+                    <th class="text-center"  style="width:40%">Produits</th>
+                    <th class="text-center"  style="width:10%">Date achat</th>
                 </tr>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Qte</th>
-                    </tr>
                 </thead>
                 <tbody>
                 @foreach($completedOrders as $completed)
                     <tr>
-                        <td data-th="Commande Code"> {{$completed->numCommande}}</td>
-                        <td data-th="Prix" class="text-center" ><b>{{$completed->prixCommande}}€</b></td>
-                        <td data-th="Magasin" class="text-center" ><b>{{$completed->store}}</b></td>
-                        <td data-th="Produits" class = "container-fluid" >
-                            <div class = "container-fluid">
-                                <table id="cart" class="table table-hover table-condensed">
+                        <td data-th="Id" class="text-center" > {{$completed->numCommande}}</td>
+                        <td data-th="Price" class="text-center" ><b>{{$completed->prixCommande}}€</b></td>
+                        <td data-th="Store" class="text-center" ><a class="nomargin" href="/Piscine/public/commerces/{{$completed->numSiretCommerce}}"><b>{{$completed->store}} </b></a></td>
+                        <td>
+                            <div class = "container">
+                                <table id="produits" class="table table-hover table-condensed">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20%"class="text-center">Nom produit</th>
+                                        <th style="width:10%"class="text-center">Quantite</th>
+                                        <th style="width:20%"class="text-center"> Couleur</th>
+                                        <th style="width:20%"class="text-center"> Taille</th>
+                                        <th style="width:30%"class="text-center"> Informations </th>
+                                    </tr>
+                                    </thead>
                                     <tbody>
                                     @foreach($completed->produits as $produit)
-                                        <tr>
-                                            <td data-th="Nom">{{$produit[0]}}</td>
-                                            <td data-th="Qte">{{$produit[1]}}</td>
+                                        <tr><td data-th="Nom produit" class="text-center" ><b>{{$produit[0]}}</b></td>
+                                            <td data-th="Quantite" class="text-center" ><b>{{$produit[1]}}</b></td>
+                                            <td data-th="Couleur" class="text-center"><b>{{$produit[2]}}</b></td>
+                                            <td data-th="Size" class="text-center"><b>{{$produit[3]}}</b></td>
+                                            <td data-th="method" class="text-center">
+                                                @if($produit[4] == 1)
+                                                    <b><font color="green">produit récupéré </font></b>
+                                                @else
+                                                    <b><font color="green"> en livraison </font></b>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
+                                    <tfoot>
+                                    <td colspan="4" class="hidden-xs"></td>
+                                    </tfoot>
                                 </table>
                             </div>
                         </td>
-                        <td data-th="Purchase date" class="text-right"><b>{{$completed->dateCommande}}</b></td>
-
+                        <td data-th="Purchase date" class="text-center"><b>{{$completed->dateCommande}}</b></td>
                     </tr>
                 @endforeach
                 </tbody>
+                <tfoot>
+                <td colspan="5" class="hidden-xs"></td>
+                </tfoot>
             </table>
         </div>
     @endif

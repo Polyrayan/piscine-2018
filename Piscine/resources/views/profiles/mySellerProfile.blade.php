@@ -2,57 +2,66 @@
 
 @section('content')
 
+    <br>
 
-    <h1> Modification Vendeur : </h1>
+    <div class="container-fluid">
+        <h1> Modification Vendeur : </h1>
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+                <form action="" method="post">
+                {{  csrf_field()  }}
 
-    <div class="container">
-        <form action="" method="post">
+                    <!-- mail -->
+                    <div class="row">
+                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-form-label"> Email :</label>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-form-label">
+                            <p>{{ $seller->mailVendeur  }}</p>
+                        </div>
+                    </div>
 
-            {{  csrf_field()  }}
+                    <!-- name -->
+                    <div class="row">
+                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-form-label"> Nom :</label>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <input type="text" class="form-control" name="name" placeholder="nom" value="{{ $seller->nomVendeur }}">
+                            @if ($errors->has('name'))
+                                <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('name') }} </div> </small>
+                            @endif
+                        </div>
+                    </div>
 
-            <div class="form-group ">
+                    <!-- firstname -->
+                    <div class="row">
+                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-form-label"> Prénom :</label>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <input type="text" class="form-control" name="firstName" placeholder="prénom" value="{{ $seller->prenomVendeur }}">
+                            @if ($errors->has('firstName'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('firstName') }} </div>  </small>
+                            @endif
+                        </div>
+                    </div>
 
-                <!-- mail -->
-                <label class="col-sm-2 col-form-label">Email :</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" name="mail" placeholder="e-mail" value="{{ old('mail') }}">
-                    @if ($errors->has('mail'))
-                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('mail') }} </div>  </small>
-                    @endif
-                </div>
+                    <!-- phone number -->
+                    <div class="row">
+                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-form-label"> Téléphone :</label>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <input type="tel" class="form-control"  name="phone" placeholder="telephone" value="{{ $seller->telVendeur }}">
+                            @if ($errors->has('phone'))
+                                <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('phone') }} </div>  </small>
+                            @endif
+                        </div>
+                    </div>
 
-                <!-- name -->
-                <label class="col-sm-2 col-form-label">Nom :</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="name" placeholder="nom" value="{{ old('name') }}">
-                    @if ($errors->has('name'))
-                        <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('name') }} </div> </small>
-                    @endif
-                </div>
-
-                <!-- firstname -->
-                <label class="col-sm-2 col-form-label">Prénom :</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="firstName" placeholder="prénom" value="{{ old('firstName') }}">
-                    @if ($errors->has('firstName'))
-                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('firstName') }} </div>  </small>
-                    @endif
-                </div>
-
-                <!-- phone number -->
-                <label class="col-sm-2 col-form-label">Telephone :</label>
-                <div class="col-sm-10">
-                    <input type="tel" class="form-control"  name="phone" placeholder="telephone" value="{{ old('phone') }}">
-                    @if ($errors->has('phone'))
-                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('phone') }} </div>  </small>
-                    @endif
-                </div>
-
+                    <!-- button to validate the register form -->
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+                        <input type="hidden" name="mail" value="{{$seller->mailVendeur}}">
+                        <button type="submit" class="btn btn-primary" name="editSeller">modifier </button>
+                    </div>
+                </form>
             </div>
-
-            <!-- button to validate the register form -->
-            <button type="submit" class="btn btn-primary" name="action" value="edit">modifier </button>
-        </form>
+        </div>
     </div>
 
 

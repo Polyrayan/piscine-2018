@@ -23,9 +23,20 @@ class Commande extends Model
         return self::where('etatCommande','terminee')
             ->join('paniers', 'commandes.numPanier', '=', 'paniers.numPanier')
             ->join('clients', 'paniers.mailClient', '=', 'clients.mailClient')
+            //->join('detenir', 'commandes.numCommande', '=', 'detenir.numCommande')
             ->where('idClient', $id)
             ->get();
     }
+
+    public static function processingOrders($id) {
+        return self::where('etatCommande','traitement')
+            ->join('paniers', 'commandes.numPanier', '=', 'paniers.numPanier')
+            ->join('clients', 'paniers.mailClient', '=', 'clients.mailClient')
+            //->join('detenir', 'commandes.numCommande', '=', 'detenir.numCommande')
+            ->where('idClient', $id)
+            ->get();
+    }
+
 
     public static function newCommande($panier,$numSiret){
         return self::create (['numPanier' => $panier->numPanier ,

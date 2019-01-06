@@ -67,6 +67,24 @@ class Vendeur extends Authenticatable
         ]);
     }
 
+    public static function validateUpdate()
+    {
+        request()->validate([
+            'name' => ['bail', 'required', 'string'],
+            'firstName' => ['bail', 'required', 'string'],
+            'phone' => ['bail', 'required', 'numeric'],
+        ]);
+    }
+
+    public static function updateSeller()
+    {
+        self::where('mailVendeur', request('mail'))
+            ->update(['nomVendeur' => request('name'),
+                'prenomVendeur' => request('firstName'),
+                'telVendeur' => request('phone'),
+            ]);
+    }
+
     public static function sellerWithThisMail($mail){
         return self::where('mailVendeur',$mail)->firstOrFail();
     }

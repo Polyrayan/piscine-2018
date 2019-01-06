@@ -8,133 +8,128 @@
 
         <h3> ce qu'il manque : </h3>
         <ul>
-            <li> calculer et afficher si le client est ouvert ou fermé dans la view commerce/{numSiret}</li>
-            <li> probleme quand on achete 1 table rouge puis 3 table bleu dans le panier on a 3 table rouge et 3 table bleu </li>
-            <li> faire le edit dans shopProductsController</li>
             <li> ajouter un footer dans toutes les views pour faire plus PRO , vous amusez pas a faire un footer dans chaque view utiliser blade c'est comme l'extension de la navbar mais inversé </li>
-            <li> Par conte quand on est connecté en tant que client on a accès aux réservations des autres clients pour l’instant ...</li>
             <li> formulaire produit : ajouter une image </li>
-            <li> formulaire commerce : ajouter une image </li>
             <li> un admin peut supprimer des avis </li>
             <li> ajouter profil dans les navbar client vendeur</li>
             <li> refered et js</li>
             <li> trier par categorie </li>
-            <li> faire le tunnel d'achat  </li>
-            <li> régler les boutons non fonctionnels </li>
             <li> pouvoir utiliser des points de reductions</li>
-            <li> pouvoir créer un code de reduction dans un commerce</li>
             <li> pouvoir appliquer un code de reduction en tant que client </li>
-            <li> ajouter dans les formulaires d'un nouveau produit(myshop) + variante(editVariantesShop) la possibilité de donner une ou plusieurs images ( si plusieurs rajouter une table images dans la bd...) </li>
-            <li> OPTION :put delete </li>
-            <li> OPTION :héberger le site </li>
-            <li> OPTION : rajouter une template </li>
-            <li> OPTION : supprimer variante quand on supprime le groupe de produit pour eviter "la fuite memoire" </li>
         </ul>
-    </div>
-
-    <div class="container-fluid">
-
-        <!--Carousel Wrapper-->
-        <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
-            <!--Indicators-->
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-2" data-slide-to="1"></li>
-                <li data-target="#carousel-example-2" data-slide-to="2"></li>
-            </ol>
-            <!--/.Indicators-->
-            <!--Slides-->
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <div class="view">
-                        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide">
-                        <div class="mask rgba-black-light"></div>
-                    </div>
-                    <div class="carousel-caption">
-                        <h3 class="h3-responsive">Light mask</h3>
-                        <p>First text</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <!--Mask color-->
-                    <div class="view">
-                        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide">
-                        <div class="mask rgba-black-strong"></div>
-                    </div>
-                    <div class="carousel-caption">
-                        <h3 class="h3-responsive">Strong mask</h3>
-                        <p>Secondary text</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <!--Mask color-->
-                    <div class="view">
-                        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide">
-                        <div class="mask rgba-black-slight"></div>
-                    </div>
-                    <div class="carousel-caption">
-                        <h3 class="h3-responsive">Slight mask</h3>
-                        <p>Third text</p>
-                    </div>
-                </div>
-            </div>
-            <!--/.Slides-->
-            <!--Controls-->
-            <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-            <!--/.Controls-->
-        </div>
-        <!--/.Carousel Wrapper-->
     </div>
 
     <!-- search -->
     </br>
-   <div class="container-fluid">
-       <h2> Produits </h2>
-       <div class="row">
-           <div class="col-lg-2"></div>
-           <div class="col-lg-10">
-               <div class="row">
-                   <div class="col-lg-6">
-                       <!-- first line-->
-                       <input class="form-control" type="text" name="search" placeholder="Que recherchez-vous ?">
+    <form method="POST">
+        {{  csrf_field()  }}
+       <div class="container-fluid">
+           <h2> Produits </h2>
+           <div class="row">
+               <div class="col-lg-1"></div>
+               <div class="col-lg-9">
+                   <div class="row">
+                       <div class="col-lg-4">
+                           <!-- first line-->
+                           @if(isset($search))
+                                <input class="form-control" type="text" name="search" placeholder="Que recherchez-vous ?" value="{{$search}}">
+                            @else
+                               <input class="form-control" type="text" name="search" placeholder="Que recherchez-vous ?">
+                           @endif
                    </div>
-                   <div class="col-lg-2">
-                       <select name="category" class="form-control">
-                           <option> toutes catégories </option>
-                       </select>
-                   </div>
-                   <div class="col-lg-4"></div>
-                   <!-- second line-->
-                   <div class="col-lg-2">
-                       <input class="form-control" type="number" name="minSearch" placeholder="Prix min">
-                   </div>
-                   <div class="col-lg-2">
-                       <input class="form-control" type="number" name="maxSearch" placeholder="Prix max">
-                   </div>
-                   <div class="col-lg-2">
-                       <select name="region" class="form-control">
-                           <option> Languedoc-Roussillon </option>
-                           <option> Aude </option>
-                           <option> Gard </option>
-                           <option> Hérault </option>
-                           <option> Lozère </option>
-                           <option> Pyrénées-Orientales </option>
-                       </select>
-                   </div>
-                   <div class="col-lg-2">
-                       <input class="form-control" type="text" name="citySearch" placeholder="Ville">
+                       <div class="col-lg-2">
+                           <select name="category" class="form-control">
+                               <option> Toutes catégories </option>
+                               @if(isset($category))
+                                   @foreach($categories as $cat)
+                                       @if ( $category == $cat->nomTypeProduit)
+                                           <option selected > {{$cat->nomTypeProduit}} </option>
+                                       @else
+                                           <option> {{$cat->nomTypeProduit}} </option>
+                                       @endif
+                                   @endforeach
+                               @else
+                                   @foreach($categories as $cat)
+                                           <option> {{$cat->nomTypeProduit}} </option>
+                                   @endforeach
+                               @endif
+                           </select>
+                       </div>
+                       <div class="col-lg-6"> <button class="btn btn-success btn-group" name="searchProducts"> Rechercher </button></div>
+                       <!-- second line-->
+                       <div class="col-lg-2">
+                           @if(isset($min))
+                               <input class="form-control" type="number" name="minSearch" placeholder="Prix min" value="{{$min}}">
+                           @else
+                               <input class="form-control" type="number" name="minSearch" placeholder="Prix min">
+                           @endif
+                       </div>
+                       <div class="col-lg-2">
+                           @if(isset($max))
+                               <input class="form-control" type="number" name="maxSearch" placeholder="Prix max" value="{{$max}}">
+                           @else
+                               <input class="form-control" type="number" name="maxSearch" placeholder="Prix max">
+                           @endif
+                       </div>
+                       <div class="col-lg-2">
+                           @if(isset($region))
+                               <select name="region" class="form-control">
+                                   @if ($region == "Languedoc-Roussillon" )
+                                       <option selected> Languedoc-Roussillon </option>
+                                   @else
+                                       <option> Languedoc-Roussillon </option>
+                                   @endif
+                                   @if ($region == "Aude" )
+                                       <option selected> Aude </option>
+                                   @else
+                                       <option> Aude </option>
+                                   @endif
+                                   @if ($region == "Gard" )
+                                       <option selected> Gard </option>
+                                   @else
+                                       <option> Gard </option>
+                                   @endif
+                                   @if ($region == "Hérault" )
+                                       <option selected> Hérault </option>
+                                   @else
+                                       <option> Hérault </option>
+                                   @endif
+                                   @if ($region == "Lozère" )
+                                       <option selected> Lozère </option>
+                                   @else
+                                       <option> Lozère </option>
+                                   @endif
+                                   @if ($region == "Pyrénées-Orientales")
+                                       <option selected> Pyrénées-Orientales </option>
+                                   @else
+                                       <option> Pyrénées-Orientales </option>
+                                   @endif
+                               </select>
+                           @else
+                               <select name="region" class="form-control">
+                                   <option> Languedoc-Roussillon </option>
+                                   <option> Aude </option>
+                                   <option> Gard </option>
+                                   <option> Hérault </option>
+                                   <option> Lozère </option>
+                                   <option> Pyrénées-Orientales </option>
+                               </select>
+                           @endif
+                       </div>
+                       <div class="col-lg-2">
+                           @if(isset($city))
+                               <input class="form-control" type="text" name="citySearch" placeholder="Ville" value="{{$city}}">
+                           @else
+                               <input class="form-control" type="text" name="citySearch" placeholder="Ville">
+                           @endif
+                       </div>
                    </div>
                </div>
            </div>
        </div>
-   </div>
+    </form>
+
+    <!-- table of products -->
     </br>
     <div class="container-fluid">
         <table id="cart" class="table table-hover table-condensed">
@@ -207,5 +202,15 @@
             @endforeach
             </tbody>
         </table>
+        @if($products->count() <= 0)
+            <div class="text-center">
+                <br>
+                <br>
+                <h5> Aucun résultat pour votre recherche </h5>
+            </div>
+        @endif
+        <div class="text-center">
+            {{ $products->links() }}
+        </div>
     </div>
 @endsection

@@ -26,7 +26,7 @@ Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
     Route::get('/1','testController@show');
     Route::get('/1/action','testController@action')->name('testController.action');
 
-    Route::get('/client/profil','ProfileController@show');
+    Route::get('/client/profil','ProfileController@showClient');
     Route::post('/client/profil','ProfileController@selectForm');
 
     Route::get('/client/{id}/reservations', 'ReservationController@show' );
@@ -51,8 +51,6 @@ Route::group(['middleware' => 'App\Http\Middleware\Client'] , function () {
     Route::post('/MesComparaisons','CompareController@delete');
 
     Route::get('/client/{id}/reservationsConfirmed','ReservationsConfirmedController@show');
-
-    Route::get('/client/{id}/bonsPlans', 'AllCouponsController@show');
 
     Route::get('/client/deconnexion','Auth\LoginController@logoutClient');
 });
@@ -79,6 +77,9 @@ Route::group(['middleware' => 'App\Http\Middleware\Vendeur'], function () {
 
     Route::get('/vendeur/commerces/produit/{id}','ShopController@editProduct');
     Route::post('/vendeur/commerces/produit/{id}','ShopController@selectForm');
+
+    Route::get('/vendeur/profil','ProfileController@showSeller');
+    Route::post('/vendeur/profil','ProfileController@selectForm');
 
     Route::get('/vendeur/deconnexion','Auth\LoginController@logoutSeller');
 });
