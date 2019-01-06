@@ -8,6 +8,7 @@
 
         <h3> ce qu'il manque : </h3>
         <ul>
+            <li> Modifier le select des variantes dans la fiche produit</li>
             <li> Gerer les erreurs d'inscription client : si l'email est deja utilisé -> erreur Laravel, alors qu'on devrait signalé que cette email est impossible </li>
             <li> le refresh de la vue du /register/optionalForm est impossible </li>
             <li> ajouter un footer dans toutes les views pour faire plus PRO </li>
@@ -194,10 +195,10 @@
                         </td>
                         <td data-th="City"  class="text-center"> {{$product->city}}</td>
                         <td data-th="Actions">
-                            <a href="./commerces/{{$product->numSiretCommerce}}" class="btn btn-info" role="button"> <i class="fas fa-home"></i> </a>
-                            <button class="btn btn-warning btn-group" name="addShoppingCart"> <i class="fas fa-cart-arrow-down"></i> </button>
-                            <button class="btn btn-success btn-group" name="book"> <i class="far fa-clock"></i> </button>
-                            <button class="btn bg-light btn-group" name="compare"> <i class="fas fa-yin-yang"></i> </button>
+                            <a href="./commerces/{{$product->numSiretCommerce}}" class="btn btn-info" role="button" title="Accéder au magasin"> <i class="fas fa-home"></i> </a>
+                            <button class="btn btn-warning btn-group" name="addShoppingCart" title="Ajouter au panier"> <i class="fas fa-cart-arrow-down"></i> </button>
+                            <button class="btn btn-success btn-group" name="book" title="Réserver le produit"> <i class="far fa-clock"></i> </button>
+                            <button class="btn bg-light btn-group" name="compare" title="Comparer le produit"> <i class="fas fa-yin-yang"></i> </button>
                         </td>
                     </form>
                 </tr>

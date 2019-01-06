@@ -61,11 +61,11 @@
                                             </p>
                                             </td>
                                             <td data-th="Subtotal" class="text-center"><b>{{$reservation->prixProduit*$reservation->qteReservation}}€</b></td>
-                                            <td data-th="points" class="text-center"><b> Livraison :  <font color="#DF3A01"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.10,1)}} </font>
-                                                    <br> Magasin: <font color="green"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.15,1)}} </font> </b> </td>
+                                            <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.10,1)}} </font>
+                                                    <br> magasin: <font color="green"> {{number_format($reservation->prixProduit*$reservation->qteReservation*0.15,1)}} </font> </b> </td>
                                             <td class="actions" data-th="">
-                                                <button class="btn btn-info btn-sm" name="update"><i class="fas fa-redo-alt"></i></button>
-                                                <button class="btn btn-danger btn-sm" name="delete"><i class="fas fa-times-circle"></i></button>
+                                                <button class="btn btn-info btn-sm" name="update" title="Actualiser la réservation"><i class="fas fa-redo-alt"></i></button>
+                                                <button class="btn btn-danger btn-sm" name="delete" title="Supprimer cette réservation"><i class="fas fa-times-circle"></i></button>
                                             </td>
                                         </tr>
                                     </form>

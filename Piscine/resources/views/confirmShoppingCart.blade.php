@@ -50,7 +50,7 @@
                                             <br> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
                                     <td  class="form-check">
                                             <input name="productToDeliver[]" type="checkbox" id="{{$product->numProduit}}" value="{{$product->numProduit}}">
-                                            <label class="form-check-label" for="{{$product->numProduit}}">
+                                            <label class="form-check-label" for="{{$product->numProduit}}" title="Se faire livrer">
                                                 <i class="btn btn-success fa fa-shipping-fast"></i>
                                             </label>
                                     </td>

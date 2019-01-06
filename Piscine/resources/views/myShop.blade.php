@@ -92,10 +92,10 @@
 
                                     <input name="product" type="hidden" value="{{ $product->numProduit }}">
 
-                                    <button class="btn btn-success btn-group" name="show">   <i class="fas fa-info"></i> </button>
-                                    <button class="btn btn-warning btn-group" name="edit">   <i class="fas fa-edit"></i> </button>
-                                    <button class="btn btn-danger btn-group"  name="delete"> <i class="fas fa-times-circle"></i> </button>
-                                    <button class="btn btn-info btn-group"    name="variant"><i class="fas fa-copy"></i> </button>
+                                    <button class="btn btn-success btn-group" name="show" title="Afficher le produit">   <i class="fas fa-info"></i> </button>
+                                    <button class="btn btn-warning btn-group" name="edit" title="Modifier">   <i class="fas fa-edit"></i> </button>
+                                    <button class="btn btn-danger btn-group"  name="delete" title="Supprimer"> <i class="fas fa-times-circle"></i> </button>
+                                    <button class="btn btn-info btn-group"    name="variant" title="Afficher les variantes"><i class="fas fa-copy"></i> </button>
                                 </td>
                             </form>
                         </tr>
