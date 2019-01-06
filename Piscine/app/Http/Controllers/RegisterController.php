@@ -11,6 +11,7 @@ use App\Vendeur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Jenssegers\Date\Date;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -28,8 +29,9 @@ class RegisterController extends Controller
     public function showOptionalForm()
     {
         if( session('seller'))
-           $seller = session('seller');
+            $seller = session('seller');
             return view('registration.optionalSellerForm')->with(['seller' => $seller]);
+
     }
     /**
      * données : choix du type d'utilisateur
@@ -62,6 +64,10 @@ class RegisterController extends Controller
     {
         //Client::validateFormClient();
         Client::createClient();
+        $login = Auth::guard('client')->attempt([
+            'mailClient' => request('mail'),
+            'password' => request('password')
+        ]);
         //Reduction::createClientReduction(request('mail'));
         return redirect('/');
     }
@@ -76,6 +82,10 @@ class RegisterController extends Controller
         Vendeur::validateFormSeller();
         Vendeur::createSeller();
         $seller = Vendeur::sellerWithThisMail(request('mailSeller'));
+        $login = Auth::guard('seller')->attempt([
+            'mailVendeur' => request('mailSeller'),
+            'password' => request('passwordSeller') // laravel va chercher le mdp en utilisant password et non mdpSeller
+        ]);
         return redirect('register/optionalForm')->with(['seller' => $seller]);
     }
 

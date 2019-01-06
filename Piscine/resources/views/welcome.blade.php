@@ -8,6 +8,8 @@
 
         <h3> ce qu'il manque : </h3>
         <ul>
+            <li> Gerer les erreurs d'inscription client : si l'email est deja utilisé -> erreur Laravel, alors qu'on devrait signalé que cette email est impossible </li>
+            <li> le refresh de la vue du /register/optionalForm est impossible </li>
             <li> ajouter un footer dans toutes les views pour faire plus PRO </li>
             <li> formulaire produit :  pouvoir ajouter une image </li>
             <li> un admin doit pouvoir  supprimer des avis </li>

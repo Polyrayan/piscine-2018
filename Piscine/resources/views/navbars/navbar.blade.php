@@ -22,10 +22,10 @@
         <a class="logo" href="#"><img class="img-responsive logo" src="{{ URL::to('img/cci.png') }}" alt=""></a>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="/register" class="nav-link"> Inscription</a>
+                <a href="./register" class="nav-link"> Inscription</a>
             </li>
             <li class="nav-item">
-                <a href="/login" class="nav-link"> Connexion </a>
+                <a href="./login" class="nav-link"> Connexion </a>
             </li>
         </ul>
     </div>

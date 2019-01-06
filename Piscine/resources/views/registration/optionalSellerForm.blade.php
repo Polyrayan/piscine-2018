@@ -108,11 +108,20 @@
                 </div>
 
                 <!-- zip code -->
-                <label class="col-sm-2 col-form-label">code postal du commerce :</label>
+                <label class="col-sm-2 col-form-label">code postal :</label>
                 <div class="col-sm-10">
                     <input type="number" class="form-control" name="zipCode" placeholder="code postal du commerce *" value="{{ old('zipCode') }}">
                     @if ($errors->has('zipCode'))
                         <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('zipCode') }} </div>  </small>
+                    @endif
+                </div>
+
+                <!-- region -->
+                <label class="col-sm-2 col-form-label">region :</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="region" placeholder="region du commerce *" value="{{ old('region') }}">
+                    @if ($errors->has('region'))
+                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('region') }} </div>  </small>
                     @endif
                 </div>
 

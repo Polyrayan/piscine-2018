@@ -30,6 +30,7 @@ class Commerce extends Model
             'address' => ['bail','required','string'],
             'city' => ['bail','required','string'],
             'zipCode' => ['bail','required','numeric'],
+            'region' => ['bail','required','string']
             //
             //
             // todo : add the cssfile here and create a function to create products in this file
@@ -46,6 +47,7 @@ class Commerce extends Model
             'telCommerce' => request('phone'),
             'codePostaCommercel' => request('zipCode'),
             'codeRecrutement' => request('recruitmentCode'),
+            'regionCommerce' => request('region'),
         ]);
     }
 
