@@ -30,9 +30,9 @@
                           <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
                           <td data-th="points" class="text-center">
                             @if($product->livrer == 1)
-                            <b> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b>
+                            <b> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b>
                             @else
-                            <b> livraison : <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
+                            <b> Livraison : <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
                             @endif
                             </td>
                       </tr>

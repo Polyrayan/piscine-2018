@@ -25,7 +25,7 @@
                         <button type="submit" class="btn btn-primary" name="loginAdmin">Se connecter </button>
                     </div>
                     <div class="form-group">
-                        <a href="../login" class="ForgetPwd"> je ne suis pas un admin </a>
+                        <a href="../login" class="ForgetPwd"> Je ne suis pas un administrateur </a>
                     </div>
                 </form>
             </div>

@@ -24,10 +24,10 @@
                 <tr>
                     <th style="width:15%;">Code Coupon</th>
                     <th style="width:30%;">Description</th>
-                    <th style="width:20%;">Pour quels produit(s)?</th>
-                    <th style="width:10%;" >Valeur</th>
-                    <th style="width:15%;" >Date limite</th>
-                    <th style="width:10%;" >Quantite maximale</th>
+                    <th style="width:20%;">Pour quel(s) produit(s)?</th>
+                    <th style="width:10%;">Valeur</th>
+                    <th style="width:15%;">Date limite</th>
+                    <th style="width:10%;">Quantité maximale</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -186,7 +186,7 @@
                         </div>
 
                         <!-- dateLimite-->
-                        <label class="col-sm-4 col-form-label"> Fin du periode du coupon :</label>
+                        <label class="col-sm-4 col-form-label"> Fin de validité du coupon :</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id = "dateLimite" name="dateLimite" placeholder="derniere jour de valabilite du coupon*">
                             <script>
@@ -199,7 +199,7 @@
 
 
                         <!-- quantiteMax-->
-                        <label class="col-sm-4 col-form-label"> Quantite maximale des produits achetes avec un coupon :</label>
+                        <label class="col-sm-4 col-form-label"> Quantité maximale des produits achetés avec un coupon :</label>
                         <div class="col-sm-8">
                             <textarea class="form-control" name="quantiteMax" rows="2" placeholder="quantite maximale *" value="{{ old('description') }}"></textarea>
                             @if ($errors->has('quantiteMax'))

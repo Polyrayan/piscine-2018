@@ -15,7 +15,7 @@
                         <p><b> total {{$commande->prixCommande}} €</b></p>
                     </div>
                     <div class="col-md-3">
-                        <h4> laissez un avis : </h4>
+                        <h4> Laissez un avis : </h4>
 
                             <input name="productNumber" type="hidden" value="{{ $commande->numProduit }}">
                             <input name="mailClient" type="hidden" value="{{ $client->mailClient }}">
@@ -30,7 +30,7 @@
                                     @if ($errors->has('mark'))
                                         <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('mark') }} </div>  </small>
                                     @endif
-                                    <button class="btn btn-success btn-group" name="rate" type="submit">envoyer</button>
+                                    <button class="btn btn-success btn-group" name="rate" type="submit">Envoyer</button>
                     </div>
                 </form>
             </div>

@@ -17,19 +17,19 @@
                     <li>
                         <strong>{{$day->nomJour}}</strong>
                         @if(($schedulesOfWork->where('nomJour', $day->nomJour))->count() > 0)
-                            ouvert @foreach($schedulesOfWork->where('nomJour', $day->nomJour) as $scheduleOfWork)
+                            Ouvert @foreach($schedulesOfWork->where('nomJour', $day->nomJour) as $scheduleOfWork)
                                         de {{$scheduleOfWork->debut}} à {{$scheduleOfWork->fin}}
                                     @endforeach
                         @else
-                            fermé
+                            Fermé
                         @endif
                     </li>
                 @endforeach
             </div>
             <div class="col-lg-3">
-                <h4> commerçants : </h4>
+                <h4> Commerçants : </h4>
                 @foreach($sellers as $seller)
-                    <li> {{$seller->nomVendeur}} <a href="\Piscine\public\vendeur\{{$seller->idVendeur}}"> infos </a> </li>
+                    <li> {{$seller->nomVendeur}} <a href="\Piscine\public\vendeur\{{$seller->idVendeur}}"> Infos </a> </li>
                 @endforeach
             </div>
         </div>
@@ -50,7 +50,7 @@
                             <th style="width:35%">Produit</th>
                             <th style="width:5%"  class="text-center">Stock</th>
                             <th style="width:15%" class="text-center">Stock réservé </th>
-                            <th style="width:10%"  class="text-center"> variantes </th>
+                            <th style="width:10%"  class="text-center"> Variantes </th>
                             <th style="width:20%"></th>
                         </tr>
                     </thead>
@@ -112,7 +112,7 @@
                     <div class="form">
                         <!-- type of product -->
                         <div class="row">
-                            <label class="col-sm-4 col-form-label"> catégorie :</label>
+                            <label class="col-sm-4 col-form-label"> Catégorie :</label>
                             <div class="col-sm-8">
                                 <select name="nomType" class="form-control form-control-sm col-sm-12">
                                     @foreach ($types as $type)
@@ -143,7 +143,7 @@
                             </div>
 
                             <!-- stock -->
-                            <label class="col-sm-4 col-form-label"> quantité en stock :</label>
+                            <label class="col-sm-4 col-form-label"> Quantité en stock :</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="stock" placeholder="quantité en stock *" value="{{ old('stock') }}">
                                 @if ($errors->has('stock'))
@@ -152,7 +152,7 @@
                             </div>
 
                             <!-- delivery -->
-                            <label class="col-sm-4 col-form-label"> livraison du produit :</label>
+                            <label class="col-sm-4 col-form-label"> Livraison du produit :</label>
                             <div class="col-sm-8 col-form-label ">
                                 <input class="form-horizontal" type="radio" name="delivery" id="Y" value="0">
                                 <label class="form-check-label" for="M"> oui </label>
@@ -164,7 +164,7 @@
                             </div>
 
                             <!-- price -->
-                            <label class="col-sm-4 col-form-label">prix unitaire :</label>
+                            <label class="col-sm-4 col-form-label">Prix unitaire :</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="price" placeholder="prix du produit *" value="{{ old('price') }}">
                                 @if ($errors->has('price'))

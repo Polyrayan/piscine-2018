@@ -27,7 +27,7 @@
             </li>
 
             <li class="nav-item ">
-                <a href="\Piscine\public\vendeur\profil" class="nav-link"> profil </a>
+                <a href="\Piscine\public\vendeur\profil" class="nav-link"> Profil </a>
             </li>
             @if(!is_null($favoriteShop))
                 <li class="nav-item">
@@ -48,7 +48,7 @@
         <ul class="navbar-nav ml-auto">
             @if($adminConnected)
                 <li class="nav-item">
-                    <a  href="\Piscine\public\admin" class="nav-link"> <font color="#DF3A01"> arreter l'aide et revenir à la page admin </font> </a>
+                    <a  href="\Piscine\public\admin" class="nav-link"> <font color="#DF3A01"> Arrêter l'aide et revenir à la page admin </font> </a>
                 </li>
             @else
                 <li class="nav-item">

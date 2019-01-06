@@ -110,7 +110,7 @@
 
                         <!-- phone number -->
                         <div class="row">
-                            <label class="col-sm-4 col-form-label">Telephone :</label>
+                            <label class="col-sm-4 col-form-label">Téléphone :</label>
                             <div class="col-sm-8">
                                 <input type="tel" class="form-control"  name="phone" placeholder="telephone du commerce *" value="{{ old('phone') }}">
                                 @if ($errors->has('phone'))

@@ -5,7 +5,7 @@
     <!--case 1  -->
 
     @if(@isset($deliverablesProducts) and @isset($undeliverablesProducts))
-        <h2> Bilan du panier case1 : </h2></br>
+        <br> <h2> Choisissez comment récupérer vos produits : </h2></br>
         <form id="final"  method="POST">
             {{  csrf_field()  }}
         <div class="container-fluid">
@@ -46,8 +46,8 @@
                                     <td data-th="Size" class="text-center"> <b>{{$product->tailleProduit}}</b> </td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
-                                    <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
-                                            <br> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
+                                    <td data-th="points" class="text-center"><b> Livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
+                                            <br> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
                                     <td  class="form-check">
                                             <input name="productToDeliver[]" type="checkbox" id="{{$product->numProduit}}" value="{{$product->numProduit}}">
                                             <label class="form-check-label" for="{{$product->numProduit}}">
@@ -78,7 +78,7 @@
                                     <td data-th="Price" class="text-center" ><b>{{$product->prixProduit}}€</b></td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
-                                    <td data-th="points" class="text-center"><b> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
+                                    <td data-th="points" class="text-center"><b> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
 
                                 </tr>
                         @endforeach
@@ -102,9 +102,9 @@
                             <p> dont TVA :{{ $total*0.2 }}€ </p>
                         </div>
                         <div class="btn-group">
-                            <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
-                            <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">livrer ceux séléctionnés </button>
-                            <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">se faire livrer le maximum</button>
+                            <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">Tout récupérer</button>
+                            <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">Livrer ceux sélectionnés </button>
+                            <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">Se faire livrer le maximum</button>
                         </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
         </form>
         <!--case 2  -->
     @elseif(@isset($productCase2))
-        <h1> liste des produits case 2  :</h1>
+        <br> <h2> Choisissez comment récupérer vos produits :</h2>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-8">
@@ -155,8 +155,8 @@
                                     <td data-th="Price" class="text-center" ><b>{{$product->prixProduit}}€</b></td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
-                                    <td data-th="points" class="text-center"><b> livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
-                                            <br> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
+                                    <td data-th="points" class="text-center"><b> Livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
+                                            <br> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
                                     <td>
                                         <input  type="checkbox" value="{{$product->numProduit}}" id="{{$product->numProduit}}">
                                         <label class="form-check-label" for="{{$product->numProduit}}">
@@ -186,8 +186,8 @@
                             <p> dont TVA :{{ $total*0.2 }}€ </p>
                         </div>
                         <div class="btn-group">
-                            <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
-                            <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">livrer ceux séléctionnés </button>
+                            <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">Tout récupérer</button>
+                            <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">Livrer ceux sélectionnés </button>
                             <button type="submit" class="btn btn-info btn-sm" name="deliverAll">Tout se faire livrer</button>
                         </div>
                     </form>
@@ -198,7 +198,7 @@
 
         <!--case 3  -->
     @elseif(@isset($productCase3))
-            <h1> liste des produits case 3 :</h1>
+            <br> <h2> Choisissez comment récupérer vos produits :</h2>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-8">
@@ -239,7 +239,7 @@
                                         <td data-th="Price" class="text-center" ><b>{{$product->prixProduit}}€</b></td>
                                         <td data-th="Quantity"class="text-center"><b>{{$product->qteCommande}}</b></td>
                                         <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
-                                        <td data-th="points" class="text-center"><b> magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
+                                        <td data-th="points" class="text-center"><b> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
 
                                     </tr>
                                 </form>
@@ -258,7 +258,7 @@
                                 <h3>Validez votre commande : </h3>
                             </div>
                             <div class="text-center">
-                                <input name="code" class="" placeholder="Code réduction"> <button  type="button" class="btn btn-info btn-sm"  name="code">valider</button>
+                                <input name="code" class="" placeholder="Code réduction"> <button  type="button" class="btn btn-info btn-sm"  name="code">Valider</button>
                             </div>
                             <div class="text-center">
                                 <strong>Total {{ $total }}€ </strong>

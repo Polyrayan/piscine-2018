@@ -6,10 +6,10 @@
 
         <p> Nom      : {{$seller->nomVendeur}} </p>
         <p> Prénom   : {{$seller->prenomVendeur}} </p>
-        <p> mail     : {{$seller->mailVendeur}}</p>
-        <P> portable : {{$seller->telVendeur}}</P>
+        <p> Mail     : {{$seller->mailVendeur}}</p>
+        <P> Portable : {{$seller->telVendeur}}</P>
 
-        <h1> commerces de {{$seller->nomVendeur}} </h1>
+        <h1> Commerces de {{$seller->nomVendeur}} </h1>
         <ul>
             @foreach($shops as $shop)
                 <li> <a  href="\Piscine\public\commerces\{{$shop->numSiretCommerce}}"> {{$shop->nomCommerce}} </a> </li>

@@ -31,7 +31,6 @@ class RegisterController extends Controller
         if( session('seller'))
             $seller = session('seller');
             return view('registration.optionalSellerForm')->with(['seller' => $seller]);
-
     }
     /**
      * données : choix du type d'utilisateur
@@ -64,11 +63,11 @@ class RegisterController extends Controller
     {
         //Client::validateFormClient();
         Client::createClient();
+        //Reduction::createClientReduction(request('mail'));
         $login = Auth::guard('client')->attempt([
             'mailClient' => request('mail'),
             'password' => request('password')
         ]);
-        //Reduction::createClientReduction(request('mail'));
         return redirect('/');
     }
 

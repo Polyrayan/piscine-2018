@@ -139,7 +139,7 @@
             <thead>
             <tr>
                 <th style="width:30%">Produit</th>
-                <th style="width:9%" class="text-center">couleur & taille </th>
+                <th style="width:9%" class="text-center">Couleur & Taille </th>
                 <th style="width:1%" class="text-center">Quantité</th>
                 <th style="width:10%" class="text-center">Prix</th>
                 <th style="width:10%" class="text-center">Distance</th>

@@ -12,12 +12,12 @@
     </div>
     @foreach($ordersToTreat as $orderToTreat)
         <div class="container-fluid">
-            <h2> Livraison réglée le {{ $orderToTreat->dateCommande }} (<font color="#DF7401">en cours</font>)</h2>
+            <h3> Livraison réglée le {{ $orderToTreat->dateCommande }} (<font color="#DF7401">En cours</font>)</h3>
             <div class="row">
                 <div class="col-lg-1"></div>
         @if($ordersToDeliver->where('numCommande', $orderToTreat->numCommande)->count()>0)
                 <div class="col-lg-4">
-                    <h3> Produits de la commande à livrer : </h3>
+                    <h4> Produits à livrer : </h4>
                     <table id="cart" class="table table-hover table-condensed">
                         <thead>
                             <tr>
@@ -34,7 +34,7 @@
                                         <div class="row">
                                             <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
                                             <div class="col-sm-8">
-                                                <h4 class="nomargin"><b>{{$order->nomProduit}} </b></h4>
+                                                <h5 class="nomargin"><b>{{$order->nomProduit}} </b></h5>
                                             </div>
                                         </div>
                                     </td>
@@ -50,7 +50,7 @@
 
         @if($onSiteOrders->where('numCommande', $orderToTreat->numCommande)->count()>0)
                         <div class="col-lg-4">
-                            <h3> Produits que le client viendra récupérer :</h3>
+                            <h4> Produits qui seront récupérés :</h4>
                             <table id="cart" class="table table-hover table-condensed">
                                 <thead>
                                 <tr>
@@ -67,7 +67,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
                                                     <div class="col-sm-8">
-                                                        <h4 class="nomargin"><b>{{$order->nomProduit}} </b></h4>
+                                                        <h5 class="nomargin"><b>{{$order->nomProduit}} </b></h5>
                                                     </div>
                                                 </div>
                                             </td>
@@ -98,7 +98,7 @@
         <h1><u> Commandes terminées du commerce {{ $shop->nomCommerce }} </u></h1>
         <div class="container-fluid">
             @foreach($completedOrders as $order)
-                <h4> commande n°{{$order->numCommande }} réglée le {{ $order->dateCommande }} (<font color="#04B404">terminée</font>)</h4>
+                <h4> Commande n°{{$order->numCommande }} réglée le {{ $order->dateCommande }} (<font color="#04B404">Terminée</font>)</h4>
             @endforeach
             </div>
     <div class="container-fluid">

@@ -58,11 +58,11 @@
                                 {{  csrf_field()  }}
                                 <input hidden name="id" value="{{$dayOfShop->numOuvrir}}">
                                 <div class="form-group">
-                                    <div class="col-lg-3"><label><strong> horaire :</strong> </label></div>
+                                    <div class="col-lg-3"><label><strong> Horaire :</strong> </label></div>
                                     <div class="col-lg-2"> <input type="time" name="start" value="{{$dayOfShop->debut}}"></div>
                                     <div class="col-lg-2"> <input type="time" name="end" value="{{$dayOfShop->fin}}"></div>
                                     <div class="col-lg-5">
-                                        <button type="submit" class="btn-sm btn-info " name="edit"> éditer </button>
+                                        <button type="submit" class="btn-sm btn-info " name="edit"> Editer </button>
                                         <button type="submit" class="btn-sm btn-danger" name="delete"> X </button>
                                     </div>
                                 </div>

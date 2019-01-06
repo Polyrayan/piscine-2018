@@ -25,7 +25,7 @@
                 <a href="\Piscine\public\" class="nav-link"> Accueil </a>
             </li>
             <li class="nav-item">
-                <a  href="\Piscine\public\admin\deconnexion" class="nav-link"> deconnexion </a>
+                <a  href="\Piscine\public\admin\deconnexion" class="nav-link"> Déconnexion </a>
             </li>
         </ul>
     </div>

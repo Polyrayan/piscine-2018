@@ -106,7 +106,7 @@
     </div>
     <br>
     <br>
-        <h3> prendre le controle d'un commerçant : </h3>
+        <h3> Prendre le contrôle d'un commerçant : </h3>
         <div class="row">
             <div class="col-lg-5">
                 <form class="form-inline " method="post">
@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-lg-5"></div>
                     <div class="col-lg-1"></div>
-                    <h5> avec son mail : </h5>
+                    <h5> Avec son mail : </h5>
                     <input type="email" name="mailSeller"  placeholder="email *" class="form-control">
                     <button class="btn btn-primary" name="connect"> Connexion </button>
                 </form>

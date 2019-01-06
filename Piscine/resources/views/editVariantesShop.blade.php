@@ -71,7 +71,7 @@
                     <div class="form">
                         <div class="row">
                             <!-- type of product -->
-                            <label class="col-sm-4 col-form-label"> catégorie :</label>
+                            <label class="col-sm-4 col-form-label"> Catégorie :</label>
                             <div class="col-sm-8">
                                 {{$category}}
                             </div>
@@ -87,7 +87,7 @@
                             <input name="variantNumber" type="hidden" value="{{$exemple->numGroupeVariante}}">
 
                             <!-- stock -->
-                            <label class="col-sm-4 col-form-label"> quantité en stock :</label>
+                            <label class="col-sm-4 col-form-label"> Quantité en stock :</label>
                             <div class="col-sm-8">
                                 <input type="number" class="form-control" name="stock" placeholder="quantité en stock *" value={{$exemple->qteStockProduit}}>
                                 @if ($errors->has('stock'))

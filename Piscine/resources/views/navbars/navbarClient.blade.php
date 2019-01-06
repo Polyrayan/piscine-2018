@@ -34,7 +34,7 @@
                 <a  href="\Piscine\public\MesComparaisons" class="nav-link">Comparer<span class="badge badge-light">{{$nbCompare}}</span></a>
             </li>
             <li class="nav-item">
-                <a href="\Piscine\public\client\{{$id}}\reservations" class="nav-link">Reservation</a>
+                <a href="\Piscine\public\client\{{$id}}\reservations" class="nav-link">Réservation</a>
             </li>
             <li class="nav-item">
                 <a href="\Piscine\public\client\{{$id}}\panier" class="nav-link">Panier</a>
@@ -42,7 +42,7 @@
         </ul>
         <ul class="navbar-nav ml-auto ">
             <li class="nav-item">
-                <a  href="\Piscine\public\client\deconnexion" class="nav-link"> Deconnexion </a>
+                <a  href="\Piscine\public\client\deconnexion" class="nav-link"> Déconnexion </a>
             </li>
         </ul>
 

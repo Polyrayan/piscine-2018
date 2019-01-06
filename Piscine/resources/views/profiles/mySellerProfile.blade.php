@@ -57,7 +57,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
                         <input type="hidden" name="mail" value="{{$seller->mailVendeur}}">
-                        <button type="submit" class="btn btn-primary" name="editSeller">modifier </button>
+                        <button type="submit" class="btn btn-primary" name="editSeller">Modifier </button>
                     </div>
                 </form>
             </div>

@@ -90,7 +90,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
                         <input type="hidden" name="mail" value="{{$client->mailClient}}">
-                        <button type="submit" class="btn btn-primary" name="editClient">modifier </button>
+                        <button type="submit" class="btn btn-primary" name="editClient">Modifier </button>
                     </div>
                 </form>
             </div>
@@ -131,9 +131,9 @@
                                     <tr>
                                         <th style="width:20%"class="text-center">Nom produit</th>
                                         <th style="width:10%"class="text-center">Quantite</th>
-                                        <th style="width:20%"class="text-center"> Couleur</th>
-                                        <th style="width:20%"class="text-center"> Taille</th>
-                                        <th style="width:30%"class="text-center"> Informations </th>
+                                        <th style="width:20%"class="text-center">Couleur</th>
+                                        <th style="width:20%"class="text-center">Taille</th>
+                                        <th style="width:30%"class="text-center">Informations </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -144,9 +144,9 @@
                                         <td data-th="Size" class="text-center"><b>{{$produit[3]}}</b></td>
                                         <td data-th="method" class="text-center">
                                             @if($produit[4] == 1)
-                                                <b><font color="red"> produit à recupérer en magasin</font></b>
+                                                <b><font color="red"> Produit à récupérer en magasin</font></b>
                                             @else
-                                                <b> en livraison </b>
+                                                <b> En livraison </b>
                                             @endif
                                         </td>
                                     </tr>
@@ -170,7 +170,7 @@
     @endif
     <br>
     <div class="container-fluid">
-        <h3>  Commandes terminées : </h3>
+        <h3>  Commandes Terminées : </h3>
     </div>
     <br>
     @if($completedOrders->count() <= 0)
@@ -183,7 +183,7 @@
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th style="width:5%">n° Commande</th>
+                    <th style="width:5%">N° Commande</th>
                     <th class="text-center"  style="width:10%">Prix</th>
                     <th class="text-center"  style="width:10%">Magasin</th>
                     <th class="text-center"  style="width:40%">Produits</th>
@@ -202,10 +202,10 @@
                                     <thead>
                                     <tr>
                                         <th style="width:20%"class="text-center">Nom produit</th>
-                                        <th style="width:10%"class="text-center">Quantite</th>
-                                        <th style="width:20%"class="text-center"> Couleur</th>
-                                        <th style="width:20%"class="text-center"> Taille</th>
-                                        <th style="width:30%"class="text-center"> Informations </th>
+                                        <th style="width:10%"class="text-center">Quantité</th>
+                                        <th style="width:20%"class="text-center">Couleur</th>
+                                        <th style="width:20%"class="text-center">Taille</th>
+                                        <th style="width:30%"class="text-center">Informations </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -216,9 +216,9 @@
                                             <td data-th="Size" class="text-center"><b>{{$produit[3]}}</b></td>
                                             <td data-th="method" class="text-center">
                                                 @if($produit[4] == 1)
-                                                    <b><font color="green">produit récupéré </font></b>
+                                                    <b><font color="green">Produit Récupéré </font></b>
                                                 @else
-                                                    <b><font color="green"> en livraison </font></b>
+                                                    <b><font color="green"> En livraison </font></b>
                                                 @endif
                                             </td>
                                         </tr>

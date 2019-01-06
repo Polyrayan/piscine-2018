@@ -51,7 +51,7 @@
           <div class="form-group">
               <a href="#" class="ForgetPwd" value="Login">mot de passe oublié ?</a> <br>
               <div class="text-right">
-                  <a href="../public/login/admin" class="ForgetPwd">admin</a>
+                  <a href="../public/login/admin" class="ForgetPwd">Admin</a>
               </div>
           </div>
         </form>

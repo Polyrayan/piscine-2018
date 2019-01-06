@@ -86,7 +86,7 @@
 
                     <!-- phone number -->
                     <div class="row">
-                        <label class="col-lg-3 col-form-label">Telephone :</label>
+                        <label class="col-lg-3 col-form-label">Téléphone :</label>
                         <div class="col-lg-7">
                             <input type="tel" class="form-control"  name="phone" placeholder="telephone" value="{{ old('phone') }}">
                             @if ($errors->has('phone'))
@@ -108,7 +108,7 @@
 
                     <!-- city -->
                     <div class="row">
-                        <label class="col-lg-3 col-form-label">ville :</label>
+                        <label class="col-lg-3 col-form-label">Ville :</label>
                         <div class="col-lg-7">
                             <input type="text" class="form-control" name="city" placeholder="Ville" value="{{ old('city') }}">
                             @if ($errors->has('city'))
@@ -216,7 +216,7 @@
 
                 <!-- phone number -->
                     <div class="row">
-                        <label class="col-lg-3 col-form-label">Telephone :</label>
+                        <label class="col-lg-3 col-form-label">Téléphone :</label>
                         <div class="col-lg-7">
                             <input type="tel" class="form-control"  name="phoneSeller" placeholder="telephone" value="{{ old('phoneSeller') }}">
                             @if ($errors->has('phoneSeller'))
