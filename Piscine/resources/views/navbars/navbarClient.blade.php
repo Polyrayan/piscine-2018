@@ -59,19 +59,6 @@
 
 <nav class="navbar navbar-expand-md" style="background-color: #dbdcda">
     <div class="container-fluid">
-    <!-- <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target" data-spy="affix"  data-offset-top="100">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="navbar-collapse collapse" id="collapse_target">
-        <a class="navbar-brand" href=""></a>
-        <a class="navbar-brand" href=""></a>
-        <a class="navbar-brand" href=""></a>
-        <a class="navbar-brand" href=""></a>
-        <a class="navbar-brand" href=""></a>
-        <a class="logo" href="#">
-            <img class="img-responsive logo" src="{{ URL::to('img/cci.png') }}" alt="">
-        </a> -->
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a href="./contact" class="nav-link"> Nous contacter </a>

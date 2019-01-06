@@ -30,6 +30,11 @@ class Admin extends Authenticatable
         return $this->mdpAdmin;
     }
 
+    public function getAuthMail()
+    {
+        return $this->mailAdmin;
+    }
+
     /**
      * on overwrite la fonction car on ne se sert pas des remember token
      * Get the column name for the "remember me" token.

@@ -104,5 +104,6 @@ Route::get('/produits/{id}','ProductController@show');
 Route::post('/produits/{id}','ProductController@selectForm');
 
 Route::get('/contact', 'ContactController@show');
+Route::post('/contact', 'ContactController@sendEmailMessage');
 
 Route::get('/credits', 'CreditsController@show');
