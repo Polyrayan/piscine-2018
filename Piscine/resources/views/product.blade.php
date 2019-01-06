@@ -46,7 +46,7 @@
                                 <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('variant') }} </div>  </small>
                             @endif
                             <div class="form-group">
-                                <label>Quantity :</label>
+                                <label>Quantité :</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control"  id="quantity" name="quantity" min="1" max="100" value="1">
                                 </div>
@@ -148,6 +148,40 @@
                             </div>
                         @endforeach
 
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggestions -->
+            <div class="col-12">
+                <div class="card border-light mb-3">
+                    <div class="card-header bg-primary text-white text-uppercase"><i class="far fa-clone"></i> Produits pouvant vous intéresser </div>
+                    <div class="card-body">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <?php
+                            $i=0;
+                            while ($i<sizeof($suggestions) && $i<3) {
+                              echo '<td>';
+                              echo '  <center>';
+                              echo '    <a href="" data-toggle="modal" data-target="#productModal">';
+                              if(empty($suggestions[$i]->imageProduit)) {
+                              echo '      <img src="http://placehold.it/100x100" style="width:200px; height: 200px;" alt="..." class=" img img-thumbnail"/>';
+                              }
+                              else {
+                              echo '      <img class="img-fluid" src=',$suggestions[$i]->imageProduit,' style="width:200px; height: 200px;"/>';
+                              }
+                              echo '      <h3 class="nom" >',$suggestions[$i]->nomProduit,'</h3>';
+                              echo '   </a>';
+                              echo ' </center>';
+                              echo '</td>';
+                              $i+=1;
+                            }
+                            ?>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                 </div>
             </div>

@@ -237,6 +237,16 @@ class Produit extends Model
     }
 
     /**
+     * renvoie les produits qui ont le meme nomTypeProduit que celui donné en parametre
+     * @param $nomType
+     * @return mixed
+     */
+    public static function productsOfThisCategoryRandom($nomType)
+    {
+        return self::where('nomTypeProduit',$nomType)->groupBy('numGroupeVariante')->inRandomOrder()->get();
+    }
+
+    /**
      * renvoie la note moyenne des avis, renvoie "non noté" s'il n'y en a pas
      * @param $avis
      * @return float|int|string
