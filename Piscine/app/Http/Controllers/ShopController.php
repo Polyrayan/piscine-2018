@@ -38,7 +38,7 @@ class ShopController extends Controller
     }
 
     /*
-     * @param : request of one of the forms created ( view sellerShops : shops buttons : [visit] and [quit]  , form to join a shop [join]
+     * @param : request of one of the forms created ( view sellerShops : shops buttons : [visit] and [quit]  , form to join a shop [join] or to create a shop [addStore]
      *                                                view myShop :  products buttons  : [show], [edit] and [delete]  , form to add a product [add]
      */
     public function selectForm(Request $request)
@@ -53,6 +53,9 @@ class ShopController extends Controller
         }
         elseif ($request->has('join')) {
             return $this->joinShop(request('numShop'), request('codeShop'), request('mailSeller'));
+        }
+        elseif ($request->has('addStore')){
+            return $this->applyAddForm();
         }
         elseif ($request->has('sales')) {
             return redirect(url()->current().'/'.request('siretNumber').'/ventes');
@@ -227,6 +230,14 @@ class ShopController extends Controller
       $product = Produit::productWithId($id);
 
       return view('editProduct', ['favoriteShop' => $favoriteShop , 'adminConnected' => $adminConnected, 'product' => $product]);
+    }
+
+    public function applyAddForm()
+    {
+        Commerce::validateFormShop(); // todo : add the cssfile here and create a function to create products in this file
+        Commerce::createShop();
+        Appartenir::createAppartenir(request('numSiret'), request('sellerMail'));
+        return redirect('/vendeur/commerces');
     }
 
 }
