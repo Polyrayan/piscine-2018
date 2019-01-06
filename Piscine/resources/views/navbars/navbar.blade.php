@@ -60,10 +60,10 @@
         <!-- <a class="logo" href="#"><img class="img-responsive logo" src="{{ URL::to('img/cci.png') }}" alt=""></a> -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="/contact" class="nav-link"> Nous contacter </a>
+                <a href="./contact" class="nav-link"> Nous contacter </a>
             </li>
             <li class="nav-item">
-                <a href="/credits" class="nav-link"> Mentions légales </a>
+                <a href="./credits" class="nav-link"> Mentions légales </a>
             </li>
         </ul>
     </div>
