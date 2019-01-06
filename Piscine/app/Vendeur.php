@@ -85,6 +85,9 @@ class Vendeur extends Authenticatable
             ]);
     }
 
+    public static function findSellerMail($mail){
+        return self::where('mailVendeur',$mail)->count();
+    }
     public static function sellerWithThisMail($mail){
         return self::where('mailVendeur',$mail)->firstOrFail();
     }

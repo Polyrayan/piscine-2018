@@ -110,7 +110,7 @@
 
                         <!-- phone number -->
                         <div class="row">
-                            <label class="col-sm-4 col-form-label">Téléphone :</label>
+                            <label class="col-sm-4 col-form-label">Telephone :</label>
                             <div class="col-sm-8">
                                 <input type="tel" class="form-control"  name="phone" placeholder="telephone du commerce *" value="{{ old('phone') }}">
                                 @if ($errors->has('phone'))
@@ -157,12 +157,31 @@
                             <label class="col-sm-4 col-form-label">Région :</label>
                             <div class="col-sm-8">
                                 <select name="region" class="form-control">
-                                    <option> Languedoc-Roussillon </option>
-                                    <option> Aude </option>
-                                    <option> Gard </option>
-                                    <option> Hérault </option>
-                                    <option> Lozère </option>
-                                    <option> Pyrénées-Orientales </option>
+                                    @if (old('region') == "Aude" )
+                                        <option selected> Aude </option>
+                                    @else
+                                        <option> Aude </option>
+                                    @endif
+                                    @if (old('region') == "Gard" )
+                                        <option selected> Gard </option>
+                                    @else
+                                        <option> Gard </option>
+                                    @endif
+                                    @if (old('region') == "Hérault" )
+                                        <option selected> Hérault </option>
+                                    @else
+                                        <option> Hérault </option>
+                                    @endif
+                                    @if (old('region') == "Lozère" )
+                                        <option selected> Lozère </option>
+                                    @else
+                                        <option> Lozère </option>
+                                    @endif
+                                    @if (old('region') == "Pyrénées-Orientales" )
+                                        <option selected> Pyrénées-Orientales </option>
+                                    @else
+                                        <option> Pyrénées-Orientales </option>
+                                    @endif
                                 </select>
                                 @if ($errors->has('region'))
                                     <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('region') }} </div>  </small>

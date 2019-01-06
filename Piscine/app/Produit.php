@@ -9,7 +9,7 @@ class Produit extends Model
     protected $fillable = ['numProduit','nomProduit','libelleProduit','qteStockProduit',
         'qteStockDispoProduit','livraisonProduit','prixProduit',
         'numSiretCommerce','nomTypeProduit','couleurProduit','tailleProduit',
-        'marqueProduit','numGroupeVariante'];
+        'marqueProduit','numGroupeVariante','imageProduit'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey = 'numProduit';
@@ -42,6 +42,7 @@ class Produit extends Model
             'tailleProduit' => request('size'),
             'marqueProduit' => request('brand'),
             'numGroupeVariante' => $numGroupVariant,
+            'imageProduit' => request('image'),
         ]);
     }
 
@@ -287,16 +288,16 @@ class Produit extends Model
     }
 
     public static function editProduct(){
-        $delivery = request('delivery') - 1;
         self::where('numProduit',request('id'))
             ->update(['nomProduit'=> request('name') ,
                 'libelleProduit'=> request('libelle'),
                 'qteStockProduit' => request('qteStockProduit'),
-                'livraisonProduit' => $delivery,
+                'livraisonProduit' => request('delivery'),
                 'prixProduit' => request('prix'),
                 'couleurProduit' => request('couleurProduit'),
                 'tailleProduit' => request('tailleProduit'),
-                'marqueProduit' => request('marqueProduit')
+                'marqueProduit' => request('marqueProduit'),
+                'imageProduit' => request('image')
             ]);
     }
 }

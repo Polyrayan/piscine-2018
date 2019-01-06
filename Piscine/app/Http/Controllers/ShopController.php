@@ -101,17 +101,10 @@ class ShopController extends Controller
         }
 
         // post de la vue pour modifier un produit deja créé(bouton jaune)
-        elseif ($request->has('selectForm')) {
-          if(request('delivery') == 1 or request('delivery') == 2){
+        elseif ($request->has('editMyProduct')) {
             Produit::editProduct();
             flash("Modification du produit effectuée ! ")->success();
             return back();
-          }
-          else{
-            return back()->withErrors([
-                'delivery' => "Veuilliez choisir l'item Livraison",
-            ]);
-          }
         }
     }
 
@@ -234,7 +227,7 @@ class ShopController extends Controller
 
     public function applyAddForm()
     {
-        Commerce::validateFormShop(); // todo : add the cssfile here and create a function to create products in this file
+        Commerce::validateFormShop();
         Commerce::createShop();
         Appartenir::createAppartenir(request('numSiret'), request('sellerMail'));
         return redirect('/vendeur/commerces');

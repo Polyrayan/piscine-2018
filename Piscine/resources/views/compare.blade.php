@@ -25,7 +25,7 @@
                                     <td class="text-center"> {{$product1->libelleProduit}}</td>
                                 </tr>
                                 <tr>
-                                    <td> <b> Catégorie </b> </td>
+                                    <td> <b> Categorie </b> </td>
                                     <td class="text-center"> {{$product1->nomTypeProduit}} </td>
                                 </tr>
                                 <tr>
@@ -80,7 +80,7 @@
                                     <td class="text-center"> {{$product1->distance}} km </td>
                                 </tr>
                                 <tr>
-                                    <td> <b> Livraison </b> </td>
+                                    <td> <b> livraison </b> </td>
                                     <td class="text-center">
                                         @if (!empty($product2))
                                             @if ($product1->livraisonProduit == 0 and $product2->livraisonProduit == 1 )
@@ -136,7 +136,7 @@
                                     <td class="text-center"> {{$product2->libelleProduit}}</td>
                                 </tr>
                                 <tr>
-                                    <td> <b> Catégorie </b> </td>
+                                    <td> <b> Categorie </b> </td>
                                     <td class="text-center"> {{$product2->nomTypeProduit}} </td>
                                 </tr>
                                 <tr>
@@ -205,7 +205,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td> <b> Livraison </b> </td>
+                                    <td> <b> livraison </b> </td>
                                     <td class="text-center">
                                         @if (!empty($product1))
                                             @if ($product2->livraisonProduit == 0 and $product1->livraisonProduit == 1 )

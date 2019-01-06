@@ -28,9 +28,11 @@ class RegisterController extends Controller
      */
     public function showOptionalForm()
     {
-        if( session('seller'))
+        if( session('seller')) {
             $seller = session('seller');
             return view('registration.optionalSellerForm')->with(['seller' => $seller]);
+        }
+        return view('registration.optionalSellerForm');
     }
     /**
      * données : choix du type d'utilisateur
@@ -61,13 +63,18 @@ class RegisterController extends Controller
 
     public function applyClientForm()
     {
-        //Client::validateFormClient();
+        if (Client::findClientMail(request('mail')) > 0 ){
+            return back()->withErrors([
+                'mail' => 'mail deja utilisé'
+            ]);
+        }
+        Client::validateFormClient();
         Client::createClient();
-        //Reduction::createClientReduction(request('mail'));
         $login = Auth::guard('client')->attempt([
             'mailClient' => request('mail'),
             'password' => request('password')
         ]);
+        Reduction::createClientReduction(request('mail'));
         return redirect('/');
     }
 
@@ -78,6 +85,11 @@ class RegisterController extends Controller
 
     public function applySellerForm()
     {
+        if (Vendeur::findSellerMail(request('mailSeller')) > 0 ){
+            return back()->withErrors([
+                'mailSeller' => 'mail deja utilisé'
+            ]);
+        }
         Vendeur::validateFormSeller();
         Vendeur::createSeller();
         $seller = Vendeur::sellerWithThisMail(request('mailSeller'));
@@ -85,7 +97,8 @@ class RegisterController extends Controller
             'mailVendeur' => request('mailSeller'),
             'password' => request('passwordSeller') // laravel va chercher le mdp en utilisant password et non mdpSeller
         ]);
-        return redirect('register/optionalForm')->with(['seller' => $seller]);
+        flash('inscription réussie')->success();
+        return redirect('/login');
     }
 
     public function applyJoinForm()
@@ -102,7 +115,7 @@ class RegisterController extends Controller
 
     public function applyAddForm()
     {
-        Commerce::validateFormShop(); // todo : add the cssfile here and create a function to create products in this file
+        Commerce::validateFormShop();
         Commerce::createShop();
         Appartenir::createAppartenir(request('numSiret'), request('sellerMail'));
         return redirect('/vendeur/commerces');

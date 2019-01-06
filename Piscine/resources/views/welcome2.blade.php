@@ -37,7 +37,7 @@
                    </div>
                    <div class="col-lg-2">
                        <select name="category" class="form-control">
-                           <option> Toutes catégories </option>
+                           <option> toutes catégories </option>
                        </select>
                    </div>
                    <div class="col-lg-4"></div>
@@ -71,8 +71,8 @@
             <thead>
             <tr>
                 <th style="width:30%">Produit</th>
-                <th style="width:5%" class="text-center">Couleur</th>
-                <th style="width:8%" class="text-center">Taille</th>
+                <th style="width:5%" class="text-center">couleur</th>
+                <th style="width:8%" class="text-center">taille</th>
                 <th style="width:1%" class="text-center">Quantité</th>
                 <th style="width:10%" class="text-center">Prix</th>
                 <th style="width:10%" class="text-center">Distance</th>

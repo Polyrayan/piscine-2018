@@ -1,7 +1,7 @@
 @extends('navbars.navbarSeller')
 
 @section('content')
-
+    <br>
     <div class="container-fluid">
         <div class="row">
             <div class = "col-lg-3 ">
@@ -36,7 +36,13 @@
                                 {{  csrf_field()  }}
                                 <td data-th="Product">
                                     <div class="row">
-                                        <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                                        <div class="col-sm-4 hidden-xs">
+                                            @if(empty($product->imageProduit))
+                                                <img src="http://placehold.it/100x100" style="width:100px; height: 100px;" alt="..." class=" img img-thumbnail"/>
+                                            @else
+                                                <img src="{{$product->imageProduit}}" style="width:  100px; height: 100px;" alt="..." class=" img-thumbnail"/>
+                                            @endif
+                                        </div>
                                         <div class="col-sm-8">
                                             <h4 class="nomargin"> <b>{{$product->nomProduit}} </b> </h4>
                                             <p>  {{$product->libelleProduit}}</p>
@@ -71,7 +77,7 @@
                     <div class="form">
                         <div class="row">
                             <!-- type of product -->
-                            <label class="col-sm-4 col-form-label"> Catégorie :</label>
+                            <label class="col-sm-4 col-form-label"> catégorie :</label>
                             <div class="col-sm-8">
                                 {{$category}}
                             </div>
@@ -84,10 +90,11 @@
                             <input name="delivery" type="hidden" value="{{$exemple->livraisonProduit}}">
                             <input name="price" type="hidden" value="{{$exemple->prixProduit}}">
                             <input name="brand" type="hidden" value="{{$exemple->marqueProduit}}">
+                            <input name="image" type="hidden" value="{{$exemple->imageProduit}}">
                             <input name="variantNumber" type="hidden" value="{{$exemple->numGroupeVariante}}">
 
                             <!-- stock -->
-                            <label class="col-sm-4 col-form-label"> Quantité en stock :</label>
+                            <label class="col-sm-4 col-form-label"> quantité en stock :</label>
                             <div class="col-sm-8">
                                 <input type="number" class="form-control" name="stock" placeholder="quantité en stock *" value={{$exemple->qteStockProduit}}>
                                 @if ($errors->has('stock'))

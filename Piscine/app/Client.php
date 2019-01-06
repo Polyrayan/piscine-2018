@@ -115,6 +115,10 @@ class Client extends Authenticatable
             ]);
     }
 
+    public static function findClientMail($mail){
+        return self::where('mailClient',$mail)->count();
+    }
+
     public static function getMyAddress(){
         $client = self::where('mailClient',self::getMailClient())->first();
         return "$client->adresseClient , $client->villeClient ";

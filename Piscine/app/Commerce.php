@@ -8,7 +8,7 @@ class Commerce extends Model
 {
     protected $fillable = ['numSiretCommerce','nomCommerce','libelleCommerce','adresseCommerce',
                             'villeCommerce','codePostalCommerce','telCommerce',
-                            'codeReduction','codeRecrutementVendeur','regionCommerce'];
+                            'codeReduction','codeRecrutement','regionCommerce'];
     public $timestamps = false;
     protected $primaryKey ='numSiretCommerce';
     protected $keyType = 'string';
@@ -30,11 +30,7 @@ class Commerce extends Model
             'address' => ['bail','required','string'],
             'city' => ['bail','required','string'],
             'zipCode' => ['bail','required','numeric'],
-            'region' => ['bail','required','string']
-            //
-            //
-            // todo : add the cssfile here and create a function to create products in this file
-            //
+            'region' => ['bail','required']
         ]);
     }
     public static function createShop(){
@@ -47,7 +43,7 @@ class Commerce extends Model
             'telCommerce' => request('phone'),
             'codePostaCommercel' => request('zipCode'),
             'codeRecrutement' => request('recruitmentCode'),
-            'regionCommerce' => request('region'),
+            'regionCommerce' => request('region')
         ]);
     }
 

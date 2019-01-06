@@ -16,9 +16,17 @@
                     <div class="row">
                         <label class="col-lg-3 col-form-label"> Vous êtes :</label>
                         <div class="col-lg-7 col-form-label">
-                            <input class="form-horizontal" type="radio" name="gender" id="M" value="homme">
+                            @if(old('gender') == "homme")
+                                <input class="form-horizontal" type="radio" name="gender" id="M" value="homme" checked>
+                            @else
+                                <input class="form-horizontal" type="radio" name="gender" id="M" value="homme">
+                            @endif
                             <label class="form-check-label" for="M"> un homme </label>
-                            <input class="form-horizontal" type="radio" name="gender" id="F" value="femme">
+                            @if(old('gender') == "femme")
+                                <input class="form-horizontal" type="radio" name="gender" id="F" value="femme" checked>
+                            @else
+                                <input class="form-horizontal" type="radio" name="gender" id="F" value="femme">
+                            @endif
                             <label class="form-check-label" for="F"> une femme </label>
                             @if ($errors->has('gender'))
                                 <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('gender') }} </div> </small>
@@ -86,7 +94,7 @@
 
                     <!-- phone number -->
                     <div class="row">
-                        <label class="col-lg-3 col-form-label">Téléphone :</label>
+                        <label class="col-lg-3 col-form-label">Telephone :</label>
                         <div class="col-lg-7">
                             <input type="tel" class="form-control"  name="phone" placeholder="telephone" value="{{ old('phone') }}">
                             @if ($errors->has('phone'))
@@ -108,7 +116,7 @@
 
                     <!-- city -->
                     <div class="row">
-                        <label class="col-lg-3 col-form-label">Ville :</label>
+                        <label class="col-lg-3 col-form-label">ville :</label>
                         <div class="col-lg-7">
                             <input type="text" class="form-control" name="city" placeholder="Ville" value="{{ old('city') }}">
                             @if ($errors->has('city'))
@@ -216,7 +224,7 @@
 
                 <!-- phone number -->
                     <div class="row">
-                        <label class="col-lg-3 col-form-label">Téléphone :</label>
+                        <label class="col-lg-3 col-form-label">Telephone :</label>
                         <div class="col-lg-7">
                             <input type="tel" class="form-control"  name="phoneSeller" placeholder="telephone" value="{{ old('phoneSeller') }}">
                             @if ($errors->has('phoneSeller'))
@@ -237,5 +245,5 @@
         </div>
     </div>
   </div>
-
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 @endsection
