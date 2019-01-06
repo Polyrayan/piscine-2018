@@ -45,4 +45,8 @@ class Coupon extends Model
     public static function couponWithCode($code){
         return self::where('codeCoupon', $code)->firstOrFail();
     }
+
+    public static function countCouponsWithCode($code){
+        return self::where('codeCoupon', $code)->count();
+    }
 }
