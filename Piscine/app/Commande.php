@@ -23,7 +23,6 @@ class Commande extends Model
         return self::where('etatCommande','terminee')
             ->join('paniers', 'commandes.numPanier', '=', 'paniers.numPanier')
             ->join('clients', 'paniers.mailClient', '=', 'clients.mailClient')
-            //->join('detenir', 'commandes.numCommande', '=', 'detenir.numCommande')
             ->where('idClient', $id)
             ->get();
     }

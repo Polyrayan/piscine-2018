@@ -9,6 +9,8 @@ use App\Vendeur;
 use App\Coupon;
 use App\TypeProduit;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Null_;
+
 class ShopCouponsController extends Controller
 {
     /*
@@ -18,27 +20,31 @@ class ShopCouponsController extends Controller
     public function show($siretNumber)
     {
         $coupons = Coupon::where('numSiretCommerce' , $siretNumber)->get();
+        foreach($coupons as $coupon) {
+            if ($coupon->numProduit) {
+                $coupon["nomProduit"] = Produit::productWithId($coupon->numProduit)->nomProduit;
+                unset($coupon->{"numProduit"});
+            }
+
+            if(!$coupon->nomTypeProduit) {
+                unset($coupon->{"nomTypeProduit"});
+            }
+        }
         $nomCommerce = Commerce::nameOfThisShop($siretNumber);
         $favoriteShop = Vendeur::getMyFavoriteShop();
         $adminConnected = Admin::isConnected();
-        $types = TypeProduit::all(); // TO DO : TYPESOFASHOP
+//        $types = TypeProduit::all(); // TO DO : TYPESOFASHOP
         $produits = Produit::productsOfThisShop($siretNumber);
-        $nomsProduits = array();
 
+        $nomsProduits = array();
+        $types = array();
         foreach($produits as $produit) {
             array_push($nomsProduits, $produit->nomProduit);
+            array_push($types, $produit->nomTypeProduit);
         }
         $nomsProduits = array_unique($nomsProduits);
-//        return $types;
-//        foreach ($coupons as $coupon) {
-//            if(!$coupon->nomTypeProduit) {
-//                unset($o->{"property_name"}
-//            }
-//
-//            else {
-//
-//            }
-//        }
+        $types = array_unique($types);
+
         if ($coupons->isEmpty()){
             return view('myCoupons')->with(['nomsProduits' => $nomsProduits, 'types' => $types, 'numCommerce' => $siretNumber, 'nomCommerce' => $nomCommerce, 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected]);
         }
@@ -48,39 +54,78 @@ class ShopCouponsController extends Controller
     public function selectForm(Request $request)
     {
         if ($request->has('add')) {
+//            return $request;
             return $this->addCoupon(request('codeCoupon'),request('numSiretCommerce'),
                 request('nomTypeProduit'),request('nomProduit'),request('valeur')
                 ,request('valeurPourcentage'),request('description'),request('dateLimite')
                 ,request('qteMax'));
         }
-        elseif ($request->has('edit')) {
-            return $this->updateCoupon(request('id'),request('start'), request('end'));
+        elseif ($request->has('update')) {
+//            return $request;
+            return $this->updateCoupon(request('codeCoupon'),request('produit'),request('valeur')
+                ,request('description'),request('dateLimite2')
+                ,request('qteMax'));
         }
         elseif ($request->has('delete')) {
-            return $this->destroyCoupon(request('id'));
+//            return $request;
+            return $this->destroyCoupon(request('codeCoupon'));
         }
     }
-//    public function updateSchedule($id,$start,$end){
-//        request()->validate([
-//            'start' => ['required','date_format:H:i'],
-//            'end' => ['required','date_format:H:i','after:start']
-//        ]);
-//        Ouvrir::where('numOuvrir',$id)->update(['debut' => $start , 'fin' => $end]);
-//        return back();
-//    }
+    public function updateCoupon($codeCoupon,$produit, $valeur, $description,
+                              $dateLimite, $qteMax){
+
+        $coupon = Coupon::couponWithCode($codeCoupon);
+        if(!$coupon){
+            return back()->withErrors([
+                'codeCoupon' => 'Ce coupon n\'existe pas',
+            ]);
+        }
+
+        $produitDeNomProduit = Produit::where('nomProduit',$produit)->first();
+        $numProduit = Null;
+        $nomTypeProduit = Null;
+        if($produitDeNomProduit){
+            $numProduit = $produitDeNomProduit->numProduit;
+        }else{
+            $nomTypeProduit = $produit;
+        }
+
+        $c = $valeur[-1];
+        $valeurAbsolue = Null;
+        $valeurPourcentage = Null;
+
+        if ($c == '%') {
+            $valeurPourcentage = intval(substr($valeur, 0,strlen($valeur) -1));
+//            return $valeurPourcentage;
+        }
+
+        else {
+            $valeurAbsolue = intval(substr($valeur, 0,strlen($valeur) -1));
+//            return $valeur;
+
+        }
+
+        $coupon->update([
+            'codeCoupon' => $codeCoupon,
+            'nomTypeProduit'=> $nomTypeProduit,
+            'numProduit'=> $numProduit,
+            'valeur' => $valeurAbsolue,
+            'valeurPourcentage'=> $valeurPourcentage,
+            'dateLimite'=> $dateLimite,
+            'quantiteMax'=> $qteMax,
+            'description'=> $description
+        ]);
+
+        return back();
+    }
 
     public function addCoupon($codeCoupon,$numSiretCommerce,$nomTypeProduit,
                               $nomProduit, $valeur, $valeurPourcentage, $description,
                               $dateLimite, $qteMax)
     {
         request()->validate([
-            'codeCoupon' => ['required','string'],
-            'siretNumber' => ['required'],
-            'nomTypeProduit' => ['string'],
-            'nomProduit' => ['string'],
-            'valeur' => ['numeric'],
-            'valeurPourcentage' => ['numeric'],
-            'qteMax' => ['numeric'],
+            'codeCoupon' => ['required'],
+            'numSiretCommerce' => ['required'],
         ]);
 
         if(($nomProduit && $nomTypeProduit) || (!$nomProduit && !$nomTypeProduit)){
@@ -90,14 +135,14 @@ class ShopCouponsController extends Controller
             ]);
         }
 
-
         $dateNew = date("Y/m/d h:i:s" , strtotime($dateLimite));
+        $dateNow = date_create('now');
 
-        if ($dateNew > date_create('now')) {
-            return back()->withErrors([
-                'dateLimite' => 'La date limite doit etre apres la date courante.',
-            ]);
-        }
+//        if ($dateNow > $dateNew) {
+//            return back()->withErrors([
+//                'dateLimite' => 'La date limite doit etre apres la date courante.',
+//            ]);
+//        }
 
         Coupon::Create([
             'codeCoupon' => $codeCoupon,
@@ -112,9 +157,9 @@ class ShopCouponsController extends Controller
         ]);
         return back();
     }
-    public function destroySchedule($codeCoupon){
-        $schedule = Coupon::where('codeCoupon', $codeCoupon)->firstOrFail();
-        $schedule->delete();
+    public function destroyCoupon($codeCoupon){
+        $coupon = Coupon::where('codeCoupon', $codeCoupon)->first();
+        $coupon->delete();
         return back();
     }
 }

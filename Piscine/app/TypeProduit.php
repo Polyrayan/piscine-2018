@@ -33,4 +33,5 @@ class TypeProduit extends Model
         $typeProduit = self::where('nomTypeProduit', $nomTypeProduit)->firstOrFail();
         return $typeProduit->tempsReservation;
     }
+    
 }
