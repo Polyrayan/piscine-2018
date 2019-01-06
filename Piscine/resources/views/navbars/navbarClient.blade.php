@@ -56,3 +56,44 @@
 @yield('content')
 
 </body>
+
+<nav class="navbar navbar-expand-md" style="background-color: #dbdcda">
+    <div class="container-fluid">
+    <!-- <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target" data-spy="affix"  data-offset-top="100">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="collapse_target">
+        <a class="navbar-brand" href=""></a>
+        <a class="navbar-brand" href=""></a>
+        <a class="navbar-brand" href=""></a>
+        <a class="navbar-brand" href=""></a>
+        <a class="navbar-brand" href=""></a>
+        <a class="logo" href="#">
+            <img class="img-responsive logo" src="{{ URL::to('img/cci.png') }}" alt="">
+        </a> -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="./contact" class="nav-link"> Nous contacter </a>
+            </li>
+            <li class="nav-item">
+                <a href="./credits" class="nav-link"> Mentions légales </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.facebook.com/CCIHerault/" class="nav-link">
+                    <img class="img-responsive" src="{{ URL::to('img/facebook_128.png') }}" alt="" width="64" height="64">
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://twitter.com/CCIHerault" class="nav-link">
+                    <img class="img-responsive" src="{{ URL::to('img/twitter-128.png') }}" alt="" width="80" height="80">
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/company/cci-h%C3%A9rault" class="nav-link">
+                    <img class="img-responsive" src="{{ URL::to('img/linkedin-128.png') }}" alt="" width="64" height="64">
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
