@@ -8,14 +8,15 @@
 
         <h3> ce qu'il manque : </h3>
         <ul>
-            <li> ajouter un footer dans toutes les views pour faire plus PRO , vous amusez pas a faire un footer dans chaque view utiliser blade c'est comme l'extension de la navbar mais inversé </li>
-            <li> formulaire produit : ajouter une image </li>
-            <li> un admin peut supprimer des avis </li>
-            <li> ajouter profil dans les navbar client vendeur</li>
-            <li> refered et js</li>
-            <li> trier par categorie </li>
+            <li> ajouter un footer dans toutes les views pour faire plus PRO </li>
+            <li> formulaire produit :  pouvoir ajouter une image </li>
+            <li> un admin doit pouvoir  supprimer des avis </li>
             <li> pouvoir utiliser des points de reductions</li>
             <li> pouvoir appliquer un code de reduction en tant que client </li>
+            <li> deliverMax </li>
+            <li> faire des tests pour trouver des erreurs </li>
+            <li> ajouter toutes les categorie (:TypeProduit) de LeBonCoin pour avoir une bonne base </li>
+            <li> Proposer 3 produits de la meme categorie dans la view produit/{id} "vous pourriez peut etre intérressé par : "  </li>
         </ul>
     </div>
 
@@ -195,7 +196,6 @@
                             <button class="btn btn-warning btn-group" name="addShoppingCart"> <i class="fas fa-cart-arrow-down"></i> </button>
                             <button class="btn btn-success btn-group" name="book"> <i class="far fa-clock"></i> </button>
                             <button class="btn bg-light btn-group" name="compare"> <i class="fas fa-yin-yang"></i> </button>
-
                         </td>
                     </form>
                 </tr>
