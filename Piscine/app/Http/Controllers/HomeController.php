@@ -46,15 +46,14 @@ class HomeController extends Controller
         $maxReview = Produit::bestProduct();
         $lastProduct = Produit::lastProduct();
 
-        if(Coupon::all()->count()>0){
-            $greatDiscount = Coupon::greatestDiscount();
-            if($greatDiscount['value']->valeur == null && $greatDiscount['percent']->valeurPourcentage == null){
+        if(Coupon::all()->count()==0){
                 $maxDiscount = [Produit::getRandom()];
                 $typeDiscount='none';
                 $discount=null;
-            }
-
-            elseif($greatDiscount['value']->valeur == null) {
+        }
+        else{
+            $greatDiscount = Coupon::greatestDiscount();
+            if($greatDiscount['value']->valeur == null) {
                 $maxDiscount = Produit::where('produits.numProduit',$greatDiscount['percent']->numProduit)
                     ->join('coupons','coupons.numProduit','=','produits.numProduit')->get();
                 $typeDiscount='percent';
@@ -89,17 +88,9 @@ class HomeController extends Controller
                     $discount=$productDiscountPercent[0]->valeurPourcentage;
                 }
             }
-
-            return view('welcome', ['products' => $products, 'allProducts' =>$allProducts, 'mailClient' => $mailClient, 'id' => $id, 'nbCompare' => $nbCompare, 'categories' => $categories, 'maxDiscount' => $maxDiscount[0], 'maxReview' => $maxReview, 'lastProduct' => $lastProduct, 'typeDiscount' => $typeDiscount, 'discount' => $discount]);
-
-
         }
 
-        else {
-
-            return view('welcome', ['products' => $products, 'allProducts' =>$allProducts, 'mailClient' => $mailClient, 'id' => $id, 'nbCompare' => $nbCompare, 'categories' => $categories, 'maxReview' => $maxReview, 'lastProduct' => $lastProduct]);
-
-        }
+        return view('welcome', ['products' => $products, 'allProducts' =>$allProducts, 'mailClient' => $mailClient, 'id' => $id, 'nbCompare' => $nbCompare, 'categories' => $categories, 'maxDiscount' => $maxDiscount[0], 'maxReview' => $maxReview, 'lastProduct' => $lastProduct, 'typeDiscount' => $typeDiscount, 'discount' => $discount]);
     }
 
     public function selectForm(Request $request)
