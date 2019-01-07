@@ -15,7 +15,7 @@ class Client extends Authenticatable
     protected $guard = 'client';
 
     protected $fillable = ['mailClient','mdpClient','nomClient','prenomClient','telClient','sexeClient','dateNaissanceClient',
-                         'adresseClient','codePostalClient','villeClient','idClient','produit1','produit2'];
+                            'pointsReduction','adresseClient','codePostalClient','villeClient','idClient','produit1','produit2'];
     protected $hidden = ['mdpClient'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)

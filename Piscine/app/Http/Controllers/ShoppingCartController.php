@@ -10,6 +10,7 @@ use App\Produit;
 use App\Client;
 use App\Reduction;
 use App\TypeProduit;
+use Carbon\Carbon;
 use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,12 +53,35 @@ class ShoppingCartController extends Controller
         elseif ($request->has('buy')) {
             return redirect(url()->current().'/confirmation');
         }
+
+        elseif ($request->has('points')){
+            return $this->applyPoints(request('pointsReduction'), request('total'),request('appliedCoupon'));
+        }
+
         elseif ($request->has('code')){
-//              return $request;//('deliverablesProducts');
             return $this->applyCoupon(request('codeCoupon'), request('productNumber'), request('quantity'),
-                request('subTotal'), request('deliverablesProducts'), request('undeliverablesProducts')
+                request('subTotal'), request('total'),request('appliedPoints')
                 );
         }
+
+        elseif ($request->has('finalPaid')) {
+            $date = Date::now()->format('Y-m-d H:i:s');
+            $shoppingCartNumber = request('shoppingCartNumber');
+            Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
+            Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement", 'paiementEnLigne' => 0]);
+
+            // Actualiser le numero des points de reduction
+            $client = Client::getClientWithId(request('id'));
+            $reduction = Reduction::where('mailClient', $client->mailClient)->first();
+            $newPoints = $reduction->pointsReduction + intval(request('points'));
+            $dateFinale = Carbon::now();
+            $dateFinale = $dateFinale->addDays(14)->format('Y-m-d h:i:s');
+            Reduction::where('numReduction', $reduction->numReduction)->update(['pointsReduction' => $newPoints , 'dateFinReduction'=>$dateFinale]);
+            flash("Félicitations, votre commande a été prise en compte.")->success();
+            return redirect('/client/profil');
+        }
+
+
 
         // view confirmShoppingCart
         elseif ($request->has('deliverAll')){
@@ -72,6 +96,7 @@ class ShoppingCartController extends Controller
         elseif ($request->has('deliveryMax')) {
             return 'todo';
         }
+
     }
 
     public function showConfirmation($id)
@@ -105,16 +130,16 @@ class ShoppingCartController extends Controller
 
         // case 1 : [se faire livrer le maximum] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
         if (!($deliverablesProducts->isEmpty()) and !($undeliverablesProducts->isEmpty())) {
-            return view('confirmShoppingCart')->with(['id' => $id, 'deliverablesProducts' => $deliverablesProducts, 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'deliverablesProducts' => $deliverablesProducts, 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False, 'appliedPoints'=>False]);
         }
         // case  2 all deliverables : [tout se faire livrer] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
         elseif (!($deliverablesProducts->isEmpty()) and $undeliverablesProducts->isEmpty()) {
-            return view('confirmShoppingCart')->with(['id' => $id, 'productCase2' => $deliverablesProducts, 'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'productCase2' => $deliverablesProducts, 'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False, 'appliedPoints'=>False]);
 
         }
         // case 3 all undeliverables : [tout récupérer chez les vendeurs]
         elseif ($deliverablesProducts->isEmpty() and !($undeliverablesProducts->isEmpty())){
-            return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
+            return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False, 'appliedPoints'=>False]);
         }
         else{
             return "Error unknown case";
@@ -152,6 +177,17 @@ class ShoppingCartController extends Controller
 
     public function buyAndDeliverNone($shoppingCartNumber,$total)
     {
+        $id = Client::getIdClient();
+        $client = Client::getClientWithId($id);
+        $products = Panier::getPanierClient($client->mailClient);
+        $nbCompare = Client::calculNumberOfProductToCompare();
+        $numPanier = Panier::getShoppingCartNumber();
+
+        $points = 0;
+        foreach ($products as $product) {
+            $points+=Panier::calculPoints($product->livrer, $product->prixProduit, $product->qteCommande);
+        }
+
         $commandes = Panier::where('paniers.numPanier',$shoppingCartNumber)
             ->leftjoin('commandes','commandes.numPanier' , '=' , 'paniers.numPanier')
             ->leftjoin('detenir','detenir.numCommande' , '=' , 'commandes.numCommande')
@@ -162,11 +198,24 @@ class ShoppingCartController extends Controller
             Detenir::where('numCommande',$commande->numCommande)->where('numProduit',$commande->numProduit)->update(['livrer' => 1]);
         }
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($total*0.15,1)]);
-        return redirect(url()->current().'/facture');
+
+        return view('myReceipt')->with(['products' => $products,'total' => $total, 'points' => $points ,'id' => $id, 'nbCompare' => $nbCompare, 'numPanier' => $numPanier]);
+
     }
 
     public function buyAndDeliverAll($shoppingCartNumber,$total)
     {
+        $id = Client::getIdClient();
+        $client = Client::getClientWithId($id);
+        $products = Panier::getPanierClient($client->mailClient);
+        $nbCompare = Client::calculNumberOfProductToCompare();
+        $numPanier = Panier::getShoppingCartNumber();
+
+        $points = 0;
+        foreach ($products as $product) {
+            $points+=Panier::calculPoints($product->livrer, $product->prixProduit, $product->qteCommande);
+        }
+
         $commandes = Panier::where('paniers.numPanier',$shoppingCartNumber)
             ->leftjoin('commandes','commandes.numPanier' , '=' , 'paniers.numPanier')
             ->leftjoin('detenir','detenir.numCommande' , '=' , 'commandes.numCommande')
@@ -178,11 +227,23 @@ class ShoppingCartController extends Controller
             Detenir::where('numCommande',$commande->numCommande)->where('numProduit',$commande->numProduit)->update(['livrer' => 0]);
         }
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($total*0.10,1)]);
-        return redirect(url()->current().'/facture');
+        return view('myReceipt')->with(['products' => $products,'total' => $total, 'points' => $points ,'id' => $id, 'nbCompare' => $nbCompare, 'numPanier' => $numPanier]);
+
     }
 
     public function buyWithSelectedDelivery($shoppingCartNumber,$total,$arrayOfSubtotals,$arrayOfProductsToDeliver)
     {
+        $id = Client::getIdClient();
+        $client = Client::getClientWithId($id);
+        $products = Panier::getPanierClient($client->mailClient);
+        $nbCompare = Client::calculNumberOfProductToCompare();
+        $numPanier = Panier::getShoppingCartNumber();
+
+        $points = 0;
+        foreach ($products as $product) {
+            $points+=Panier::calculPoints($product->livrer, $product->prixProduit, $product->qteCommande);
+        }
+
         if (empty($arrayOfProductsToDeliver)) {
             return $this->buyAndDeliverNone($shoppingCartNumber, $total);
         }
@@ -209,7 +270,8 @@ class ShoppingCartController extends Controller
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($points,1)]);
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
         Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
-        return "success";
+        return view('myReceipt')->with(['products' => $products,'total' => $total, 'points' => $points ,'id' => $id, 'nbCompare' => $nbCompare, 'numPanier' => $numPanier]);
+
     }
 
     /*
@@ -221,8 +283,7 @@ class ShoppingCartController extends Controller
         Produit::where('numProduit',$productNumber)->decrement('qteStockProduit', $quantity );
     }
 
-    public function applyCoupon($codeCoupon, $productNumber, $quantity, $subTotal,
-                                $deliverablesProducts, $undeliverablesProducts){
+    public function applyCoupon($codeCoupon, $productNumber, $quantity, $subTotal, $total, $appliedPoints){
 
         $id = Client::getIdClient();
         $nbCompare = Client::calculNumberOfProductToCompare();
@@ -235,8 +296,6 @@ class ShoppingCartController extends Controller
         }
         $coupon = Coupon::couponWithCode($codeCoupon);
         $nbp = count($productNumber);
-
-        $total = array_sum($subTotal);
 
         for ($i = 0; $i <= $nbp - 1; $i++) {
             $numProduit = $productNumber[$i];
@@ -293,6 +352,7 @@ class ShoppingCartController extends Controller
                 'id' => $id, 'deliverablesProducts' => $deliverablesProducts,
                 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total,
                 'nbCompare' => $nbCompare,
+                'appliedPoints' => $appliedPoints,
                 'appliedCoupon' => True]);
         }
         // case  2 all deliverables : [tout se faire livrer] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
@@ -301,6 +361,7 @@ class ShoppingCartController extends Controller
                 'id' => $id, 'productCase2' => $deliverablesProducts,
                 'total' => $total,
                 'nbCompare' => $nbCompare,
+                'appliedPoints' => $appliedPoints,
                 'appliedCoupon' => True]);
 
         }
@@ -311,10 +372,86 @@ class ShoppingCartController extends Controller
                 'productCase3' => $undeliverablesProducts,
                 'total' => $total,
                 'nbCompare' => $nbCompare,
+                'appliedPoints' => $appliedPoints,
                 'appliedCoupon' => True]);
         }
         else{
             return "Error unknown case";
         }
     }
+
+    public function applyPoints($pointsReduction, $total, $appliedCoupon){
+
+        $id = Client::getIdClient();
+        $nbCompare = Client::calculNumberOfProductToCompare();
+        $client = Client::getClientWithId($id);
+        $reduction = Reduction::where('mailClient', $client->mailClient)->first();
+
+        if ($pointsReduction > $reduction->pointsReduction) {
+            return back()->withErrors([
+                'points' => 'Vous n\'avez pas autant de points de reduction!',
+            ]);
+        }
+
+        $total = $total - $pointsReduction * 0.5; // ici, coefficient de transformation du bd
+
+        // actualiser le points dans le bd
+
+        $newPoints = $reduction->pointsReduction - $pointsReduction;
+        $dateFinale = Carbon::now();
+        $dateFinale = $dateFinale->addDays(14)->format('Y-m-d h:i:s');
+        Reduction::where('numReduction', $reduction->numReduction)->update(['pointsReduction' => $newPoints , 'dateFinReduction'=>$dateFinale]);
+
+        $deliverablesProducts = Panier::where('mailClient',$client->mailClient)
+            ->where('datePanier','=',null)
+            ->join('commandes', 'commandes.numPanier', '=', 'paniers.numPanier')
+            ->join('detenir', 'detenir.numCommande', '=', 'commandes.numCommande')
+            ->join('produits', 'detenir.numProduit', '=' , 'produits.numProduit')
+            ->where('produits.livraisonProduit',0)
+            ->get();
+
+        $undeliverablesProducts = Panier::where('mailClient',$client->mailClient)
+            ->where('datePanier','=',null)
+            ->join('commandes', 'commandes.numPanier', '=', 'paniers.numPanier')
+            ->join('detenir', 'detenir.numCommande', '=', 'commandes.numCommande')
+            ->join('produits', 'detenir.numProduit', '=' , 'produits.numProduit')
+            ->where('produits.livraisonProduit',1)
+            ->get();
+
+
+        // case 1 : [se faire livrer le maximum] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
+        if (($deliverablesProducts) and ($undeliverablesProducts)) {
+            return view('confirmShoppingCart')->with([
+                'id' => $id, 'deliverablesProducts' => $deliverablesProducts,
+                'undeliverablesProducts' => $undeliverablesProducts,'total' => $total,
+                'nbCompare' => $nbCompare,
+                'appliedCoupon' => $appliedCoupon,
+                'appliedPoints' => True]);
+        }
+        // case  2 all deliverables : [tout se faire livrer] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
+        elseif (($deliverablesProducts) and !$undeliverablesProducts) {
+            return view('confirmShoppingCart')->with([
+                'id' => $id, 'productCase2' => $deliverablesProducts,
+                'total' => $total,
+                'nbCompare' => $nbCompare,
+                'appliedCoupon' => $appliedCoupon,
+                'appliedPoints' => True]);
+
+        }
+        // case 3 all undeliverables : [tout récupérer chez les vendeurs]
+        elseif (!$deliverablesProducts and ($undeliverablesProducts)){
+            return view('confirmShoppingCart')->with([
+                'id' => $id,
+                'productCase3' => $undeliverablesProducts,
+                'total' => $total,
+                'nbCompare' => $nbCompare,
+                'appliedCoupon' => $appliedCoupon,
+                'appliedPoints' => True]);
+        }
+        else{
+            return "Error unknown case";
+        }
+    }
+
+
 }

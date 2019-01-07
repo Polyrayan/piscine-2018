@@ -44,6 +44,8 @@ class ExpiredReservations extends Command
      */
     public function handle()
     {
+
+        // Pour expired reservations
         $reservations = Reservation::all();
 
         foreach ($reservations as $reservation) {
@@ -63,7 +65,20 @@ class ExpiredReservations extends Command
 
                 // delete reservation
                 $reservation->delete();
-                //return $reservation->numReservation;
+            }
+        }
+
+        // Pour expired pointsReduction
+        $reductions = Reduction::all();
+
+        foreach ($reductions as $reduction) {
+            $dateNow = Carbon::now();
+            $dateFinale = $reduction->dateFinReduction;
+            $dateFinale = Carbon::parse($dateFinale);
+
+            if($dateNow > $dateFinale) {
+                // delete pointsReduction
+                $reduction->update(['pointsReduction' => 0]);
             }
         }
     }

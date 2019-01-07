@@ -57,7 +57,9 @@
                 {{  csrf_field()  }}
                 <td>
                   <input type="hidden" name="shoppingCartNumber" value="{{$numPanier}}">
-                  <button class="btn btn-success" name="paid">Terminer et régler la commande</button>
+                    <input type="hidden" name="points" value="{{$points}}">
+                    <input name="id" type="hidden" value="{{$id}}">
+                  <button class="btn btn-success" name="finalPaid">Terminer et régler la commande</button>
                 </td>
               </form>
             </div>

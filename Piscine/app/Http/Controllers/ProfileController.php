@@ -13,6 +13,7 @@ use App\Commerce;
 use App\Detenir;
 use App\Produit;
 use App\Admin;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,6 @@ class ProfileController extends Controller
     {
         $id = Client::getIdClient();
         $client = Client::getClientWithId($id);
-        $points = Reduction::getReductionPoints($client->mailClient);
         $nbCompare = Client::calculNumberOfProductToCompare();
         $history = Commande::completedOrders($id);
         foreach ($history as $his){
@@ -58,7 +58,20 @@ class ProfileController extends Controller
             $his->produits = $aux;
         }
 
-        return view('profiles.myClientProfile')->with(['client'=>$client, 'points'=> $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders,'nbCompare' => $nbCompare]);
+        $reduction = Reduction::where('mailClient', $client->mailClient)->first();
+        $dateNow = Carbon::now();
+        $dateFinale = $reduction->dateFinReduction;
+        $dateFinale = Carbon::parse($dateFinale);
+        $dateFinaleStr = $dateFinale->format("d/M/Y");
+        $points = $reduction->pointsReduction;
+
+        if($dateNow > $dateFinale) {
+            return view('profiles.myClientProfile')->with(['dateFinaleSet' => False, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
+        }
+
+        return view('profiles.myClientProfile')->with(['dateFinaleSet' => True, 'dateFinale'=>$dateFinaleStr, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
+
+
     }
 
     public function showSeller()

@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('expired:reservations')
-            ->everyMinute();
+            ->daily();
             //->appendOutputTo("C:\laragon\www\Piscine\piscine-2018\Piscine\out.txt"); // pour debugging
     }
 

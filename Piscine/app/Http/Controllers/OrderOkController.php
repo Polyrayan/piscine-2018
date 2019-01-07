@@ -41,12 +41,19 @@ class OrderOkController extends Controller
         return view('myReceipt')->with(['products' => $products,'total' => $total, 'points' => $points ,'id' => $id, 'nbCompare' => $nbCompare, 'numPanier' => $numPanier]);
     }
 
-    public function selectForm() {
-      $date = Date::now()->format('Y-m-d H:i:s');
-      $shoppingCartNumber = request('shoppingCartNumber');
-      Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
-      Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement", 'paiementEnLigne' => 0]);
-      flash("Félicitations, votre commande a été prise en compte.")->success();
-      return redirect('/client/profil');
+    public function selectForm(Request $request)
+    {
+        if ($request->has('paid')) {
+            $date = Date::now()->format('Y-m-d H:i:s');
+            $shoppingCartNumber = request('shoppingCartNumber');
+            Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
+            Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement", 'paiementEnLigne' => 0]);
+            $client = Client::getClientWithId(request('id'));
+            $reduction = Reduction::where('mailClient', $client->mailClient)->first();
+            $newPoints = $reduction->pointsReduction + intval(request('points'));
+            $reduction->update('pointsReduction' , $newPoints);
+            flash("Félicitations, votre commande a été prise en compte.")->success();
+            return redirect('/client/profil');
+        }
     }
 }

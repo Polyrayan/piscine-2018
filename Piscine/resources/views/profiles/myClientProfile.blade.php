@@ -95,8 +95,12 @@
                 </form>
             </div>
             <div class="col-lg-1"></div>
-            <div class="col-lg-4">
-                <h3> Points disponibles : {{ $points }}</h3>
+            <div class="col-lg-5">
+                @if($dateFinaleSet)
+                    <div class="text-center"> <h3> Points disponibles jusqu'au {{$dateFinale}}: <b>{{ $points }}</b> </h3></div>
+                @else
+                    <h3> Aucun point disponible. </h3>
+                @endif
             </div>
         </div>
     </div>
