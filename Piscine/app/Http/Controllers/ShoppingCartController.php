@@ -94,7 +94,7 @@ class ShoppingCartController extends Controller
             return $this->buyWithSelectedDelivery(request('shoppingCartNumber'),request('total'),request('subTotal'),request('productToDeliver'));
         }
         elseif ($request->has('deliveryMax')) {
-            return 'todo';
+          return $this->buyWithSelectedDelivery(request('shoppingCartNumber'),request('total'),request('subTotal'),request('productDeliverable'));
         }
 
     }

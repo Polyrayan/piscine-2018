@@ -2,19 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <br>
 
-        <h1> Page d'accueil </h1>
-
-        <h3> ce qu'il manque : </h3>
-        <ul>
-            <li> pouvoir utiliser des points de reductions</li>
-            <li> pouvoir appliquer un code de reduction en tant que client </li>
-            <li> faire des tests pour trouver des erreurs </li>
-            <li> Régler paginate dans welcome </li>
-            <li> Informer que le clients peut écrire un commentaire sur un produit dont la commande est terminée en le redirigeant s'il clique sur un message</li>
-        </ul>
-    </div>
 
     <!-- search -->
     </br>

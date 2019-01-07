@@ -6,6 +6,7 @@ use App\Commande;
 use App\Commerce;
 use App\Vendeur;
 use App\Admin;
+use App\Panier;
 use Illuminate\Http\Request;
 
 class ShopSalesController extends Controller
@@ -18,6 +19,7 @@ class ShopSalesController extends Controller
     {
         $shop = Commerce::where('numSiretCommerce', $numSiretCommerce)->firstOrFail();
 
+
         $ordersToTreat = Commande::where('commandes.numSiretCommerce',$numSiretCommerce)
             ->where('etatCommande','traitement')
             ->orderBy('dateCommande','asc')
@@ -25,9 +27,11 @@ class ShopSalesController extends Controller
 
         $ordersToDeliver = Commande::where('commandes.numSiretCommerce',$numSiretCommerce)
             ->where('etatCommande','traitement')
-            ->leftjoin('detenir','commandes.numCommande','=','detenir.numCommande')
+            ->join('detenir','commandes.numCommande','=','detenir.numCommande')
             ->where('detenir.livrer',0)
-            ->leftjoin('produits','produits.numProduit','=','detenir.numProduit')
+            ->join('produits','produits.numProduit','=','detenir.numProduit')
+            ->join('paniers','paniers.numPanier','=','commandes.numPanier')
+            ->join('clients','clients.mailClient','=','paniers.mailClient')
             ->get();
 
         $onSiteOrders = Commande::where('commandes.numSiretCommerce',$numSiretCommerce)
@@ -60,6 +64,7 @@ class ShopSalesController extends Controller
 
     public function updateOrderToFinish($orderNumber){
         Commande::where('numCommande',$orderNumber)->update(['etatCommande' => 'terminee']);
+        flash('La commande a bien été cloturée')->success();
         return back();
     }
 

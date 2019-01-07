@@ -98,7 +98,7 @@ class RegisterController extends Controller
             'password' => request('passwordSeller') // laravel va chercher le mdp en utilisant password et non mdpSeller
         ]);
         flash('inscription réussie')->success();
-        return redirect('/login');
+        return redirect('/vendeur/commerces');
     }
 
     public function applyJoinForm()

@@ -38,6 +38,8 @@
                                         <input name="shopName" type="hidden" value="{{$shop->nomCommerce}}">
                                         <input name="siretNumber" type="hidden" value="{{$shop->numSiretCommerce}}">
                                         <input name="mailSeller" type="hidden" value="{{$shop->mailVendeur}}">
+                                        <input name="mailProprietaire" type="hidden" value="{{$shop->mailProprietaire}}">
+
                                         <!-- visit  -->
                                         <button class="btn btn-primary" name="visit"  value="{{ $shop->numSiretCommerce }}"> visiter </button>
                                         <!-- orders -->
@@ -46,7 +48,7 @@
                                         <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
                                         <!-- edit  -->
                                         @if($mailSeller == $shop->mailProprietaire)
-                                          <button class="btn btn-info"  name="editCommerce" value="{{ $shop->numSiretCommerce }}"> modifier </button>
+                                          <button class="btn btn-warning"  name="editCommerce" value="{{ $shop->numSiretCommerce }}"> modifier </button>
                                         @endif
                                         <!--favorite-->
                                         @if ($shop->numSiretCommerce == $favoriteShop)

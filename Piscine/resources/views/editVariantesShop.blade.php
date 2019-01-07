@@ -57,7 +57,7 @@
                                 <td> {{$product->tailleProduit}} </td>
 
                                 <td class="actions" data-th="">
-                                    <input name="variant" type="hidden" value="{{ $product->numProduit }}">
+                                    <input name="productNumber" type="hidden" value="{{ $product->numProduit }}">
 
                                     <button class="btn btn-warning btn-group" name="edit" title="Modifier"> <i class="fas fa-edit"></i> </button>
                                     <button class="btn btn-danger btn-group" name="delete" title="Supprimer"> <i class="fas fa-times-circle"></i> </button>

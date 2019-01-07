@@ -32,6 +32,7 @@
                                 <input name="price" type="hidden" value="{{ $product->prixProduit }}">
                                 <input name="quantity[]" type="hidden" value="{{$product->qteCommande}}">
                                 <input name="subTotal[]" type="hidden" value="{{$product->prixProduit*$product->qteCommande}}">
+                                <input name="productDeliverable[]" type="hidden" value="{{$product->numProduit}}">
 
                                 <tr>
                                     <td data-th="Product">

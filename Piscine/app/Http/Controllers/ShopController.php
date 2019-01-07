@@ -49,7 +49,14 @@ class ShopController extends Controller
             return redirect(url()->current().'/'.request('siretNumber'));
         }
         elseif ($request->has('quit')) {
+          $employés = Appartenir::sellersOfThisShop(request('siretNumber'))->count();
+          if(request('mailSeller') == request('mailProprietaire') and $employés > 1){
+            flash("Vous avez des employés, vous ne pouvez pas quiter votre commerce ! ")->success();
+            return back();
+           }
+          else{
             return $this->quitShop(request('siretNumber'), request('mailSeller'));
+          }
         }
         elseif ($request->has('join')) {
             return $this->joinShop(request('numShop'), request('codeShop'), request('mailSeller'));

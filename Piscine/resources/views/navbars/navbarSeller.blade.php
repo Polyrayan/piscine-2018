@@ -68,7 +68,7 @@
     </div>
   @yield('content')
   <footer class="footer">
-    
+
     <div style="background-color: #dbdcda">
         <div class="container-fluid">
             <table>
