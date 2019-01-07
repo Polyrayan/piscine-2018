@@ -17,6 +17,7 @@
     </div>
 
 
+    @isset($typeDiscount)
     <!-- carousel -->
     <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
 
@@ -129,6 +130,8 @@
       </a>
 
     </div>
+
+    @endisset
 
 
     <!-- search -->
