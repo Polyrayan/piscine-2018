@@ -13,7 +13,7 @@
     @if(!@isset($coupons))
         <br>
         <div class="alert alert-info text-center" role="alert">
-            <strong> Aucun coupon pour le moment, réessayez plus tard. </strong>
+            <strong> Aucun coupon pour le moment. </strong>
         </div>
     @endisset
     @isset($coupons)
@@ -115,7 +115,7 @@
             </table>
         </div>
 
-
+    @endisset
 
         <div class="form col-lg-4">
             <h3> Ajouter un coupon : </h3> <br>
@@ -225,5 +225,5 @@
                 </div>
             </form>
         </div>
-    @endisset
+
 @endsection
