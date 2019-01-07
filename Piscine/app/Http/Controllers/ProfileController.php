@@ -24,6 +24,7 @@ class ProfileController extends Controller
     {
         $id = Client::getIdClient();
         $client = Client::getClientWithId($id);
+        $points = Reduction::getReductionPoints($client->mailClient);
         $nbCompare = Client::calculNumberOfProductToCompare();
         $history = Commande::completedOrders($id);
         foreach ($history as $his){
@@ -58,6 +59,7 @@ class ProfileController extends Controller
             $his->produits = $aux;
         }
 
+
         $reduction = Reduction::where('mailClient', $client->mailClient)->first();
         $dateNow = Carbon::now();
         $dateFinale = $reduction->dateFinReduction;
@@ -70,7 +72,6 @@ class ProfileController extends Controller
         }
 
         return view('profiles.myClientProfile')->with(['dateFinaleSet' => True, 'dateFinale'=>$dateFinaleStr, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
-
 
     }
 
@@ -94,7 +95,8 @@ class ProfileController extends Controller
         $nbCompare = Client::calculNumberOfProductToCompare();
         $client = Client::getClientWithId($id);
         $commandes = Panier::getPurchaseOfThisMailClient($client->mailClient);
-        return view('myPurchases', ['id' => $id,'commandes' => $commandes, 'client' => $client,'nbCompare' => $nbCompare]);
+        $reviews = Panier::getReviewsOfThisMailClient($client->mailClient);
+        return view('myPurchases', ['id' => $id, 'reviews' =>  $reviews ,'commandes' => $commandes, 'client' => $client,'nbCompare' => $nbCompare]);
     }
     public function selectForm(Request $request)
     {
@@ -103,6 +105,7 @@ class ProfileController extends Controller
         if ($request->has('rate')) {
             Avis::validateReview();
             Avis::createOrUpdateClientReviewOnThisProduct();
+            flash("Avis envoyé !")->success();
             return back();
         }
 
@@ -122,12 +125,6 @@ class ProfileController extends Controller
             flash('modification prise en compte')->success();
             return back();
         }
-    }
-
-    public function rating($mailClient,$productNumber,$mark,$comment){
-
-
-         return back();
     }
 
     public function idVendeur($id){

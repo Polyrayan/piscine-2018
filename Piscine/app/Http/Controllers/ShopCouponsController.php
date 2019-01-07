@@ -33,7 +33,6 @@ class ShopCouponsController extends Controller
         $nomCommerce = Commerce::nameOfThisShop($siretNumber);
         $favoriteShop = Vendeur::getMyFavoriteShop();
         $adminConnected = Admin::isConnected();
-//        $types = TypeProduit::all(); // TO DO : TYPESOFASHOP
         $produits = Produit::productsOfThisShop($siretNumber);
 
         $nomsProduits = array();
@@ -54,20 +53,17 @@ class ShopCouponsController extends Controller
     public function selectForm(Request $request)
     {
         if ($request->has('add')) {
-//            return $request;
             return $this->addCoupon(request('codeCoupon'),request('numSiretCommerce'),
                 request('nomTypeProduit'),request('nomProduit'),request('valeur')
                 ,request('valeurPourcentage'),request('description'),request('dateLimite')
                 ,request('qteMax'));
         }
         elseif ($request->has('update')) {
-//            return $request;
             return $this->updateCoupon(request('codeCoupon'),request('produit'),request('valeur')
                 ,request('description'),request('dateLimite2')
                 ,request('qteMax'));
         }
         elseif ($request->has('delete')) {
-//            return $request;
             return $this->destroyCoupon(request('codeCoupon'));
         }
     }
@@ -81,6 +77,36 @@ class ShopCouponsController extends Controller
             ]);
         }
 
+        $c = $valeur[-1];
+        $valeurAbsolue = Null;
+        $valeurPourcentage = Null;
+
+        if ($c == '%') {
+            $valeurPourcentage = floatval(substr($valeur, 0,strlen($valeur) -1));
+            if($valeurPourcentage <= 0){
+                return back()->withErrors([
+                    'valeurIn' => 'Valeur doit etre positive.',
+                ]);
+            }
+            if($valeurPourcentage > 100){
+                return back()->withErrors([
+                    'valeurIn' => 'Une valeur procentuale est au plus 100.',
+                ]);
+            }
+        }
+
+        else {
+            $valeurAbsolue = floatval(substr($valeur, 0,strlen($valeur) -1));
+            if($valeurAbsolue <= 0){
+                return back()->withErrors([
+                    'valeurIn' => 'Valeur doit etre positive.',
+                ]);
+            }
+
+        }
+
+
+
         $produitDeNomProduit = Produit::where('nomProduit',$produit)->first();
         $numProduit = Null;
         $nomTypeProduit = Null;
@@ -90,20 +116,7 @@ class ShopCouponsController extends Controller
             $nomTypeProduit = $produit;
         }
 
-        $c = $valeur[-1];
-        $valeurAbsolue = Null;
-        $valeurPourcentage = Null;
 
-        if ($c == '%') {
-            $valeurPourcentage = intval(substr($valeur, 0,strlen($valeur) -1));
-//            return $valeurPourcentage;
-        }
-
-        else {
-            $valeurAbsolue = intval(substr($valeur, 0,strlen($valeur) -1));
-//            return $valeur;
-
-        }
 
         $coupon->update([
             'codeCoupon' => $codeCoupon,

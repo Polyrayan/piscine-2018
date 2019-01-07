@@ -30,10 +30,24 @@ class Panier extends Model
     }
 
     public static function getPurchaseOfThisMailClient($mail){
-        return self::where('mailClient',$mail)->whereNotNull('paniers.datePanier')
+        return self::where('paniers.mailClient',$mail)->whereNotNull('paniers.datePanier')
             ->join('commandes', 'paniers.numPanier','=','commandes.numPanier')
             ->join('detenir','detenir.numCommande','=','commandes.numCommande')
             ->join('produits','produits.numProduit', '=','detenir.numProduit')
+            ->join('avis','avis.numProduit','=','produits.numProduit')
+            ->whereNull('noteAvis')
+            ->groupBy('produits.numGroupeVariante')
+            ->get();
+    }
+
+    public static function getReviewsOfThisMailClient($mail){
+        return self::where('paniers.mailClient',$mail)->whereNotNull('paniers.datePanier')
+            ->join('commandes', 'paniers.numPanier','=','commandes.numPanier')
+            ->join('detenir','detenir.numCommande','=','commandes.numCommande')
+            ->join('produits','produits.numProduit', '=','detenir.numProduit')
+            ->join('avis','avis.numProduit','=','produits.numProduit')
+            ->whereNotNull('noteAvis')
+            ->groupBy('produits.numGroupeVariante')
             ->get();
     }
 

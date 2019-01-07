@@ -49,4 +49,10 @@ class Coupon extends Model
     public static function countCouponsWithCode($code){
         return self::where('codeCoupon', $code)->count();
     }
+
+    public static function greatestDiscount(){
+        $greatestValue = self::orderBy('valeur','desc')->first();
+        $greatestPercent = self::orderBy('valeurPourcentage','desc')->first();
+        return array('value' => $greatestValue, 'percent' => $greatestPercent);
+    }
 }

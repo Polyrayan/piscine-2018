@@ -14,12 +14,12 @@ class CreditsController extends Controller
         $sellerConnected = Vendeur::isConnected();
 
         if($clientConnected) {
-            $user = $clientConnected;
+            $user = "";
             $id = Client::getIdClient();
             $nbCompare = Client::calculNumberOfProductToCompare();
             return view('credits')->with(['id' => $id, 'nbCompare' => $nbCompare, 'user' => 'Client']);
         } else if ($sellerConnected) {
-            $user = $sellerConnected;
+            $user = "";
             $adminConnected = Admin::isConnected();
             $favoriteShop = Vendeur::getMyFavoriteShop();
             return view('credits')->with(['seller' => $seller , 'adminConnected' => $adminConnected , 'favoriteShop' => $favoriteShop, 'user' => 'Seller' ]);

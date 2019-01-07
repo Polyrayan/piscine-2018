@@ -4,6 +4,124 @@
     <div class="container-fluid">
 
 
+
+    @isset($typeDiscount)
+    <!-- carousel -->
+    <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xl-2"></div>
+              <div class="col-xl-4">
+                @if(empty($maxDiscount->imageProduit))
+                    <img class="d-block w-100" src="http://placehold.it/100x100" alt="La meilleure réduction">
+                @else
+                    <img class="d-block w-100" src="{{$maxDiscount->imageProduit}}" alt="La meilleure réduction">
+                @endif
+              </div>
+              <div class="col-xl-4">
+                <br>
+                <br>
+                <br>
+                @if($typeDiscount == 'none')
+                <h3>Produit du Jour !</h3>
+                @else
+                <h3>Promo du Jour !</h3>
+                @endif
+                <br>
+                <br>
+                <h5>{{$maxDiscount->nomProduit}}</h5>
+                <br>
+                <p>{{$maxDiscount->libelleProduit}}</p>
+                <br>
+                @if($typeDiscount == 'value')
+                  <h4>A {{$maxDiscount->prixProduit-$discount}}€ au lieu de {{$maxDiscount->prixProduit}}€</h4>
+                @elseif($typeDiscount == 'percent')
+                  <h4>Profitez de {{$discount}}% de réduction soit seulement {{number_format((100-$discount)/100*$maxDiscount->prixProduit,2)}}€</h4>
+                @else
+                  <h4>A seulement {{$maxDiscount->prixProduit}}€</h4>
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xl-2"></div>
+              <div class="col-xl-4">
+                @if(empty($maxDiscount->imageProduit))
+                    <img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis">
+                @else
+                    <img class="d-block w-100" src="{{$maxReview->imageProduit}}" alt="Les meilleurs avis">
+                @endif
+              </div>
+              <div class="col-xl-4">
+                <br>
+                <br>
+                <br>
+                <h3>Populaire en ce moment !</h3>
+                <br>
+                <br>
+                <h5>{{$maxReview->nomProduit}}</h5>
+                <br>
+                <p>{{$maxReview->libelleProduit}}</p>
+                <br>
+                <h4>Prix conseillé : {{$maxReview->prixProduit}}€</h4>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xl-2"></div>
+              <div class="col-xl-4">
+                @if(empty($maxDiscount->imageProduit))
+                    <img class="d-block w-100" src="http://placehold.it/100x100" alt="Dernier produit en date">
+                @else
+                    <img class="d-block w-100" src="{{$lastProduct->imageProduit}}" alt="Dernier produit en date">
+                @endif
+              </div>
+              <div class="col-xl-4">
+                <br>
+                <br>
+                <br>
+                <h3>En exclusivité !</h3>
+                <br>
+                <br>
+                <h5>{{$lastProduct->nomProduit}}</h5>
+                <br>
+                <p>{{$lastProduct->libelleProduit}}</p>
+                <br>
+                <h4>Offre à saisir dès {{$lastProduct->prixProduit}}€</h4>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Précédent</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Suivant</span>
+      </a>
+
+    </div>
+
+    @endisset
+
+
     <!-- search -->
     </br>
     <form method="POST">
@@ -197,4 +315,12 @@
             {{ $products->links() }}
         </div>
     </div>
+    <script type='text/javascript' src="{{ URL::asset('css/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('/js/bootstrap-carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('/functions.js') }}"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="{{ URL::asset('css/carousel.css') }}" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 @endsection

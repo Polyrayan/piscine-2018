@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ URL::asset('css/nav.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
 <script type="text/javascript" src="{{ URL::asset('js/countDown.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/countDown2.js') }}"></script>
 
 <nav class="navbar navbar-expand-md sticky-top " style="background-color: #dbdcda">
 
@@ -62,10 +63,10 @@
                 <tbody>
                     <tr>
                         <td>
-                            <a href="./contact" class="nav-link"> Nous contacter </a>
+                            <a href="/Piscine/public/contact" class="nav-link"> Nous contacter </a>
                         </td>
                         <td>
-                            <a href="./credits" class="nav-link"> Mentions légales </a>
+                            <a href="/Piscine/public/credits" class="nav-link"> Mentions légales </a>
                         </td>
                         <td>
                             <a href="https://www.facebook.com/CCIHerault/" class="nav-link" title="Facebook">

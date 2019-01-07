@@ -95,9 +95,12 @@
                 </form>
             </div>
             <div class="col-lg-1"></div>
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 @if($dateFinaleSet)
-                    <div class="text-center"> <h3> Points disponibles jusqu'au {{$dateFinale}}: <b>{{ $points }}</b> </h3></div>
+                    <h3> Pour depenser votre <b>{{ $points }}</b> points restants, vous avez encore : </h3>
+                    <div class="text-center"  id = "timeLeft">
+                            <script> makeCounter2("timeLeft", "{{ $start }}" , "{{ $time }}" ) </script>
+                    </div>
                 @else
                     <h3> Aucun point disponible. </h3>
                 @endif

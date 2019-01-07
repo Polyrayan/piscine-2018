@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Geocoder;
+use Jenssegers\Date\Date;
+
 class Produit extends Model
 {
     protected $fillable = ['numProduit','nomProduit','libelleProduit','qteStockProduit',
         'qteStockDispoProduit','livraisonProduit','prixProduit',
         'numSiretCommerce','nomTypeProduit','couleurProduit','tailleProduit',
-        'marqueProduit','numGroupeVariante','imageProduit'];
+        'marqueProduit','numGroupeVariante','imageProduit','dateProduit','noteMoyenne'];
 
     public $timestamps = false; // pour ne pas avoir de colonne supplementaire (updated_at)
     protected $primaryKey = 'numProduit';
@@ -43,6 +45,7 @@ class Produit extends Model
             'marqueProduit' => request('brand'),
             'numGroupeVariante' => $numGroupVariant,
             'imageProduit' => request('image'),
+            'dateProduit' => Date::now()->format('Y-m-d H:i:s'),
         ]);
     }
 
@@ -319,5 +322,17 @@ class Produit extends Model
                 'marqueProduit' => request('marqueProduit'),
                 'imageProduit' => request('image')
             ]);
+    }
+
+    public static function lastProduct(){
+      return self::orderBy('dateProduit','desc')->first();
+    }
+
+    public static function bestProduct(){
+      return self::orderBy('noteMoyenne','desc')->first();
+    }
+
+    public static function getRandom(){
+      return self::inRandomOrder()->first();
     }
 }
