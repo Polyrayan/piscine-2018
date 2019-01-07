@@ -1,6 +1,5 @@
 @extends('navbars.navbar' . $clientConnected)
 
-
 @section('content')
     <br>
 
@@ -30,15 +29,14 @@
                 <div class="card bg-light mb-3">
                     <div class="card-body">
                         <p class="price">Prix unitaire : {{$product->prixProduit}} €</p>
-
                         <form action="" method="post" >
                             {{  csrf_field()  }}
                             <div class="form-group">
                                     <label for="colors">Variantes : </label>
                                     <select name="variant" class="custom-select" id="colors">
                                         <option selected>Choisissez une variante</option>
-                                        @foreach($products as $product)
-                                            <option value="{{$product->numProduit}}"> {{$product->couleurProduit}} {{$product->tailleProduit}}</option>
+                                        @foreach($productsOfCategory as $prod)
+                                            <option value="{{$prod->numProduit}}"> {{$prod->couleurProduit}} {{$prod->tailleProduit}}</option>
                                         @endforeach
                                     </select>
                             </div>
@@ -55,6 +53,7 @@
                                 @endif
 
                             </div>
+                            @if($clientConnected == "Client")
                             <div class="row">
                                 <div class="col-lg-12 btn-group">
                                     <button name="add" class="btn btn-success btn-lg btn-block text-uppercase">
@@ -62,6 +61,15 @@
                                     </button>
                                 </div>
                             </div>
+                            @else
+                                <div class="row">
+                                    <div class="col-lg-12 btn-group">
+                                        <span class="btn btn-success btn-lg btn-block text-uppercase">
+                                            <i class="fa fa-shopping-cart"></i> Ajouter au panier
+                                        </span>
+                                    </div>
+                                </div>
+                            @endif
 
                         </form>
                         <div class="product_rassurance">
@@ -124,23 +132,33 @@
                             <div class="review">
                                 <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                                 <meta itemprop="datePublished" content="01-01-2016"> le {{$_avis->dateAvis}}
-
-                                @if($_avis->noteAvis >= 2)
-                                    <i class="fa fa-star"></i>
-                                @endif
-                                @if($_avis->noteAvis>=4)
-                                    <i class="fa fa-star"></i>
-                                @endif
-                                @if($_avis->noteAvis>=6)
-                                    <i class="fa fa-star"></i>
-                                @endif
-                                @if($_avis->noteAvis>=8)
-                                    <i class="fa fa-star"></i>
-                                @endif
-                                @if($_avis->noteAvis == 10)
-                                    <i class="fa fa-star"></i>
-                                @endif
-                                note : {{$_avis->noteAvis}}/10
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        @if($_avis->noteAvis >= 2)
+                                            <i class="fa fa-star"></i>
+                                        @endif
+                                        @if($_avis->noteAvis>=4)
+                                            <i class="fa fa-star"></i>
+                                        @endif
+                                        @if($_avis->noteAvis>=6)
+                                            <i class="fa fa-star"></i>
+                                        @endif
+                                        @if($_avis->noteAvis>=8)
+                                            <i class="fa fa-star"></i>
+                                        @endif
+                                        @if($_avis->noteAvis == 10)
+                                            <i class="fa fa-star"></i>
+                                        @endif
+                                        note : {{$_avis->noteAvis}}/10
+                                    </div>
+                                    <div class="col-lg-2">
+                                        @if(isset($adminConnected))
+                                            @if($adminConnected)
+                                                <button class="btn btn-warning btn-group" name="searchProducts"> supprimer </button>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
                                 <p class="blockquote">
                                 <p class="mb-0"> {{$_avis->commentaireAvis}}</p>
                                 </p>
@@ -151,7 +169,7 @@
                     </div>
                 </div>
             </div>
-
+@if($clientConnected == "Client")
             <!-- Suggestions -->
             <div class="col-12">
                 <div class="card border-light mb-3">
@@ -187,7 +205,7 @@
             </div>
         </div>
     </div>
-
+@endif
 
     <!-- Modal image -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">

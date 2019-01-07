@@ -25,7 +25,7 @@ class ProductController extends Controller
         $avis = Avis::allReviewsOfThisProduct($id);
         $commerce = Commerce::shopWithSiret($product->numSiretCommerce);
         $noteMoy = Produit::noteMoy($avis);
-        $products = Produit::productsOfThisGroup($product->numGroupeVariante);
+        $productsOfCategory = Produit::productsOfThisGroup($product->numGroupeVariante);
         $suggest = Produit::productsOfThisCategoryRandom($product->nomTypeProduit);
         $suggestions=[];
         $products=Produit::groupBy('numGroupeVariante')->inRandomOrder()->get();
@@ -35,23 +35,22 @@ class ProductController extends Controller
           }
         }
         if(empty($suggestions)) {
-          foreach ($products as $product) {
-            if ($product->numProduit != $id) {
-              array_push($suggestions,$product);
+          foreach ($products as $prod) {
+            if ($prod->numProduit != $id) {
+              array_push($suggestions,$prod);
             }
           }
         }
-
         $clientConnected = Client::isConnected();
         if($clientConnected){
           $nbCompare = Client::calculNumberOfProductToCompare();
           $id = Client::getIdClient();
-          return view('product')->with(['products' => $products ,'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'id' => $id,'nbCompare' => $nbCompare, 'suggestions' => $suggestions, 'clientConnected' => 'Client']);
+          return view('product')->with(['products' => $products, 'productsOfCategory' => $productsOfCategory ,'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'id' => $id,'nbCompare' => $nbCompare, 'suggestions' => $suggestions, 'clientConnected' => 'Client']);
         }
         else{
           $favoriteShop = Vendeur::getMyFavoriteShop();
           $adminConnected = Admin::isConnected();
-          return view('product')->with(['products' => $products ,'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy , 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected, 'clientConnected' => 'Seller']);
+          return view('product')->with(['products' => $products , 'productsOfCategory' => $productsOfCategory , 'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy , 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected, 'clientConnected' => 'Seller']);
         }
     }
 
