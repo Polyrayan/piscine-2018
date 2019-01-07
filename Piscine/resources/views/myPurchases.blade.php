@@ -1,39 +1,127 @@
 @extends('navbars.navbarClient')
 
 @section('content')
-    @stack('rating')
-    <h1> Historique d'achat </h1>
-    @foreach($commandes as $commande)
-        <div class="container-fluid">
-            <div class="row" id="post-review-box">
-                <form accept-charset="UTF-8" action="" method="post">
-                    {{  csrf_field()  }}
-                    <div class="col-md-3">
-                        <h3>nom :{{$commande->nomProduit}} </h3>
-                        <p><b> qte{{$commande->qteCommande}}</b></p>
-                        <p><b> prix unitaire{{$commande->prixProduit}}€</b></p>
-                        <p><b> total {{$commande->prixCommande}} €</b></p>
-                    </div>
-                    <div class="col-md-3">
-                        <h4> Laissez un avis : </h4>
+    <br>
+    <h1> Ajouter un avis sur un des produit acheté </h1>
 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+                <table  class="table  table-condensed">
+                    <thead>
+                    <tr>
+                        <th style="width:30%">Produit</th>
+                        <th style="width:5%" class="text-center">Couleur</th>
+                        <th style="width:10%" class="text-center">Taille</th>
+                        <th style="width:5%" class="text-center">Prix</th>
+                        <th style="width:15%"class="text-center">Note attribué </th>
+                        <th style="width:40%" class="text-center">Votre commentaire</th>
+                        <th style="width:25%"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($commandes as $commande)
+                        <form class ="input-group" method="POST">
+                            {{  csrf_field()  }}
                             <input name="productNumber" type="hidden" value="{{ $commande->numProduit }}">
                             <input name="mailClient" type="hidden" value="{{ $client->mailClient }}">
-                                <textarea class="form-control animated" cols="40" id="new-review" name="comment" placeholder="Laisser un commentaire" rows="2"> {{old('comment')}}</textarea>
-                            @if ($errors->has('comment'))
-                                <small>  <div class="alert alert-danger"  role="alert"> {{ $errors->first('comment') }} </div>  </small>
-                            @endif
-                    </div>
-                    <div class="col-md-2 form-inline">
-                        <br/><br/>
+
+                            <tr>
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 "><img src="http://placehold.it/100x100" alt="..." class="img-responsive hidden-sm"/></div>
+                                        <div class="col-lg-7 col-md-8 col-sm-6 col-xs-8">
+                                            <h4 class="nomargin"><b>{{$commande->nomProduit}} </b></h4>
+                                            <p>{{$commande->libelleProduit}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Color" class="text-center"> {{ $commande->couleurProduit }} </td>
+                                <td data-th="Size" class="text-center"> {{ $commande->tailleProduit }}</td>
+                                <td data-th="Price" class="text-center"><b>{{$commande->prixProduit}}€</b></td>
+                                <td data-th="">
                                     <input type="number" class="form-control" name="mark" value="{{old('mark')}}" placeholder=" note /10" >
-                                    @if ($errors->has('mark'))
-                                        <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('mark') }} </div>  </small>
+                                </td>
+                                <td data-th="Quantity" class="text-center">
+                                    <textarea class="form-control animated" cols="40" id="new-review" name="comment" placeholder="Laisser un commentaire" rows="2"> {{old('comment')}}</textarea>
+                                    @if ($errors->has('comment'))
+                                        <small>  <div class="alert alert-danger"  role="alert"> {{ $errors->first('comment') }} </div>  </small>
                                     @endif
+                                </td>
+                                <td class="actions" data-th="">
                                     <button class="btn btn-success btn-group" name="rate" type="submit">Envoyer</button>
-                    </div>
-                </form>
+                                </td>
+                            </tr>
+                        </form>
+                    </tbody>
+                    @endforeach
+                    <tfoot>
+                        <tr>
+                            <td colspan="7" class="hidden-xs"></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
-    @endforeach
+    </div>
+    @if($reviews->count() > 0 )
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+                    <table  class="table  table-condensed">
+                        <thead>
+                        <tr>
+                            <th style="width:30%">Produit</th>
+                            <th style="width:5%" class="text-center">Couleur</th>
+                            <th style="width:10%" class="text-center">Taille</th>
+                            <th style="width:5%" class="text-center">Prix</th>
+                            <th style="width:15%"class="text-center">Note attribué </th>
+                            <th style="width:40%" class="text-center">Le commentaire que vous avez posté</th>
+                            <th style="width:25%"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($reviews as $review)
+                            <form class ="input-group" method="POST">
+                                {{  csrf_field()  }}
+                                <input name="productNumber" type="hidden" value="{{ $review->numProduit }}">
+                                <input name="mailClient" type="hidden" value="{{ $review->mailClient }}">
+
+                                <tr>
+                                    <td data-th="Product">
+                                        <div class="row">
+                                            <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 "><img src="http://placehold.it/100x100" alt="..." class="img-responsive hidden-sm"/></div>
+                                            <div class="col-lg-7 col-md-8 col-sm-6 col-xs-8">
+                                                <h4 class="nomargin"><b>{{$review->nomProduit}} </b></h4>
+                                                <p>{{$review->libelleProduit}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td data-th="Color" class="text-center"> {{ $review->couleurProduit }} </td>
+                                    <td data-th="Size" class="text-center"> {{ $review->tailleProduit }}</td>
+                                    <td data-th="Price" class="text-center"><b>{{$review->prixProduit}}€</b></td>
+                                    <td data-th="Note"  class="text-center">
+                                        {{$review->noteAvis}}
+                                    </td>
+                                    <td data-th="Quantity" class="text-center">
+                                        "{{$review->commentaireAvis}}" posté le {{$review->dateAvis}}
+                                    </td>
+                                    <td class="actions" data-th="">
+                                    </td>
+                                </tr>
+                            </form>
+                        </tbody>
+                        @endforeach
+                        <tfoot>
+                        <tr>
+                            <td colspan="7" class="hidden-xs"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
