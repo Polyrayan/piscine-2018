@@ -113,7 +113,7 @@
                 @else
                     <h3 class="text-center">Produit n°1 : </h3>
                     <div class="alert alert-info text-center" role="alert">
-                        <strong> Vous n'avez pas de produit n°1 </strong> Cliquez <a href="./../../" class="alert-link">ici</a> pour chercher un produit à comparer avec le produit n°2.
+                        <strong> Vous n'avez pas de produit n°1 </strong> Cliquez <a href="./" class="alert-link">ici</a> pour chercher un produit à comparer avec le produit n°2.
                     </div>
                 @endif
 
@@ -237,7 +237,7 @@
                 @else
                     <h3 class="text-center">Produit n°2 : </h3>
                     <div class="alert alert-info text-center" role="alert">
-                        <strong> Vous n'avez pas de produit n°2 </strong> Cliquez <a href="./../../" class="alert-link">ici</a> pour chercher un produit à comparer avec le produit n°1.
+                        <strong> Vous n'avez pas de produit n°2 </strong> Cliquez <a href="./" class="alert-link">ici</a> pour chercher un produit à comparer avec le produit n°1.
                     </div>
                 @endif
             </div>

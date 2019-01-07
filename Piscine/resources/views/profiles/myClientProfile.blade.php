@@ -101,6 +101,7 @@
         </div>
     </div>
     <br>
+    <div id="orders">
     <div class = "container-fluid">
         <h3> Votre historique d'achats :</h3>
     </div>
@@ -123,7 +124,7 @@
                     <tr>
                         <td data-th="Id" class="text-center" > {{$completed->numCommande}}</td>
                         <td data-th="Price" class="text-center" ><b>{{$completed->prixCommande}}€</b></td>
-                        <td data-th="Store" class="text-center" ><b>{{$completed->store}}</b></td>
+                        <td data-th="Store" class="text-center" ><a class="nomargin" href="/Piscine/public/commerces/{{$completed->numSiretCommerce}}"><b>{{$completed->store}} </b></a></td>
                         <td>
                         <div class = "container">
                             <table id="produits" class="table table-hover table-condensed">
@@ -243,6 +244,6 @@
             </table>
         </div>
     @endif
-
+    </div>
 
 @endsection

@@ -11,7 +11,8 @@
             <li> pouvoir utiliser des points de reductions</li>
             <li> pouvoir appliquer un code de reduction en tant que client </li>
             <li> faire des tests pour trouver des erreurs </li>
-            <li> ajouter toutes les categorie (:TypeProduit) de LeBonCoin pour avoir une bonne base </li>
+            <li> Régler paginate dans welcome </li>
+            <li> Informer que le clients peut écrire un commentaire sur un produit dont la commande est terminée en le redirigeant s'il clique sur un message</li>
         </ul>
     </div>
 

@@ -8,7 +8,7 @@
             <strong> Vous n'avez aucun produit dans votre panier ! </strong> Cliquez <a href="./../../" class="alert-link">ici</a> pour ajouter de nouveaux produits.
         </div>
         <div class="alert alert-success text-center" role="alert">
-            <strong> Historique des commandes : </strong> Cliquez <a href="./../../" class="alert-link">ici</a> pour suivre la progression de vos commandes déjà réglée.
+            <strong> Historique des commandes : </strong> Cliquez <a href="./../profil#orders" class="alert-link">ici</a> pour suivre la progression de vos commandes déjà réglée.
         </div>
     @endisset
     @isset($products)
