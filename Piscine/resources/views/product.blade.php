@@ -85,19 +85,35 @@
                         <div class="reviews_product p-3 mb-2 ">
                             @if($noteMoy >= 2)
                                 <i class="fa fa-star"></i>
+                            @elseif($noteMoy >= 1)
+                                <i class="fas fa-star-half-alt"></i>
                             @endif
-                            @if($noteMoy>=4)
+
+                            @if($noteMoy >= 4)
                                 <i class="fa fa-star"></i>
+                            @elseif($noteMoy>=3)
+                                <i class="fas fa-star-half-alt"></i>
                             @endif
-                            @if($noteMoy>=6)
+
+                            @if($noteMoy >= 6)
                                 <i class="fa fa-star"></i>
+                            @elseif($noteMoy>=5)
+                                <i class="fas fa-star-half-alt"></i>
                             @endif
-                            @if($noteMoy>=8)
+
+                            @if($noteMoy >= 8)
                                 <i class="fa fa-star"></i>
+                            @elseif($noteMoy>=7)
+                                <i class="fas fa-star-half-alt"></i>
                             @endif
+
                             @if($noteMoy == 10)
                                 <i class="fa fa-star"></i>
+                            @elseif($noteMoy>=9)
+                                <i class="fas fa-star-half-alt"></i>
                             @endif
+
+
                             @if($noteMoy == "Non noté")
                                 <a> {{$noteMoy}}</a>
                             @else

@@ -21,15 +21,38 @@ class Appartenir extends Model
         ]);
     }
 
+    public static function validateAppartenir(){
+        request()->validate([
+            'email' => ['bail','required'],
+        ]);
+    }
+
     public static function createAppartenir($siret,$mail){
         return self::create([
             'numSiretCommerce' => $siret,
             'mailVendeur' => $mail
         ]);
     }
+    public static function deleteAppartenir($siret,$mail){
+        $sup = self::select('mailVendeur','numSiretCommerce')
+                      ->where('numSiretCommerce', $siret)
+                      ->where('mailVendeur' , $mail)
+                      ->firstOrFail();
+        $sup->delete();
+    }
+
+    public static function sellerAppartient($mail,$numSiret){
+      $count = self::where('mailVendeur', $mail)->where('numSiretCommerce',$numSiret)->count();
+      if($count >0){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
 
     public static function shopsOfThisSeller($mailSeller){
-        return self::select('appartenir.numSiretCommerce','commerces.nomCommerce' , 'appartenir.mailVendeur' ,DB::raw(" count(etatCommande) as count"))
+        return self::select('appartenir.numSiretCommerce','commerces.nomCommerce' , 'appartenir.mailVendeur' , 'commerces.mailProprietaire' ,DB::raw(" count(etatCommande) as count"))
             ->where('mailVendeur', $mailSeller)
             ->leftjoin('commerces', 'commerces.numSiretCommerce', '=', 'appartenir.numSiretCommerce')
             ->leftjoin('commandes','commandes.numSiretCommerce','=','commerces.numSiretCommerce')
@@ -40,7 +63,7 @@ class Appartenir extends Model
     public static function sellersOfThisShop($siret){
         return self::join('vendeurs', 'appartenir.mailVendeur', '=', 'vendeurs.mailVendeur')
             ->where('numSiretCommerce', $siret)
-            ->get(['vendeurs.mailVendeur', 'vendeurs.nomVendeur', 'vendeurs.idVendeur']);
+            ->get();
     }
 
 }

@@ -119,6 +119,28 @@ class ShopController extends Controller
             flash("Modification du commerce effectuée ! ")->success();
             return back();
         }
+        elseif ($request->has('ajouter')) {
+            $appartenir = Appartenir::sellerAppartient(request('email'),request('siret'));
+            if($appartenir){
+              return back()->withInput()->withErrors(['appartenir' => "Le vendeur appartient déjà au commerce",]);
+            }
+            else{
+              Appartenir::validateAppartenir();
+              Appartenir::createAppartenir(request('siret'),request('email'));
+              flash("Le vendeur a été ajouté au commerce ! ")->success();
+              return back();
+            }
+        }
+        elseif ($request->has('supprimer')) {
+              Appartenir::deleteAppartenir(request('siret'),request('mail'));
+              flash("Le vendeur a été supprimé du commerce ! ")->success();
+              return back();
+        }
+        elseif ($request->has('new')) {
+              Commerce::changeProp(request('changer'));
+              flash("Le propriétaire a été changé ! ")->success();
+              return redirect('/vendeur/commerces');
+        }
     }
 
     /*
@@ -251,8 +273,9 @@ class ShopController extends Controller
       $favoriteShop = Vendeur::getMyFavoriteShop();
       $adminConnected = Admin::isConnected();
       $shop = Commerce::shopWithSiret($siretNumber);
+      $vendeurs = Appartenir::sellersOfThisShop($siretNumber);
 
-      return view('editCommerce', ['favoriteShop' => $favoriteShop,'adminConnected' => $adminConnected, 'shop' => $shop]);
+      return view('editCommerce', ['favoriteShop' => $favoriteShop,'adminConnected' => $adminConnected, 'shop' => $shop, 'vendeurs' => $vendeurs]);
     }
 
 }

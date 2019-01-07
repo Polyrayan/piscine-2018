@@ -8,7 +8,7 @@ class Commerce extends Model
 {
     protected $fillable = ['numSiretCommerce','nomCommerce','libelleCommerce','adresseCommerce',
                             'villeCommerce','codePostalCommerce','telCommerce',
-                            'codeReduction','codeRecrutement','regionCommerce'];
+                            'codeReduction','codeRecrutement','regionCommerce', 'mailProprietaire'];
     public $timestamps = false;
     protected $primaryKey ='numSiretCommerce';
     protected $keyType = 'string';
@@ -43,7 +43,8 @@ class Commerce extends Model
             'telCommerce' => request('phone'),
             'codePostaCommercel' => request('zipCode'),
             'codeRecrutement' => request('recruitmentCode'),
-            'regionCommerce' => request('region')
+            'regionCommerce' => request('region'),
+            'mailProprietaire' => request('sellerMail')
         ]);
     }
 
@@ -93,6 +94,12 @@ class Commerce extends Model
                 'regionCommerce' => request('region'),
                 'telCommerce' => request('numTel'),
                 'codeRecrutement' => request('code'),
+            ]);
+    }
+
+    public static function changeProp($new){
+        self::where('numSiretCommerce',request('siret'))
+            ->update(['mailProprietaire'=> $new,
             ]);
     }
 }
