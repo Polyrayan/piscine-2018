@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Commande;
 use App\Commerce;
 use App\Contenir;
+use App\Coupon;
 use App\Detenir;
 use App\Panier;
 use App\Produit;
@@ -40,7 +41,53 @@ class HomeController extends Controller
             //sizes
             $product->sizes = $product->addSizes($allProducts);
         }
-        return view('welcome', ['products' => $products, 'allProducts' =>$allProducts, 'mailClient' => $mailClient, 'id' => $id, 'nbCompare' => $nbCompare, 'categories' => $categories]);
+
+        // carousel
+        $maxReview = Produit::bestProduct();
+        $lastProduct = Produit::lastProduct();
+
+        $greatDiscount = Coupon::greatestDiscount();
+        if($greatDiscount['value']->valeur == null && $greatDiscount['percent']->valeurPourcentage == null){
+          $maxDiscount = [Produit::getRandom()];
+          $typeDiscount='none';
+          $discount=null;
+        }
+        elseif($greatDiscount['value']->valeur == null) {
+          $maxDiscount = Produit::where('produits.numProduit',$greatDiscount['percent']->numProduit)
+              ->join('coupons','coupons.numProduit','=','produits.numProduit')->get();
+          $typeDiscount='percent';
+          $discount=$maxDiscount[0]->valeurPourcentage;
+        }
+        elseif($greatDiscount['percent']->valeurPourcentage == null){
+          $maxDiscount = Produit::where('produits.numProduit',$greatDiscount['value']->numProduit)
+              ->join('coupons','coupons.numProduit','=','produits.numProduit')->get();
+          $typeDiscount='value';
+          $discount=$maxDiscount[0]->valeur;
+        }
+        else{
+          $productDiscountValue = Produit::where('produits.numProduit',$greatDiscount['value']->numProduit)
+              ->join('coupons','coupons.numProduit','=','produits.numProduit')->get();
+          $productDiscountPercent = Produit::where('produits.numProduit',$greatDiscount['percent']->numProduit)
+              ->join('coupons','coupons.numProduit','=','produits.numProduit')->get();
+
+          $DiscountValue = $productDiscountValue[0]->valeur; // Remise
+          $DiscountPercent = ($productDiscountPercent[0]->prixProduit)*($productDiscountPercent[0]->valeurPourcentage/100); // Prix * Reduction en %
+
+          // Remise plus intéressant que % reduc
+          if($DiscountValue>$DiscountPercent){
+            $maxDiscount=$productDiscountValue;
+            $typeDiscount='value';
+            $discount=$DiscountValue;
+          }
+          // % réduc plus intéressant que remise
+          else{
+            $maxDiscount=$productDiscountPercent;
+            $typeDiscount='percent';
+            $discount=$productDiscountPercent[0]->valeurPourcentage;
+          }
+        }
+
+        return view('welcome', ['products' => $products, 'allProducts' =>$allProducts, 'mailClient' => $mailClient, 'id' => $id, 'nbCompare' => $nbCompare, 'categories' => $categories, 'maxDiscount' => $maxDiscount[0], 'maxReview' => $maxReview, 'lastProduct' => $lastProduct, 'typeDiscount' => $typeDiscount, 'discount' => $discount]);
     }
 
     public function selectForm(Request $request)
