@@ -45,8 +45,10 @@
                                         <!-- quit  -->
                                         <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
                                         <!-- edit  -->
-                                        <button class="btn btn-info"  name="editCommerce" value="{{ $shop->numSiretCommerce }}"> modifier </button>
-                                        <!favorite>
+                                        @if($mailSeller == $shop->mailProprietaire)
+                                          <button class="btn btn-info"  name="editCommerce" value="{{ $shop->numSiretCommerce }}"> modifier </button>
+                                        @endif
+                                        <!--favorite-->
                                         @if ($shop->numSiretCommerce == $favoriteShop)
                                             <button class="btn bg-light" name="favorite"><i class="fas fa-star"></i></button>
                                         @else
