@@ -1,4 +1,4 @@
-@extends('navbars.navbar' . 'user')
+@extends('navbars.navbar' . $user)
 
 @section('content')
 <br>

@@ -63,10 +63,10 @@
                 <tbody>
                     <tr>
                         <td>
-                            <a href="./contact" class="nav-link"> Nous contacter </a>
+                            <a href="/Piscine/public/contact" class="nav-link"> Nous contacter </a>
                         </td>
                         <td>
-                            <a href="./credits" class="nav-link"> Mentions légales </a>
+                            <a href="/Piscine/public/credits" class="nav-link"> Mentions légales </a>
                         </td>
                         <td>
                             <a href="https://www.facebook.com/CCIHerault/" class="nav-link" title="Facebook">

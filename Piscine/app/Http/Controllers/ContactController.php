@@ -39,6 +39,8 @@ class ContactController extends Controller
                 $m->to($adminMail)->subject($request->get('subject'));
             }
         );
+        flash("Merci pour votre message!")->success();
+        return back();
     }
 
 }
