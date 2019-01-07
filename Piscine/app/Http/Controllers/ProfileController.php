@@ -59,18 +59,17 @@ class ProfileController extends Controller
         }
 
         $reduction = Reduction::where('mailClient', $client->mailClient)->first();
-        $dateNow = Carbon::now();
         $dateFinale = $reduction->dateFinReduction;
         $dateFinale = Carbon::parse($dateFinale);
-        $dateFinaleStr = $dateFinale->format("d/M/Y");
+        $dateNow= Carbon::now();
+        $timeLeft = $dateFinale->diffInSeconds($dateNow);
         $points = $reduction->pointsReduction;
 
         if($dateNow > $dateFinale) {
             return view('profiles.myClientProfile')->with(['dateFinaleSet' => False, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
         }
 
-        return view('profiles.myClientProfile')->with(['dateFinaleSet' => True, 'dateFinale'=>$dateFinaleStr, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
-
+        return view('profiles.myClientProfile')->with(['dateFinaleSet' => True, 'start'=>$dateNow, 'time'=> $timeLeft, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
 
     }
 

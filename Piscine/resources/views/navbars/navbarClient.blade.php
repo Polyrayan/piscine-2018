@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ URL::asset('css/nav.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
 <script type="text/javascript" src="{{ URL::asset('js/countDown.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/countDown2.js') }}"></script>
 
 <nav class="navbar navbar-expand-md sticky-top " style="background-color: #dbdcda">
 
