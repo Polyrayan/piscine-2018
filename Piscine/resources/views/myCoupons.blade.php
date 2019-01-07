@@ -18,15 +18,15 @@
     @endisset
     @isset($coupons)
 
-        <div class="container">
+        <div class="container-fluid">
             <table style="width:100%;" id="cart" class="table table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th style="width:15%;">Code Coupon</th>
+                    <th style="width:10%;">Code Coupon</th>
                     <th style="width:30%;">Description</th>
                     <th style="width:20%;">Pour quels produit(s)?</th>
                     <th style="width:10%;" >Valeur</th>
-                    <th style="width:15%;" >Date limite</th>
+                    <th style="width:20%;" >Date limite</th>
                     <th style="width:10%;" >Quantite maximale</th>
                 </tr>
                 </thead>
@@ -61,7 +61,6 @@
                                             $produit = $coupon->nomTypeProduit;
                                         }
                                         ?>
-
                                             <input type="text" class="form-control" name="produit" value="{{$produit}}">
                                     </div>
                                 </div>
@@ -81,6 +80,10 @@
                                             <input type="text" class="form-control" name="valeur" value="{{$valeur}}">
                                     </div>
                                 </div>
+                                @if ($errors->has('valeurIn'))
+                                    <small> <div class="alert alert-danger" role="alert"> {{ $errors->first('valeurIn') }} </div> </small>
+                                @endif
+
                             </td>
                             <td data-th="Date limite">
                                 <div class="row">
