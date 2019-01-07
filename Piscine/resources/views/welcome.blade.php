@@ -8,18 +8,10 @@
 
         <h3> ce qu'il manque : </h3>
         <ul>
-            <li> Modifier le select des variantes dans la fiche produit</li>
-            <li> Gerer les erreurs d'inscription client : si l'email est deja utilisé -> erreur Laravel, alors qu'on devrait signalé que cette email est impossible </li>
-            <li> le refresh de la vue du /register/optionalForm est impossible </li>
-            <li> ajouter un footer dans toutes les views pour faire plus PRO </li>
-            <li> formulaire produit :  pouvoir ajouter une image </li>
-            <li> un admin doit pouvoir  supprimer des avis </li>
             <li> pouvoir utiliser des points de reductions</li>
             <li> pouvoir appliquer un code de reduction en tant que client </li>
-            <li> deliverMax </li>
             <li> faire des tests pour trouver des erreurs </li>
             <li> ajouter toutes les categorie (:TypeProduit) de LeBonCoin pour avoir une bonne base </li>
-            <li> Proposer 3 produits de la meme categorie dans la view produit/{id} "vous pourriez peut etre intérressé par : "  </li>
         </ul>
     </div>
 

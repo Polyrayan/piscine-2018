@@ -169,16 +169,19 @@
         </div>
     @endif
     <br>
-    <div class="container-fluid">
+
+    @if($completedOrders->count() <= 0 and $processingOrders->count() <=0)
+        <div class = "container-fluid">
+            <h4 class="text-center"> Votre historique d'achat est vide </h4>
+        </div>
+        <br>
+        <br>
+
+    @endif
+    @if($completedOrders->count() != 0)<div class="container-fluid">
         <h3>  Commandes Terminées : </h3>
     </div>
     <br>
-    @if($completedOrders->count() <= 0)
-        <div class = "container-fluid">
-            <h4> Votre historique d'achat est vide </h4>
-        </div>
-    @endif
-    @if($completedOrders->count() != 0)
         <div class = "container-fluid">
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
