@@ -67,32 +67,41 @@
         @include('flash::message')
     </div>
   @yield('content')
-</body>
-
-<nav class="navbar navbar-expand-md" style="background-color: #dbdcda">
-    <div class="container-fluid">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a href="./contact" class="nav-link"> Nous contacter </a>
-            </li>
-            <li class="nav-item">
-                <a href="./credits" class="nav-link"> Mentions légales </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://www.facebook.com/CCIHerault/" class="nav-link">
-                    <img class="img-responsive" src="{{ URL::to('img/facebook_128.png') }}" alt="" width="64" height="64">
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://twitter.com/CCIHerault" class="nav-link">
-                    <img class="img-responsive" src="{{ URL::to('img/twitter-128.png') }}" alt="" width="80" height="80">
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://www.linkedin.com/company/cci-h%C3%A9rault" class="nav-link">
-                    <img class="img-responsive" src="{{ URL::to('img/linkedin-128.png') }}" alt="" width="64" height="64">
-                </a>
-            </li>
-        </ul>
+  <footer class="footer">
+    
+    <div style="background-color: #dbdcda">
+        <div class="container-fluid">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="./contact" class="nav-link"> Nous contacter </a>
+                        </td>
+                        <td>
+                            <a href="./credits" class="nav-link"> Mentions légales </a>
+                        </td>
+                        <td>
+                            <a href="https://www.facebook.com/CCIHerault/" class="nav-link" title="Facebook">
+                                <img class="img-responsive" src="{{ URL::to('img/facebook-logo.png') }}" alt="">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="https://twitter.com/CCIHerault" class="nav-link" title="Twitter">
+                                <img class="img-responsive" src="{{ URL::to('img/twitter-logo.png') }}" alt="">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="https://www.linkedin.com/company/cci-h%C3%A9rault" class="nav-link" title="LinkedIn">
+                                <img class="img-responsive" src="{{ URL::to('img/linkedin-logo.png') }}" alt="">
+                            </a>
+                        </td>
+                        <td>
+                            <div> <small>Icons made by</small> <a href="https://www.freepik.com/" title="Freepik"><small>Freepik</small></a><small> from </small><a href="https://www.flaticon.com/" title="Flaticon"><small>www.flaticon.com</small></a> <small>is licensed by</small> <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank"><small>CC 3.0 BY</small></a></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</nav>
+    </footer>
+</body>

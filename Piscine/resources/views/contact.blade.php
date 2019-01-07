@@ -1,6 +1,7 @@
-@extends('navbars.navbar')
+@extends('navbars.navbarClient')
 
 @section('content')
+
 <br>
 <div class="container-fluid">
     <div class="row">

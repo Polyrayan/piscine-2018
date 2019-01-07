@@ -135,6 +135,15 @@ class Vendeur extends Authenticatable
         }
     }
 
+        public static function isConnected(){
+        if(Auth::guard('client')->check()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }
 
 

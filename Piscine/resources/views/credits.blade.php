@@ -1,8 +1,8 @@
-@extends('navbars.navbar')
+@extends('navbars.navbar' . 'user')
 
 @section('content')
 <br>
-<div class="container-fluid">
+<div class="container">
     <h3>Mentions légales</h3>
     <div class="row">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas laoreet mattis nisi non ultricies. Sed dapibus ipsum nec lorem luctus, id maximus lectus varius. Donec odio dolor, sagittis non gravida non, imperdiet sit amet est. Praesent elementum dolor ac sem fringilla mattis. Aliquam accumsan velit augue. Nullam blandit at dolor in scelerisque. Praesent eu mi justo. Duis eu ultrices mauris, ut vestibulum dui. Cras non ultricies orci, vitae elementum neque.</p>
