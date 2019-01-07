@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  lun. 07 jan. 2019 à 12:15
+-- Généré le :  lun. 07 jan. 2019 à 14:13
 -- Version du serveur :  10.2.3-MariaDB-log
 -- Version de PHP :  7.1.1
 
@@ -31,15 +31,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `admins` (
   `mailAdmin` varchar(25) NOT NULL,
   `mdpAdmin` text NOT NULL,
-  `mailVendeur` varchar(25) DEFAULT NULL
+  `mailVendeur` varchar(25) DEFAULT NULL,
+  `coefficientPointsEuros` double DEFAULT NULL,
+  `daysBeforeDestroyingPoints` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `admins`
 --
 
-INSERT INTO `admins` (`mailAdmin`, `mdpAdmin`, `mailVendeur`) VALUES
-('cci@gmail.com', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', 'vendeur@gmail.com');
+INSERT INTO `admins` (`mailAdmin`, `mdpAdmin`, `mailVendeur`, `coefficientPointsEuros`, `daysBeforeDestroyingPoints`) VALUES
+('cci@gmail.com', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', 'vendeur@gmail.com', 0.5, 14);
 
 -- --------------------------------------------------------
 
@@ -84,7 +86,8 @@ CREATE TABLE `avis` (
 --
 
 INSERT INTO `avis` (`numAvis`, `commentaireAvis`, `noteAvis`, `dateAvis`, `numProduit`, `mailClient`) VALUES
-(1, 'Excellent', '8', '2018-11-22', 5, 'r@g.com');
+(1, 'Excellent', '8', '2018-11-22', 5, 'r@g.com'),
+(2, 'vraiment nul', '1', '2019-01-07', 1, 'r@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -101,7 +104,6 @@ CREATE TABLE `clients` (
   `villeClient` varchar(30) NOT NULL,
   `codePostalClient` char(5) NOT NULL,
   `telClient` text NOT NULL,
-  `numReduction` int(11) DEFAULT NULL,
   `sexeClient` char(5) NOT NULL,
   `dateNaissanceClient` date NOT NULL,
   `idClient` int(5) NOT NULL,
@@ -113,11 +115,11 @@ CREATE TABLE `clients` (
 -- Déchargement des données de la table `clients`
 --
 
-INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `numReduction`, `sexeClient`, `dateNaissanceClient`, `idClient`, `produit1`, `produit2`) VALUES
-('a@gmail.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', 'zqohqfohoqf', 'qvnqlkknv', '37000', '0685404708', NULL, 'male', '1999-03-03', 1, NULL, NULL),
-('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '18 quai de la Daurade', 'Sètes', '34200', '06', NULL, 'male', '1666-05-25', 6, NULL, NULL),
-('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', NULL, 'male', '1996-06-28', 2, 18, 20),
-('zzz@g.com', 'b', 'bahroun', '$2y$10$YAY5R3Vi.JrQr4MH2M4Zl.3HtlJmkihvIiRsEYK4JNX4pPESD3j.a', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '06854047080', NULL, 'male', '0001-06-06', 11, NULL, NULL);
+INSERT INTO `clients` (`mailClient`, `nomClient`, `prenomClient`, `mdpClient`, `adresseClient`, `villeClient`, `codePostalClient`, `telClient`, `sexeClient`, `dateNaissanceClient`, `idClient`, `produit1`, `produit2`) VALUES
+('a@gmail.com', 'b', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', 'zqohqfohoqf', 'qvnqlkknv', '37000', '0685404708', 'male', '1999-03-03', 1, NULL, NULL),
+('bob@gmail.com', 'bobi', 'bobo', '$2y$10$igurwSKBXU7/2C5Z.zt7GuDfBEqX4MqMil5f22c8N46iGvfFH/9va', '18 quai de la Daurade', 'Sètes', '34200', '06', 'male', '1666-05-25', 6, NULL, NULL),
+('r@gmail.com', 'rayan', 'bahroun', '$2y$10$3oVR9MR6GseYUtwQTFjHQO6bN52nkRqAWdvIjzTrvvkHGDNGDBJMq', '75 Avenue Augustin Fliche', 'Montpellier', '34090', '0685404709', 'male', '1996-06-28', 2, 18, 20),
+('zzz@g.com', 'b', 'bahroun', '$2y$10$YAY5R3Vi.JrQr4MH2M4Zl.3HtlJmkihvIiRsEYK4JNX4pPESD3j.a', '1 rue du Port Feu Hugon (esc C1 )', 'Tours', '37000', '06854047080', 'male', '0001-06-06', 11, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -212,7 +214,7 @@ INSERT INTO `contenir` (`numReservation`, `numProduit`, `qteReservation`) VALUES
 
 CREATE TABLE `coupons` (
   `codeCoupon` varchar(10) NOT NULL,
-  `numSiretCommerce` int(11) DEFAULT NULL,
+  `numSiretCommerce` varchar(14) DEFAULT NULL,
   `nomTypeProduit` text DEFAULT NULL,
   `numProduit` int(11) DEFAULT NULL,
   `valeur` double DEFAULT NULL,
@@ -414,13 +416,11 @@ CREATE TABLE `reductions` (
 --
 
 INSERT INTO `reductions` (`numReduction`, `pointsReduction`, `dateDebutReduction`, `dateFinReduction`, `mailClient`) VALUES
-(1, 0, '2018-11-22 21:43:42', '2018-12-05 23:00:00', 'r@g.com'),
+(1, 0, '2018-11-22 21:43:42', '2018-12-05 23:00:00', 'r@gmail.com'),
 (2, 0, '2018-12-06 21:40:04', '2018-12-05 23:00:00', 'bob@gmail.com'),
 (3, 0, '2019-01-10 10:28:11', '2019-01-09 23:00:00', 'jean@hotmail.fr'),
-(4, 0, '2019-01-10 10:48:17', '2019-01-09 23:00:00', 'jean@hotmail.fr'),
 (5, 0, '2019-01-10 10:53:27', '2019-01-09 23:00:00', 'zz@gmail.com'),
-(6, 0, '2019-01-10 10:57:45', '2019-01-09 23:00:00', 'zzz@g.com'),
-(7, 0, '2019-01-10 11:02:14', '2019-01-09 23:00:00', 'zzz@g.com');
+(6, 0, '2019-01-10 10:57:45', '2019-01-09 23:00:00', 'zzz@g.com');
 
 -- --------------------------------------------------------
 
@@ -675,7 +675,7 @@ ALTER TABLE `vendeurs`
 -- AUTO_INCREMENT pour la table `avis`
 --
 ALTER TABLE `avis`
-  MODIFY `numAvis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `numAvis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `clients`
