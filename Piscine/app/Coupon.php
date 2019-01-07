@@ -50,9 +50,9 @@ class Coupon extends Model
         return self::where('codeCoupon', $code)->count();
     }
 
-    public static function greatestDiscount(){
-        $greatestValue = self::orderBy('valeur','desc')->first();
-        $greatestPercent = self::orderBy('valeurPourcentage','desc')->first();
+    public static function greatestProductDiscount(){
+        $greatestValue = self::where('nomTypeProduit', null)->orderBy('valeur','desc')->first();
+        $greatestPercent = self::where('nomTypeProduit', null)->orderBy('valeurPourcentage','desc')->first();
         return array('value' => $greatestValue, 'percent' => $greatestPercent);
     }
 }

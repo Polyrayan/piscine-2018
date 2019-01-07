@@ -46,13 +46,13 @@ class HomeController extends Controller
         $maxReview = Produit::bestProduct();
         $lastProduct = Produit::lastProduct();
 
-        if(Coupon::all()->count()==0){
+        if(Coupon::all()->count()==0 || Coupon::where('nomTypeProduit', null)->count()==0 ){
                 $maxDiscount = [Produit::getRandom()];
                 $typeDiscount='none';
                 $discount=null;
         }
         else{
-            $greatDiscount = Coupon::greatestDiscount();
+            $greatDiscount = Coupon::greatestProductDiscount();
             if($greatDiscount['value']->valeur == null) {
                 $maxDiscount = Produit::where('produits.numProduit',$greatDiscount['percent']->numProduit)
                     ->join('coupons','coupons.numProduit','=','produits.numProduit')->get();
