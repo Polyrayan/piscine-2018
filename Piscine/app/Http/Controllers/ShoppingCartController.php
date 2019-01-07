@@ -70,7 +70,7 @@ class ShoppingCartController extends Controller
             return $this->buyWithSelectedDelivery(request('shoppingCartNumber'),request('total'),request('subTotal'),request('productToDeliver'));
         }
         elseif ($request->has('deliveryMax')) {
-            return 'todo';
+            return $this->buyWithSelectedDelivery(request('shoppingCartNumber'),request('total'),request('subTotal'),request('productDeliverable'));;
         }
     }
 
@@ -105,16 +105,17 @@ class ShoppingCartController extends Controller
 
         // case 1 : [se faire livrer le maximum] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
         if (!($deliverablesProducts->isEmpty()) and !($undeliverablesProducts->isEmpty())) {
-            return view('confirmShoppingCart')->with(['id' => $id, 'deliverablesProducts' => $deliverablesProducts, 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
+          return view('confirmShoppingCart')->with(['id' => $id, 'deliverablesProducts' => $deliverablesProducts, 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
+
         }
         // case  2 all deliverables : [tout se faire livrer] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
         elseif (!($deliverablesProducts->isEmpty()) and $undeliverablesProducts->isEmpty()) {
-            return view('confirmShoppingCart')->with(['id' => $id, 'productCase2' => $deliverablesProducts, 'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
+          return view('confirmShoppingCart')->with(['id' => $id, 'productCase2' => $deliverablesProducts, 'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
 
         }
         // case 3 all undeliverables : [tout récupérer chez les vendeurs]
         elseif ($deliverablesProducts->isEmpty() and !($undeliverablesProducts->isEmpty())){
-            return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
+          return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False]);
         }
         else{
             return "Error unknown case";
@@ -192,7 +193,6 @@ class ShoppingCartController extends Controller
             ->leftjoin('detenir','detenir.numCommande' , '=' , 'commandes.numCommande')
             ->get();
 
-        $date = Date::now()->format('Y-m-d H:i:s');
         $nb = 0;
         $points = 0;
         foreach ($commandes as $commande){
@@ -207,9 +207,7 @@ class ShoppingCartController extends Controller
             $nb++;
         }
         Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['qtePointsAcquis' => number_format($points,1)]);
-        Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
-        Commande::where('commandes.numPanier',$shoppingCartNumber)->update(['dateCommande'=> $date ,'etatCommande' => "traitement"]);
-        return "success";
+        return redirect(url()->current().'/facture');
     }
 
     /*
@@ -220,6 +218,7 @@ class ShoppingCartController extends Controller
         Produit::where('numProduit',$productNumber)->decrement('qteStockDispoProduit', $quantity );
         Produit::where('numProduit',$productNumber)->decrement('qteStockProduit', $quantity );
     }
+
 
     public function applyCoupon($codeCoupon, $productNumber, $quantity, $subTotal,
                                 $deliverablesProducts, $undeliverablesProducts){

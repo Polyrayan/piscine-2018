@@ -14,7 +14,7 @@
                     <table id="cart" class="table table-hover table-condensed">
                         <thead>
                         <tr>
-                            <th style="width:30%">Produitsssssssssss</th>
+                            <th style="width:30%">Produit</th>
                             <th style="width:5%">Couleur</th>
                             <th style="width:5%">Taille</th>
                             <th style="width:5%">Prix</th>
@@ -32,6 +32,7 @@
                                 <input name="price" type="hidden" value="{{ $product->prixProduit }}">
                                 <input name="quantity[]" type="hidden" value="{{$product->qteCommande}}">
                                 <input name="subTotal[]" type="hidden" value="{{$product->prixProduit*$product->qteCommande}}">
+                                <input name="productDeliverable[]" type="hidden" value="{{$product->numProduit}}">
 
                                 <tr>
                                     <td data-th="Product">
@@ -91,25 +92,25 @@
                         <input name="total" type="hidden" value="{{ $total }}">
 
                         <div class="text-center">
-                            <h3->Validez votre commande : </h3->
+                            <h3>Validez votre commande : </h3>
                         </div>
                         <div class="text-center">
-                            <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
-                            <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
-                            @if(!$appliedCoupon)
-                                <input name="codeCoupon" class="text-center" placeholder="Codeee réduction">
-                                <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
-                    @if($errors->has('codeCoupon'))
-                        <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
-                    @endif
-                    @endif
+                          <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
+                          <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
+                          @if(!$appliedCoupon)
+                              <input name="codeCoupon" class="text-center" placeholder="Codeee réduction">
+                              <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
+                  @if($errors->has('codeCoupon'))
+                      <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
+                  @endif
+                  @endif
                         <div class="text-center">
                             </br>
                             <strong>Total {{ $total }}€ </strong>
                             <p> dont TVA :{{ $total*0.2 }}€ </p>
                         </div>
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-info btn-sm"  name="noDelivery">Tout récupérer</button>
+                            <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">Tout récupérer</button>
                             <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">Livrer ceux sélectionnés </button>
                             <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">Se faire livrer le maximum</button>
                         </div>
@@ -147,6 +148,7 @@
                                     <input name="price" type="hidden" value="{{ $product->prixProduit }}">
                                 <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
                                 <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
+
 
                                 <tr>
                                     <td data-th="Product">
@@ -187,15 +189,15 @@
                             <h3>Validez votre commande : </h3>
                         </div>
                         <div class="text-center">
-                            <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
-                            <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
-                            @if(!$appliedCoupon)
-                                <input name="codeCoupon" class="text-center" placeholder="Codeee réduction">
-                                <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
-                        @if($errors->has('codeCoupon'))
-                            <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
-                    @endif
-                    @endif
+                          <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
+                          <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
+                          @if(!$appliedCoupon)
+                              <input name="codeCoupon" class="text-center" placeholder="Codeee réduction">
+                              <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
+                      @if($errors->has('codeCoupon'))
+                          <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
+                  @endif
+                  @endif
                         </div>
                         <div class="text-center">
                             <strong>Total {{ $total }}€ </strong>
@@ -242,6 +244,7 @@
                                     <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
                                     <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
 
+
                                     <tr>
                                         <td data-th="Product">
                                             <div class="row">
@@ -269,8 +272,6 @@
                     </div>
                     <div class="col-lg-3">
                         <form method="POST">
-
-
                             {{  csrf_field()  }}
                             <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
                             <input name="total" type="hidden" value="{{ $total }}">
@@ -280,15 +281,15 @@
                                 <h3>Validez votre commande : </h3>
                             </div>
                             <div class="text-center">
-                                <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
-                                <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
-                                @if(!$appliedCoupon)
-                                    <input name="codeCoupon" class="text-center" placeholder="Codeee réduction">
-                                    <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
-                                    @if($errors->has('codeCoupon'))
-                                    <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
-                                    @endif
-                                @endif
+                              <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
+                              <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
+                              @if(!$appliedCoupon)
+                                  <input name="codeCoupon" class="text-center" placeholder="Codeee réduction">
+                                  <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
+                                  @if($errors->has('codeCoupon'))
+                                  <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
+                                  @endif
+                              @endif
                             </div>
                             <div class="text-center">
                                 <strong>Total {{ $total }}€ </strong>

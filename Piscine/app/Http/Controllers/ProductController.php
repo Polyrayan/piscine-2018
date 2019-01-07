@@ -35,9 +35,9 @@ class ProductController extends Controller
           }
         }
         if(empty($suggestions)) {
-          foreach ($products as $product) {
-            if ($product->numProduit != $id) {
-              array_push($suggestions,$product);
+          foreach ($products as $prod) {
+            if ($prod->numProduit != $id) {
+              array_push($suggestions,$prod);
             }
           }
         }
