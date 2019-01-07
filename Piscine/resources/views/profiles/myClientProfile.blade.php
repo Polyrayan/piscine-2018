@@ -115,7 +115,7 @@
     <br>
     @if($processingOrders->count() != 0)
         <div class = "container-fluid">
-            <h3>  Commande en cours : </h3>
+            <h3>  Commande en cours : </h3>t
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
                 <tr>

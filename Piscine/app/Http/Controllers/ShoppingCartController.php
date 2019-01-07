@@ -43,8 +43,25 @@ class ShoppingCartController extends Controller
     public function selectForm(Request $request)
     {
         // view sellerShops
+        //return $request;
+        //  return $request;
 
-        if ($request->has('update')) {
+                // view confirmShoppingCart
+                if ($request->has('deliverAll')){
+                    return $this->buyAndDeliverAll(request('shoppingCartNumber'),request('total'));
+                }
+                elseif($request->has('noDelivery')){
+                    return $this->buyAndDeliverNone(request('shoppingCartNumber'),request('total'));
+                }
+                elseif($request->has('selectedDelivery')){
+                    return $this->buyWithSelectedDelivery(request('shoppingCartNumber'),request('total'),request('subTotal'),request('productToDeliver'));
+                }
+                elseif ($request->has('deliveryMax')) {
+                  return $this->buyWithSelectedDelivery(request('shoppingCartNumber'),request('total'),request('subTotal'),request('productDeliverable'));
+                }
+
+
+        elseif ($request->has('update')) {
             return $this->updateQuantity(request('orderNumber'),request('productNumber'),request('quantity'),request('price'),request('shoppingCartNumber'));
         }
         elseif ($request->has('delete')) {
@@ -54,17 +71,10 @@ class ShoppingCartController extends Controller
             return redirect(url()->current().'/confirmation');
         }
 
-        elseif ($request->has('points')){
-            return $this->applyPoints(request('pointsReduction'), request('total'),request('appliedCoupon'));
-        }
 
-        elseif ($request->has('code')){
-            return $this->applyCoupon(request('codeCoupon'), request('productNumber'), request('quantity'),
-                request('subTotal'), request('total'),request('appliedPoints')
-                );
-        }
 
         elseif ($request->has('finalPaid')) {
+
             $date = Date::now()->format('Y-m-d H:i:s');
             $shoppingCartNumber = request('shoppingCartNumber');
             Panier::where('paniers.numPanier',$shoppingCartNumber)->update(['datePanier' => $date]);
@@ -79,22 +89,20 @@ class ShoppingCartController extends Controller
             Reduction::where('numReduction', $reduction->numReduction)->update(['pointsReduction' => $newPoints , 'dateFinReduction'=>$dateFinale]);
             flash("Félicitations, votre commande a été prise en compte.")->success();
             return redirect('/client/profil');
+          }
+
+        elseif ($request->has('points')){
+          if(request('pointsReduction')){
+            return $this->applyPoints(request('pointsReduction'), request('total'),request('appliedCoupon'));
+          }
         }
 
-
-
-        // view confirmShoppingCart
-        elseif ($request->has('deliverAll')){
-            return $this->buyAndDeliverAll(request('shoppingCartNumber'),request('total'));
-        }
-        elseif($request->has('noDelivery')){
-            return $this->buyAndDeliverNone(request('shoppingCartNumber'),request('total'));
-        }
-        elseif($request->has('selectedDelivery')){
-            return $this->buyWithSelectedDelivery(request('shoppingCartNumber'),request('total'),request('subTotal'),request('productToDeliver'));
-        }
-        elseif ($request->has('deliveryMax')) {
-          return $this->buyWithSelectedDelivery(request('shoppingCartNumber'),request('total'),request('subTotal'),request('productDeliverable'));
+        elseif ($request->has('code')){
+          if(request('codeCoupon')){
+            return $this->applyCoupon(request('codeCoupon'), request('productNumber'), request('quantity'),
+                request('subTotal'), request('total'),request('appliedPoints')
+                );
+              }
         }
 
     }
