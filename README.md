@@ -11,26 +11,25 @@
    - [x] : créer la base de données.
    - [x] : Respecter les règles de conventions de PHP.
 ##### 5%
-- [ ] : Faire un bon MVC des familles avec Laravel.
+- [ ] :  MVC avec Laravel.
   Mais aussi:
   - [x] : des commentaires.
   - [x] : des objets.
   - [x] : des variables explicites.
-  - [ ] : un minimum de sécurité.
-  - [ ] : un site scalable.
+  - [x] : un minimum de sécurité.
   - [x] : un site responsive.
 ##### 50%
-   - [ ] : Discuter de notre site avec les clients 3 décembre.
-   - [ ] : Faire les modifications qu'ils désirent.
+   - [x] : Discuter de notre site avec les clients 3 décembre.
+   - [x] : Faire les modifications qu'ils désirent.
 ##### 65%
-   - [ ] : un site totalement responsive.
+   - [x] : un site totalement responsive.
 ##### 70%
    - [ ] : Héberger le site.
    - [ ] : Corriger toutes les erreurs suite à l'hebergement.
 ##### 95%
-   - [ ] : Préparer la présentation du 8 janvier.
+   - [x] : Préparer la présentation du 8 janvier.
 ##### 97%
-   - [ ] : Réviser pour le quizz de Mr Fiorio.
+   - [x] : Réviser pour le quizz de Mr Fiorio.
 ##### 100%
   
 # I) Composer :
