@@ -78,8 +78,8 @@
                                         <input type="number" name="quantity" class="form-control text-center" value="1">
                                     </td>
                                     <td class="actions" data-th="">
-                                        <button class="btn btn-success btn-group" name="book"> <i class="far fa-clock"></i> </button>
-                                        <button class="btn btn-warning btn-group" name="addShoppingCart"> <i class="fas fa-cart-arrow-down"></i> </button>
+                                        <button class="btn btn-success btn-group" name="book" title="Réserver"> <i class="far fa-clock"></i> </button>
+                                        <button class="btn btn-warning btn-group" name="addShoppingCart" title="Ajouter au panier"> <i class="fas fa-cart-arrow-down"></i> </button>
                                     </td>
                                 </form>
                             </tr>

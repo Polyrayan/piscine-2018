@@ -39,7 +39,7 @@
                 @if($typeDiscount == 'value')
                   <h4>A {{$maxDiscount->prixProduit-$discount}}€ au lieu de {{$maxDiscount->prixProduit}}€</h4>
                 @elseif($typeDiscount == 'percent')
-                  <h4>Profitez de {{$discount}}% de réduction soit seulement {{number_format((100-$discount)/100*$maxDiscount->prixProduit,2)}}€</h4>
+                  <h4>Profitez de {{$discount}}% de réduction soit seulement {{number_format((100-$discount)/100*$maxDiscount->prixProduit,2)}}€ au lieu de {{$maxDiscount->prixProduit}}</h4>
                 @else
                   <h4>A seulement {{$maxDiscount->prixProduit}}€</h4>
                 @endif
