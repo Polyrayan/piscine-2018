@@ -30,7 +30,13 @@
                             <tr>
                                 <td data-th="Product">
                                     <div class="row">
-                                        <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 "><img src="http://placehold.it/100x100" alt="..." class="img-responsive hidden-sm"/></div>
+                                        <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 ">
+                                            @if(empty($commande->imageProduit))
+                                                <a class="nomargin" href="./produits/{{$commande->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis"></a>A
+                                            @else
+                                                <a class="nomargin" href="./produits/{{$commande->numProduit}}"><img class="d-block w-100" src="{{$commande->imageProduit}}" alt="Les meilleurs avis"></a>
+                                            @endif
+                                        </div>
                                         <div class="col-lg-7 col-md-8 col-sm-6 col-xs-8">
                                             <h4 class="nomargin"><b>{{$commande->nomProduit}} </b></h4>
                                             <p>{{$commande->libelleProduit}}</p>
@@ -92,7 +98,13 @@
                                 <tr>
                                     <td data-th="Product">
                                         <div class="row">
-                                            <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 "><img src="http://placehold.it/100x100" alt="..." class="img-responsive hidden-sm"/></div>
+                                            <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 ">
+                                                @if(empty($review->imageProduit))
+                                                    <a class="nomargin" href="./produits/{{$review->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis"></a>A
+                                                @else
+                                                    <a class="nomargin" href="./produits/{{$review->numProduit}}"><img class="d-block w-100" src="{{$review->imageProduit}}" alt="Les meilleurs avis"></a>
+                                                @endif
+                                            </div>
                                             <div class="col-lg-7 col-md-8 col-sm-6 col-xs-8">
                                                 <h4 class="nomargin"><b>{{$review->nomProduit}} </b></h4>
                                                 <p>{{$review->libelleProduit}}</p>

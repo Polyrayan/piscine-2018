@@ -34,8 +34,6 @@ class Panier extends Model
             ->join('commandes', 'paniers.numPanier','=','commandes.numPanier')
             ->join('detenir','detenir.numCommande','=','commandes.numCommande')
             ->join('produits','produits.numProduit', '=','detenir.numProduit')
-            ->join('avis','avis.numProduit','=','produits.numProduit')
-            ->whereNull('noteAvis')
             ->groupBy('produits.numGroupeVariante')
             ->get();
     }

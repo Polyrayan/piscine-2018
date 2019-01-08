@@ -167,7 +167,7 @@
                         <!-- valeur -->
                         <label class="col-sm-4 col-form-label"> Valeur en euros :</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="valeur" placeholder="valeur en euros *" value="{{ old('valeur') }}">
+                            <input type="text" class="form-control" name="valeur" placeholder="valeur en € ( ou %)" value="{{ old('valeur') }}">
                             @if ($errors->has('valeur'))
                                 <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('valeur') }} </div>  </small>
                             @endif
@@ -176,7 +176,7 @@
                         <!-- valeurPourcentage -->
                         <label class="col-sm-4 col-form-label"> Valeur en pourcentage :</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="valeurPourcentage" placeholder="valeur en % *" value="{{ old('valeurPorcentage') }}">
+                            <input type="text" class="form-control" name="valeurPourcentage" placeholder="valeur en % (ou €)" value="{{ old('valeurPorcentage') }}">
                             @if ($errors->has('valeur'))
                                 <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('valeurPourcentage') }} </div>  </small>
                             @endif
@@ -192,7 +192,7 @@
                         </div>
 
                         <!-- dateLimite-->
-                        <label class="col-sm-4 col-form-label"> Fin du periode du coupon :</label>
+                        <label class="col-sm-4 col-form-label"> Fin periode du coupon :</label>
                         <div class="col-sm-8">
 
                             <input type="text" class="form-control" id = "dateLimite" name="dateLimite" placeholder="derniere jour de valabilite du coupon*">
@@ -208,7 +208,7 @@
                         <!-- quantiteMax-->
                         <label class="col-sm-4 col-form-label"> Quantite maximale des produits achetes avec un coupon :</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" name="quantiteMax" rows="2" placeholder="quantite maximale *" value="{{ old('quantiteMax') }}"></textarea>
+                            <textarea class="form-control" name="quantiteMax" rows="2" placeholder="quantite maximale " value="{{ old('quantiteMax') }}"></textarea>
                             @if ($errors->has('quantiteMax'))
                                 <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('quantiteMax') }} </div>  </small>
                             @endif

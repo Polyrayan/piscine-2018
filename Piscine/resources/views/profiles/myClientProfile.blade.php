@@ -229,7 +229,7 @@
                                             <td data-th="Size" class="text-center"><b>{{$produit[3]}}</b></td>
                                             <td data-th="method" class="text-center">
                                                 @if($produit[4] == 1)
-                                                    <b><font color="green">Produit Récupéré </font></b>
+                                                    <b><font color="green">Produit Récupéré : <a class="nomargin" href="\Piscine\public\client\{{$id}}\commandes">laissez un avis</a></font></b>
                                                 @else
                                                     <b><font color="green"> En livraison </font></b>
                                                 @endif

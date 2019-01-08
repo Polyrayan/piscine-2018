@@ -230,7 +230,7 @@ class Produit extends Model
      */
     public static function allVariants($siret)
     {
-        return self::where('numSiretCommerce', $siret)
+        return self::where('numSiretCommerce', $siret)->orderBy('couleurProduit')
             ->get(['numProduit','numGroupeVariante','couleurProduit','tailleProduit']);
     }
 

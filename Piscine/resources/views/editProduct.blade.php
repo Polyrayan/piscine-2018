@@ -98,7 +98,7 @@
                         <div class="form-group">
                             <label for="confirm">Image :</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="image" placeholder=" url de l'image (option)" value="{{ old('image') }}">
+                                <input type="text" class="form-control" name="image" placeholder=" url de l'image (option)" value="{{$product->imageProduit}}">
                             </div>
                             @if ($errors->has('image'))
                                 <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('image') }} </div>  </small>

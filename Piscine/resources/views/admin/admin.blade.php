@@ -29,7 +29,7 @@
                         <!-- button to add the category -->
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <button type="submit" class="btnSubmit btn-primary" name="add"> Ajouter </button>
+                            <button type="submit" class="btn btn-primary" name="add"> Ajouter </button>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <!-- nom -->
                         <label class="col-sm-4 col-form-label"> Nom de la catégorie :</label>
                         <div class="col-sm-8">
-                            <select name="Nom" >
+                            <select name="Nom" class="form-control">
                                 <option value="{{ old('nomTypeProduit') }}">--Choisissez une categorie--</option>
                                 @foreach($categories as $categorie)
                                     <option value={{$categorie->nomTypeProduit}}>{{$categorie->nomTypeProduit}}</option>
@@ -66,7 +66,7 @@
                         <!-- button to modif the category -->
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <button type="submit" class="btnSubmit btn-primary" name="modifier"> Modifier </button>
+                            <button type="submit" class="btn btn-primary" name="modifier"> Modifier </button>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                         <!-- nom -->
                         <label class="col-sm-4 col-form-label"> Nom de la catégorie :</label>
                         <div class="col-sm-8">
-                            <select name="Nom" >
+                            <select name="Nom" class="form-control">
                                 <option value="{{ old('nomTypeProduit') }}">--Choisissez une categorie--</option>
                                 @foreach($categories as $categorie)
                                     <option value={{$categorie->nomTypeProduit}}>{{$categorie->nomTypeProduit}}</option>
@@ -97,7 +97,7 @@
                         <!-- button to delete the category -->
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6">
-                            <button type="submit" class="btnSubmit btn-primary" name="delete"> Supprimer </button>
+                            <button type="submit" class="btn btn-primary" name="delete"> Supprimer </button>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-@extends('navbars.navbarClient')
+@extends('navbars.navbarSeller')
 
 @section('content')
 

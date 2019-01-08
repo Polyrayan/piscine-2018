@@ -31,7 +31,7 @@
                             {{  csrf_field()  }}
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-lg-1">
+                                    <div class="col-lg-2">
                                         <h3>{{$shop->nomCommerce}}</h3>
                                     </div>
                                     <div class="col-lg-4">
@@ -44,12 +44,12 @@
                                         <button class="btn btn-primary" name="visit"  value="{{ $shop->numSiretCommerce }}"> visiter </button>
                                         <!-- orders -->
                                         <button  class="btn btn-info" name="sales"> Ventes  <span class="badge badge-light"> {{$orders->where('numSiretCommerce',$shop->numSiretCommerce)->count()}} </span> </button>
-                                        <!-- quit  -->
-                                        <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
                                         <!-- edit  -->
                                         @if($mailSeller == $shop->mailProprietaire)
                                           <button class="btn btn-warning"  name="editCommerce" value="{{ $shop->numSiretCommerce }}"> modifier </button>
                                         @endif
+                                        <!-- quit  -->
+                                        <button class="btn btn-danger"  name="quit" value="{{ $shop->numSiretCommerce }}"> quitter </button>
                                         <!--favorite-->
                                         @if ($shop->numSiretCommerce == $favoriteShop)
                                             <button class="btn bg-light" name="favorite"><i class="fas fa-star"></i></button>

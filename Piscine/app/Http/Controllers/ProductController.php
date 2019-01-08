@@ -87,6 +87,7 @@ class ProductController extends Controller
         }elseif ($request->has('deleteReview')) {
             Avis::deleteAvis(request('numberReview'));
             flash('Cet avis a été supprimé')->success();
+            return back();
         }
     }
 }

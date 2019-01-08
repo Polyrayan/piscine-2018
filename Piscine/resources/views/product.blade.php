@@ -40,6 +40,8 @@
                                             <option value="{{$prod->numProduit}}"> {{$prod->couleurProduit}} {{$prod->tailleProduit}}</option>
                                         @endforeach
                                     </select>
+                                    @else
+                                    <input name="variant" type="hidden" value="{{ $product->numProduit }}">
                                     @endif
                             </div>
                             @if ($errors->has('variant'))
@@ -141,6 +143,41 @@
                     </div>
                 </div>
             </div>
+        @if($clientConnected == "Client")
+            <!-- Suggestions -->
+                <div class="col-12">
+                    <div class="card border-light mb-3">
+                        <div class="card-header bg-primary text-white text-uppercase"><i class="far fa-clone"></i> Produits pouvant vous intéresser </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <?php
+                                    $i=0;
+                                    while ($i<sizeof($suggestions) && $i<3) {
+                                        echo '<td>';
+                                        echo '  <center>';
+                                        echo '    <a href="" data-toggle="modal" data-target="#productModal">';
+                                        if(empty($suggestions[$i]->imageProduit)) {
+                                            echo '      <img src="http://placehold.it/100x100" style="width:200px; height: 200px;" alt="..." class=" img img-thumbnail"/>';
+                                        }
+                                        else {
+                                            echo '      <img class="img-fluid" src=',$suggestions[$i]->imageProduit,' style="width:200px; height: 200px;"/>';
+                                        }
+                                        echo '      <h3 class="nom" >',$suggestions[$i]->nomProduit,'</h3>';
+                                        echo '   </a>';
+                                        echo ' </center>';
+                                        echo '</td>';
+                                        $i+=1;
+                                    }
+                                    ?>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        @endif
 
             <!-- Reviews -->
             <div class="col-12" id="reviews">
@@ -191,7 +228,7 @@
                                                 <form method="POST">
                                                     {{  csrf_field()  }}
                                                 <input name="numberReview" type="hidden" value="{{ $_avis->numAvis }}">
-                                                <button class="btn btn-warning btn-group" name="deleteReviews"> supprimer </button>
+                                                <button class="btn btn-warning btn-group" name="deleteReview"> supprimer </button>
                                                 </form>
                                             @endif
                                         @endif
@@ -207,43 +244,11 @@
                     </div>
                 </div>
             </div>
-@if($clientConnected == "Client")
-            <!-- Suggestions -->
-            <div class="col-12">
-                <div class="card border-light mb-3">
-                    <div class="card-header bg-primary text-white text-uppercase"><i class="far fa-clone"></i> Produits pouvant vous intéresser </div>
-                    <div class="card-body">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <?php
-                            $i=0;
-                            while ($i<sizeof($suggestions) && $i<3) {
-                              echo '<td>';
-                              echo '  <center>';
-                              echo '    <a href="" data-toggle="modal" data-target="#productModal">';
-                              if(empty($suggestions[$i]->imageProduit)) {
-                              echo '      <img src="http://placehold.it/100x100" style="width:200px; height: 200px;" alt="..." class=" img img-thumbnail"/>';
-                              }
-                              else {
-                              echo '      <img class="img-fluid" src=',$suggestions[$i]->imageProduit,' style="width:200px; height: 200px;"/>';
-                              }
-                              echo '      <h3 class="nom" >',$suggestions[$i]->nomProduit,'</h3>';
-                              echo '   </a>';
-                              echo ' </center>';
-                              echo '</td>';
-                              $i+=1;
-                            }
-                            ?>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                </div>
-            </div>
+
         </div>
+
     </div>
-@endif
+
 
     <!-- Modal image -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">

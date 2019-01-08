@@ -17,8 +17,8 @@
                             <th style="width:30%">Produit</th>
                             <th style="width:5%">Couleur</th>
                             <th style="width:5%">Taille</th>
-                            <th style="width:5%">Prix</th>
                             <th style="width:5%">Quantité</th>
+                            <th style="width:5%">Prix</th>
                             <th style="width:15%" class="text-center">Sous total</th>
                             <th style="width:20% "class="text-center">Points gagnés</th>
                             <th style="width:10%"></th>
@@ -37,7 +37,13 @@
                                 <tr>
                                     <td data-th="Product">
                                         <div class="row">
-                                            <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                                            <div class="col-sm-4 hidden-xs">
+                                                @if(empty($product->imageProduit))
+                                                    <a class="nomargin" href="./produits/{{$product->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis"></a>A
+                                                @else
+                                                    <a class="nomargin" href="./produits/{{$product->numProduit}}"><img class="d-block w-100" src="{{$product->imageProduit}}" alt="Les meilleurs avis"></a>
+                                                @endif
+                                            </div>
                                             <div class="col-sm-8">
                                                 <h4><b>{{$product->nomProduit}} </b></h4>
                                             </div>
@@ -46,10 +52,11 @@
                                     <td data-th="Color" class="text-center"> <b>{{$product->couleurProduit}}</b> </td>
                                     <td data-th="Size" class="text-center"> <b>{{$product->tailleProduit}}</b> </td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
+                                    <td> {{$product->prixProduit}}€</td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
                                     <td data-th="points" class="text-center"><b> Livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
                                             <br> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
-                                    <td  class="form-check">
+                                    <td  class="">
                                             <input name="productToDeliver[]" type="checkbox" id="{{$product->numProduit}}" value="{{$product->numProduit}}">
                                             <label class="form-check-label" for="{{$product->numProduit}}" title="Se faire livrer">
                                                 <i class="btn btn-success fa fa-shipping-fast"></i>
@@ -151,8 +158,8 @@
                                 <th style="width:30%">Produit</th>
                                 <th style="width:5%">Couleur</th>
                                 <th style="width:5%">Taille</th>
-                                <th style="width:5%">Prix</th>
                                 <th style="width:5%">Quantité</th>
+                                <th style="width:5%">Prix</th>
                                 <th style="width:15%" class="text-center">Sous total</th>
                                 <th style="width:20% "class="text-center">Points gagnés</th>
                                 <th style="width:10%"></th>
@@ -163,14 +170,20 @@
                                 <input name="productNumber[]" type="hidden" value="{{ $product->numProduit }}">
                                 <input name="orderNumber[]" type="hidden" value="{{ $product->numCommande }}">
                                 <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
-                                <input name="price" type="hidden" value="{{ $product->prixProduit }}">
                                 <input name="quantity[]" type="hidden" value="{{$product->qteCommande}}">
+                                <input name="price" type="hidden" value="{{ $product->prixProduit }}">
                                 <input name="subTotal[]" type="hidden" value="{{$product->prixProduit*$product->qteCommande}}">
 
                                 <tr>
                                     <td data-th="Product">
                                         <div class="row">
-                                            <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                                            <div class="col-sm-4 hidden-xs">
+                                                @if(empty($product->imageProduit))
+                                                    <a class="nomargin" href="./produits/{{$product->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis"></a>A
+                                                @else
+                                                    <a class="nomargin" href="./produits/{{$product->numProduit}}"><img class="d-block w-100" src="{{$product->imageProduit}}" alt="Les meilleurs avis"></a>
+                                                @endif
+                                            </div>
                                             <div class="col-sm-8">
                                                 <h4><b>{{$product->nomProduit}} </b></h4>
                                             </div>
@@ -179,10 +192,11 @@
                                     <td data-th="Color" class="text-center"> <b>{{$product->couleurProduit}}</b> </td>
                                     <td data-th="Size" class="text-center"> <b>{{$product->tailleProduit}}</b> </td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
+                                    <td class="text-center"> <b>{{$product->prixProduit}}€</b></td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
                                     <td data-th="points" class="text-center"><b> Livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
                                             <br> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
-                                    <td  class="form-check">
+                                    <td  class="">
                                         <input name="productToDeliver[]" type="checkbox" id="{{$product->numProduit}}" value="{{$product->numProduit}}">
                                         <label class="form-check-label" for="{{$product->numProduit}}" title="Se faire livrer">
                                             <i class="btn btn-success fa fa-shipping-fast"></i>
@@ -257,8 +271,8 @@
                                 <th style="width:30%">Produit</th>
                                 <th style="width:5%">Couleur</th>
                                 <th style="width:5%">Taille</th>
-                                <th style="width:5%">Prix</th>
                                 <th style="width:5%">Quantité</th>
+                                <th style="width:5%">Prix</th>
                                 <th style="width:15%" class="text-center">Sous total</th>
                                 <th style="width:20% "class="text-center">Points gagnés</th>
                                 <th style="width:10%"></th>
@@ -276,7 +290,13 @@
                                 <tr>
                                     <td data-th="Product">
                                         <div class="row">
-                                            <div class="col-sm-4 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                                            <div class="col-sm-4 hidden-xs">
+                                                @if(empty($product->imageProduit))
+                                                    <a class="nomargin" href="./produits/{{$product->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis"></a>A
+                                                @else
+                                                    <a class="nomargin" href="./produits/{{$product->numProduit}}"><img class="d-block w-100" src="{{$product->imageProduit}}" alt="Les meilleurs avis"></a>
+                                                @endif
+                                            </div>
                                             <div class="col-sm-8">
                                                 <h4><b>{{$product->nomProduit}} </b></h4>
                                             </div>
@@ -285,10 +305,11 @@
                                     <td data-th="Color" class="text-center"> <b>{{$product->couleurProduit}}</b> </td>
                                     <td data-th="Size" class="text-center"> <b>{{$product->tailleProduit}}</b> </td>
                                     <td data-th="Quantity" class="text-center"><b>{{$product->qteCommande}}</b></td>
+                                    <td class="text-center"><b> {{$product->prixProduit}}€</b></td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
                                     <td data-th="points" class="text-center"><b> Livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
                                             <br> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
-                                    <td  class="form-check">
+                                    <td  class="">
                                         <input name="productToDeliver[]" type="checkbox" id="{{$product->numProduit}}" value="{{$product->numProduit}}">
                                         <label class="form-check-label" for="{{$product->numProduit}}" title="Se faire livrer">
                                             <i class="btn btn-success fa fa-shipping-fast"></i>

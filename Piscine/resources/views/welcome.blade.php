@@ -13,9 +13,9 @@
               <div class="col-xl-2"></div>
               <div class="col-xl-4">
                 @if(empty($maxDiscount->imageProduit))
-                    <img class="d-block w-100" src="http://placehold.it/100x100" alt="La meilleure réduction">
+                      <a class="nomargin" href="./produits/{{$maxDiscount->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="La meilleure réduction"></a>
                 @else
-                    <img class="d-block w-100" src="{{$maxDiscount->imageProduit}}" alt="La meilleure réduction">
+                      <a class="nomargin" href="./produits/{{$maxDiscount->numProduit}}"><img class="d-block w-100" src="{{$maxDiscount->imageProduit}}" alt="La meilleure réduction"></a>
                 @endif
               </div>
               <div class="col-xl-4">
@@ -50,10 +50,10 @@
             <div class="row">
               <div class="col-xl-2"></div>
               <div class="col-xl-4">
-                @if(empty($maxDiscount->imageProduit))
-                    <img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis">
-                @else
-                    <img class="d-block w-100" src="{{$maxReview->imageProduit}}" alt="Les meilleurs avis">
+                @if(empty($maxReview->imageProduit))
+                      <a class="nomargin" href="./produits/{{$maxReview->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis"></a>A
+                  @else
+                      <a class="nomargin" href="./produits/{{$maxReview->numProduit}}"><img class="d-block w-100" src="{{$maxReview->imageProduit}}" alt="Les meilleurs avis"></a>
                 @endif
               </div>
               <div class="col-xl-4">
@@ -79,10 +79,10 @@
             <div class="row">
               <div class="col-xl-2"></div>
               <div class="col-xl-4">
-                @if(empty($maxDiscount->imageProduit))
-                    <img class="d-block w-100" src="http://placehold.it/100x100" alt="Dernier produit en date">
+                @if(empty($lastProduct->imageProduit))
+                      <a class="nomargin" href="./produits/{{$lastProduct->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="Dernier produit en date"></a>
                 @else
-                    <img class="d-block w-100" src="{{$lastProduct->imageProduit}}" alt="Dernier produit en date">
+                      <a class="nomargin" href="./produits/{{$lastProduct->numProduit}}"><img class="d-block w-100" src="{{$lastProduct->imageProduit}}" alt="Dernier produit en date"></a>
                 @endif
               </div>
               <div class="col-xl-4">

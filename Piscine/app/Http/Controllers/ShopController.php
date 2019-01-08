@@ -51,7 +51,7 @@ class ShopController extends Controller
         elseif ($request->has('quit')) {
           $employés = Appartenir::sellersOfThisShop(request('siretNumber'))->count();
           if(request('mailSeller') == request('mailProprietaire') and $employés > 1){
-            flash("Vous avez des employés, vous ne pouvez pas quiter votre commerce ! ")->success();
+            flash("Vous avez des employés, vous ne pouvez pas quitter votre commerce ! ")->warning();
             return back();
            }
           else{
@@ -85,7 +85,6 @@ class ShopController extends Controller
             return redirect('/produits/'.request('variant'));
 
         } elseif ($request->has('edit')) {
-            flash(' Le produit a été modifié avec succès')->success();
           return redirect('/vendeur/commerces/produit/'.request('variant'));
 
 

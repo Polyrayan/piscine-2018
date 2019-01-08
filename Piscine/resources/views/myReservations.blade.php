@@ -38,7 +38,13 @@
                                         <tr>
                                             <td data-th="Product">
                                                 <div class="row">
-                                                    <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 "><img src="http://placehold.it/100x100" alt="..." class="img-responsive hidden-sm"/></div>
+                                                    <div class="col-lg-5 col-md-8 col-sm-6 col-xs-8 ">
+                                                        @if(empty($reservation->imageProduit))
+                                                            <a class="nomargin" href="./produits/{{$reservation->numProduit}}"><img class="d-block w-100" src="http://placehold.it/100x100" alt="Les meilleurs avis"></a>A
+                                                        @else
+                                                            <a class="nomargin" href="./produits/{{$reservation->numProduit}}"><img class="d-block w-100" src="{{$reservation->imageProduit}}" alt="Les meilleurs avis"></a>
+                                                        @endif
+                                                    </div>
                                                     <div class="col-lg-7 col-md-8 col-sm-6 col-xs-8">
                                                 <h4 class="nomargin"><b>{{$reservation->nomProduit}} </b></h4>
                                                 <p>{{$reservation->libelleProduit}}</p>
