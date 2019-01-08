@@ -6,23 +6,24 @@
         <h1> Comparaison des produits : </h1>
         <br>
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-4">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
                 @if (!empty($product1))
                     <form method="POST">
                         {{  csrf_field()  }}
-                        <h3 class="text-center">Produit n°1 : <a class="nomargin" href="./produits/{{$product1->numProduit}}">{{$product1->nomProduit}}</a></h3>
+                        <h3 class="text-center">Produit n°1 :</h3>
+                        <h3 class="text-center"><a class="nomargin text-center" href="./produits/{{$product1->numProduit}}">{{$product1->nomProduit}}</a></h3>
                         <table  class="table  table-condensed">
                             <thead>
                                 <tr>
-                                    <th style="width:30%"></th>
+                                    <th style="width:10%"></th>
                                     <th style="width:70%"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> <b> Description  : </b> </td>
-                                    <td class="text-center"> {{$product1->libelleProduit}}</td>
+                                    <td> {{$product1->libelleProduit}}</td>
                                 </tr>
                                 <tr>
                                     <td> <b> Categorie </b> </td>
@@ -103,11 +104,17 @@
                                 </tr>
                             </tbody>
                             <tfoot>
-                                <td></td>
-                                <input name="product" type="hidden" value="1">
-                                <td><button class="btn btn-danger" name="delete"> Supprimer </button> </td>
+                            <td></td>
+                            <input name="product" type="hidden" value="1">
+                            <td></td>
                             </tfoot>
                         </table>
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-danger" name="delete"> Supprimer </button>
+                            </div>
+                        </div>
                     </form>
 
                 @else
@@ -118,22 +125,23 @@
                 @endif
 
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 @if (!empty($product2))
                     <form method="POST">
                         {{  csrf_field()  }}
-                        <h3 class="text-center">Produit n°2: <a class="nomargin" href="./produits/{{$product2->numProduit}}">{{$product2->nomProduit}}</a></h3>
+                        <h3 class="text-center">Produit n°2: </h3>
+                        <h3 class="text-center"><a class="nomargin" href="./produits/{{$product2->numProduit}}">{{$product2->nomProduit}}</a></h3>
                         <table  class="table  table-condensed">
                             <thead>
                                 <tr>
-                                    <th style="width:30%"></th>
+                                    <th style="width:10%"></th>
                                     <th style="width:70%"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> <b> Description  : </b> </td>
-                                    <td class="text-center"> {{$product2->libelleProduit}}</td>
+                                    <td> {{$product2->libelleProduit}}</td>
                                 </tr>
                                 <tr>
                                     <td> <b> Categorie </b> </td>
@@ -230,12 +238,19 @@
                             <tfoot>
                                 <td></td>
                                 <input name="product" type="hidden" value="2">
-                                <td><button class="btn btn-danger" name="delete"> Supprimer </button> </td>
+                                <td></td>
                             </tfoot>
                         </table>
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-danger" name="delete"> Supprimer </button>
+                            </div>
+                        </div>
+
                     </form>
                 @else
-                    <h3 class="text-center">Produit n°2 : </h3>
+                    <h3 class="text-center">Produit n°2 :</h3>
                     <div class="alert alert-info text-center" role="alert">
                         <strong> Vous n'avez pas de produit n°2 </strong> Cliquez <a href="./" class="alert-link">ici</a> pour chercher un produit à comparer avec le produit n°1.
                     </div>

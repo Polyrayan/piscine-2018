@@ -157,33 +157,33 @@ class ShopCouponsController extends Controller
 //            ]);
 //        }
         $numProduit = Produit::where('nomProduit', $nomProduit)->first();
+
         if($numProduit){
-          Coupon::Create([
-              'codeCoupon' => $codeCoupon,
-              'numSiretCommerce' => $numSiretCommerce,
-              'nomTypeProduit' => $nomTypeProduit,
-              'numProduit' => $numProduit->numProduit,
-              'valeur' => $valeur,
-              'valeurPourcentage' => $valeurPourcentage,
-              'description' => $description,
-              'dateLimite' => $dateNew,
-              'quantiteMax' => $qteMax
-          ]);
+            Coupon::Create([
+                'codeCoupon' => $codeCoupon,
+                'numSiretCommerce' => $numSiretCommerce,
+                'nomTypeProduit' => $nomTypeProduit,
+                'numProduit' => $numProduit->numProduit,
+                'valeur' => $valeur,
+                'valeurPourcentage' => $valeurPourcentage,
+                'description' => $description,
+                'dateLimite' => $dateNew,
+                'quantiteMax' => $qteMax
+            ]);
         }
         else{
-          Coupon::Create([
-              'codeCoupon' => $codeCoupon,
-              'numSiretCommerce' => $numSiretCommerce,
-              'nomTypeProduit' => $nomTypeProduit,
-              'numProduit' => $numProduit,
-              'valeur' => $valeur,
-              'valeurPourcentage' => $valeurPourcentage,
-              'description' => $description,
-              'dateLimite' => $dateNew,
-              'quantiteMax' => $qteMax
-          ]);
+            Coupon::Create([
+                'codeCoupon' => $codeCoupon,
+                'numSiretCommerce' => $numSiretCommerce,
+                'nomTypeProduit' => $nomTypeProduit,
+                'numProduit' => $numProduit,
+                'valeur' => $valeur,
+                'valeurPourcentage' => $valeurPourcentage,
+                'description' => $description,
+                'dateLimite' => $dateNew,
+                'quantiteMax' => $qteMax
+            ]);
         }
-
         return back();
     }
     public function destroyCoupon($codeCoupon){

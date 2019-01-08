@@ -55,8 +55,14 @@
                                         <input type="number" class="form-control text-center" name="quantity" value={{$product->qteCommande}}>
                                     </td>
                                     <td data-th="Subtotal" class="text-center"><b>{{$product->prixProduit*$product->qteCommande}}€</b></td>
-                                    <td data-th="points" class="text-center"><b> Livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
-                                            <br> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b> </td>
+                                    <td data-th="points" class="text-center">
+                                        @if($product->livraisonProduit == 1)
+                                            <b> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b>
+                                        @else
+                                            <b>Livraison :  <font color="#DF3A01"> {{number_format($product->prixProduit*$product->qteCommande*0.10,1)}} </font>
+                                            <br> Magasin: <font color="green"> {{number_format($product->prixProduit*$product->qteCommande*0.15,1)}} </font> </b>
+                                        @endif
+                                    </td>
                                     <td class="actions" data-th="">
                                         <button type="submit" class="btn btn-info btn-sm" name="update" title="Actualiser le panier"><i class="fas fa-redo-alt"></i></button>
                                         <button type="submit" class="btn btn-danger btn-sm" name="delete" title="Supprimer du panier"><i class="fas fa-times-circle"></i></button>

@@ -115,6 +115,12 @@ class Produit extends Model
         $this->city = Commerce::getCity($this->numSiretCommerce);
     }
 
+    /**
+     * ajoute le nombre de variable de ce produit
+     */
+    public function addNbVariant(){
+        $this->nbVariants = self::where('numGroupeVariante',$this->numGroupeVariante)->count();
+    }
 
     /**
      * Supprime un produit grace a son numero de produit
@@ -143,7 +149,6 @@ class Produit extends Model
      * @return mixed
      */
     public static function decrementProduct($numProduct, $quantity){
-      //return $numProduct;
         return self::where('numProduit' , $numProduct)->decrement('qteStockDispoProduit', $quantity );
     }
 

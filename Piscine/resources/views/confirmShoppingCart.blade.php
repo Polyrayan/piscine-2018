@@ -88,50 +88,50 @@
                 </div>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-3">
-                        <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
-                        <input name="total" type="hidden" value="{{ $total }}">
-                        <input name="appliedPoints" type="hidden" class="text-center" value="{{ $appliedPoints}}">
-                        <input name="appliedCoupon" type="hidden" class="text-center" value="{{ $appliedCoupon }}">
+                    <input name="shoppingCartNumber" type="hidden" value="{{ $product->numPanier }}">
+                    <input name="total" type="hidden" value="{{ $total }}">
+                    <input name="appliedPoints" type="hidden" class="text-center" value="{{ $appliedPoints}}">
+                    <input name="appliedCoupon" type="hidden" class="text-center" value="{{ $appliedCoupon }}">
 
-                        <div class="text-center">
-                            <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
-                            <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}">
-                            @if(!$appliedCoupon)
-                                <div class="text-center">
-                                    <h3>Avez-vous un coupon ? : </h3>
+                    <div class="text-center">
+                        <h3>Validez votre commande : </h3>
+                    </div>
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @if(!$appliedCoupon)
+                                    <input name="codeCoupon" class="text-center" placeholder="Code réduction">
+                                    <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button>
+                                    @if($errors->has('codeCoupon'))
+                                        <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
+                                    @endif
+                                @endif
+                            </div>
+                            <div class="col-lg-12">
+                                <input name="deliverablesProducts" type="hidden" value="{{ $deliverablesProducts }}">
+                                <input name="undeliverablesProducts" type="hidden" value="{{ $undeliverablesProducts }}" >
+                                @if(!$appliedPoints)
+                                    <input name="pointsReduction" class="text-center" placeholder="No. points a utiliser">
+                                    <button type="submit" class="btn btn-info btn-sm" name="points" >valider</button>
+                                    @if($errors->has('codeCoupon'))
+                                        <small><div class="alert alert-danger" role="alert"> {{$errors->first('points')}}</div></small>
+                                    @endif
+                                @endif
+                            </div>
+                            <div class="col-lg-12">
+                                </br>
+                                <strong>Total {{ $total }}€ </strong>
+                                <p> dont TVA :{{number_format($total*0.2 , 2) }}€ </p>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="btn-sm">
+                                    <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
+                                    <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">livrer la sélection </button>
+                                    <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">se faire livrer le maximum</button>
                                 </div>
-                                <input name="codeCoupon" class="text-center" placeholder="Code réduction">
-                                <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
-                            @if($errors->has('codeCoupon'))
-                                <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
-                            @endif
-                            @endif
-
-                            @if(!$appliedPoints)
-                                <div class="text-center">
-                                    <h3> Voulez-vous appliquer des points de reduction ? : </h3>
-                                </div>
-                                <input name="pointsReduction" class="text-center" placeholder="No. points a utiliser">
-                                <button type="submit" class="btn btn-info btn-sm" name="points" >valider</button></div>
-                            @if($errors->has('codeCoupon'))
-                                <small><div class="alert alert-danger" role="alert"> {{$errors->first('points')}}</div></small>
-                            @endif
-                            @endif
-
+                            </div>
                         </div>
-                        <div class="text-center">
-                            </br>
-                            <strong>Total {{ $total }}€ </strong>
-                            <p> dont TVA :{{ $total*0.2 }}€ </p>
-                        </div>
-                <div class="text-center">
-                    <h3>Validez votre commande : </h3>
-                </div>
-                        <div class="btn-group">
-                            <button type="submit" class="btn btn-info btn-sm"  name="noDelivery">Tout récupérer</button>
-                            <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">Livrer ceux sélectionnés </button>
-                            <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">Se faire livrer le maximum</button>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -201,46 +201,46 @@
                         <input name="appliedCoupon" type="hidden" class="text-center" value="{{ $appliedCoupon }}">
 
                         <div class="text-center">
-                            <input name="deliverablesProducts" type="hidden" value="{{ $productCase2 }}">
-                            <input name="undeliverablesProducts" type="hidden" >
-                            @if(!$appliedCoupon)
-                                <div class="text-center">
-                                    <h3>Avez-vous un coupon ? : </h3>
+                            <h3>Validez votre commande : </h3>
+                        </div>
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    @if(!$appliedCoupon)
+                                        <input name="codeCoupon" class="text-center" placeholder="Code réduction">
+                                        <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button>
+                                        @if($errors->has('codeCoupon'))
+                                            <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
+                                        @endif
+                                    @endif
                                 </div>
-                                <input name="codeCoupon" class="text-center" placeholder="Code réduction">
-                                <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
-                        @if($errors->has('codeCoupon'))
-                            <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
-                        @endif
-                        @endif
-
-                        @if(!$appliedPoints)
-                            <div class="text-center">
-                                <h3> Voulez-vous appliquer des points de reduction ? : </h3>
+                                <div class="col-lg-12">
+                                    <input name="deliverablesProducts" type="hidden" value="{{ $productCase2 }}">
+                                    <input name="undeliverablesProducts" type="hidden" >
+                                    @if(!$appliedPoints)
+                                        <input name="pointsReduction" class="text-center" placeholder="No. points a utiliser">
+                                        <button type="submit" class="btn btn-info btn-sm" name="points" >valider</button>
+                                        @if($errors->has('codeCoupon'))
+                                            <small><div class="alert alert-danger" role="alert"> {{$errors->first('points')}}</div></small>
+                                        @endif
+                                    @endif
+                                </div>
+                                <div class="col-lg-12">
+                                        </br>
+                                        <strong>Total {{ $total }}€ </strong>
+                                        <p> dont TVA :{{number_format($total*0.2 , 2) }}€ </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="btn-sm">
+                                        <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
+                                        <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">livrer la sélection </button>
+                                        <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">se faire livrer le maximum</button>
+                                    </div>
+                                </div>
                             </div>
-                            <input name="pointsReduction" class="text-center" placeholder="No. points a utiliser">
-                            <button type="submit" class="btn btn-info btn-sm" name="points" >valider</button></div>
-                    @if($errors->has('codeCoupon'))
-                        <small><div class="alert alert-danger" role="alert"> {{$errors->first('points')}}</div></small>
-                    @endif
-                    @endif
-
+                        </div>
+                    </div>
                 </div>
-                <div class="text-center">
-                    </br>
-                    <strong>Total {{ $total }}€ </strong>
-                    <p> dont TVA :{{ $total*0.2 }}€ </p>
-                </div>
-                <div class="text-center">
-                    <h3>Validez votre commande : </h3>
-                </div>
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-info btn-sm"  name="noDelivery">Tout récupérer</button>
-                    <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">Livrer ceux sélectionnés </button>
-                    <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">Se faire livrer le maximum</button>
-                </div>
-            </div>
-            </div>
             </div>
         </form>
         <!--case 3  -->
@@ -307,46 +307,46 @@
                         <input name="appliedCoupon" type="hidden" class="text-center" value="{{ $appliedCoupon }}">
 
                         <div class="text-center">
-                            <input name="deliverablesProducts" type="hidden" >
-                            <input name="undeliverablesProducts" type="hidden" value="{{ $productCase3 }}">
-                            @if(!$appliedCoupon)
-                                <div class="text-center">
-                                    <h3> Avez-vous un coupon ? : </h3>
+                            <h3>Validez votre commande : </h3>
+                        </div>
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    @if(!$appliedCoupon)
+                                        <input name="codeCoupon" class="text-center" placeholder="Code réduction">
+                                        <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button>
+                                        @if($errors->has('codeCoupon'))
+                                            <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
+                                        @endif
+                                    @endif
                                 </div>
-                                <input name="codeCoupon" class="text-center" placeholder="Code réduction">
-                                <button  type="submit" class="btn btn-info btn-sm" name="code" >valider</button></div>
-                        @if($errors->has('codeCoupon'))
-                            <small><div class="alert alert-danger" role="alert"> {{$errors->first('codeCoupon')}}</div></small>
-                        @endif
-                        @endif
-
-                        @if(!$appliedPoints)
-                            <div class="text-center">
-                                <h3> Voulez-vous appliquer des points de reduction ? : </h3>
+                                <div class="col-lg-12">
+                                    <input name="deliverablesProducts" type="hidden">
+                                    <input name="undeliverablesProducts" type="hidden" value="{{ $productCase3 }}" >
+                                    @if(!$appliedPoints)
+                                        <input name="pointsReduction" class="text-center" placeholder="No. points a utiliser">
+                                        <button type="submit" class="btn btn-info btn-sm" name="points" >valider</button>
+                                        @if($errors->has('codeCoupon'))
+                                            <small><div class="alert alert-danger" role="alert"> {{$errors->first('points')}}</div></small>
+                                        @endif
+                                    @endif
+                                </div>
+                                <div class="col-lg-12">
+                                    </br>
+                                    <strong>Total {{ $total }}€ </strong>
+                                    <p> dont TVA :{{number_format($total*0.2 , 2) }}€ </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="btn-sm">
+                                        <button  type="submit" class="btn btn-info btn-sm"  name="noDelivery">tout récupérer</button>
+                                        <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">livrer la sélection </button>
+                                        <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">se faire livrer le maximum</button>
+                                    </div>
+                                </div>
                             </div>
-                            <input name="pointsReduction" class="text-center" placeholder="No. points a utiliser">
-                            <button type="submit" class="btn btn-info btn-sm" name="points" >valider</button></div>
-                    @if($errors->has('points'))
-                        <small><div class="alert alert-danger" role="alert"> {{$errors->first('points')}}</div></small>
-                    @endif
-                    @endif
-
+                        </div>
+                    </div>
                 </div>
-                <div class="text-center">
-                    </br>
-                    <strong>Total {{ $total }}€ </strong>
-                    <p> dont TVA :{{ $total*0.2 }}€ </p>
-                </div>
-                <div class="text-center">
-                    <h3>Validez votre commande : </h3>
-                </div>
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-info btn-sm"  name="noDelivery">Tout récupérer</button>
-                    <button type="submit" class="btn btn-success btn-sm" name="selectedDelivery">Livrer ceux sélectionnés </button>
-                    <button type="submit" class="btn btn-info btn-sm" name="deliveryMax">Se faire livrer le maximum</button>
-                </div>
-            </div>
-            </div>
             </div>
         </form>
     @endif

@@ -81,24 +81,21 @@ class ShopController extends Controller
             return $this->addProduct();
 
         } elseif ($request->has('show')) {
-            return redirect('/produits/'.request('product'));
+
+            return redirect('/produits/'.request('variant'));
 
         } elseif ($request->has('edit')) {
-          if(request('variant') == null){
+            flash(' Le produit a été modifié avec succès')->success();
           return redirect('/vendeur/commerces/produit/'.request('variant'));
-          }
 
-          else{
-            return redirect('/vendeur/commerces/produit/'.request('product'));
 
-          }
-
-        } elseif ($request->has('variant')) {
+        } elseif ($request->has('showVariant')) {
             $variant = Produit::productWithId(request('product'));
             return redirect(url()->current().'/variante/'.$variant->numGroupeVariante);
 
         } elseif ($request->has('delete')) {
-            Produit::deleteProduct(request('product'));
+            Produit::deleteProduct(request('variant'));
+            flash(' Le produit a été supprimé avec succès')->success();
             return back();
 
             // view shop
@@ -159,6 +156,9 @@ class ShopController extends Controller
         $shop = Commerce::shopWithSiret($numSiretCommerce);
         $sellers = Appartenir::sellersOfThisShop($numSiretCommerce);
         $products = Produit::productsOfThisShopGroupedByVariant($numSiretCommerce);
+        foreach ($products as $product){
+            $product->addNbVariant();
+        }
         $groups = Produit::allVariants($numSiretCommerce);
         $types = TypeProduit::all();
         $days = Jour::all();
@@ -180,6 +180,7 @@ class ShopController extends Controller
         $newGroupVariant = Variante::createVariant();
         Produit::validateProduct();
         Produit::createProduct($newGroupVariant->numGroupeVariante);
+        flash('produit ajouté avec succès')->success();
         return back();
     }
 

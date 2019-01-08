@@ -84,14 +84,11 @@ class ShoppingCartController extends Controller
             $client = Client::getClientWithId(request('id'));
             $reduction = Reduction::where('mailClient', $client->mailClient)->first();
             $newPoints = $reduction->pointsReduction + intval(request('points'));
-            $dateNow= Carbon::now();
+            $dateNow = Carbon::now();
             $dateFinale = $dateNow->addDays(14)->format('Y-m-d h:i:s');
             Reduction::where('numReduction', $reduction->numReduction)->update(['pointsReduction' => $newPoints , 'dateFinReduction'=>$dateFinale]);
             flash("Félicitations, votre commande a été prise en compte.")->success();
             return redirect('/client/profil');
-//            return redirect('/client/profil')->with(['start' => $dateNow, 'time' => 360] );
-//            return ProfileController::show();
-
           }
 
         elseif ($request->has('points')){
@@ -153,7 +150,6 @@ class ShoppingCartController extends Controller
             return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False, 'appliedPoints'=>False]);
         }
         else{
-            //return "Error unknown case";
             return redirect('/');
         }
     }
@@ -432,7 +428,7 @@ class ShoppingCartController extends Controller
 
 
         // case 1 : [se faire livrer le maximum] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
-        if (($deliverablesProducts) and ($undeliverablesProducts)) {
+        if (($deliverablesProducts->count() > 0) and ($undeliverablesProducts->count() > 0)) {
             return view('confirmShoppingCart')->with([
                 'id' => $id, 'deliverablesProducts' => $deliverablesProducts,
                 'undeliverablesProducts' => $undeliverablesProducts,'total' => $total,
@@ -441,7 +437,7 @@ class ShoppingCartController extends Controller
                 'appliedPoints' => True]);
         }
         // case  2 all deliverables : [tout se faire livrer] or [tout récupérer chez les vendeurs] or [se faire livrer les produits selectionnés]
-        elseif (($deliverablesProducts) and !$undeliverablesProducts) {
+        elseif (($deliverablesProducts->count() > 0) and $undeliverablesProducts->count() < 1) {
             return view('confirmShoppingCart')->with([
                 'id' => $id, 'productCase2' => $deliverablesProducts,
                 'total' => $total,
@@ -451,7 +447,7 @@ class ShoppingCartController extends Controller
 
         }
         // case 3 all undeliverables : [tout récupérer chez les vendeurs]
-        elseif (!$deliverablesProducts and ($undeliverablesProducts)){
+        elseif ($deliverablesProducts->count() < 1 and $undeliverablesProducts->count() > 0){
             return view('confirmShoppingCart')->with([
                 'id' => $id,
                 'productCase3' => $undeliverablesProducts,

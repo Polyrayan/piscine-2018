@@ -54,9 +54,9 @@
                                 <div class="row">
                                     <div class="col-sm-10 col-form-label">
                                         @if($coupon->nomProduit)
-                                          <input type="text" class="form-control" name="produit" value="{{$coupon->nomProduit}}">
+                                            <input type="text" class="form-control" name="produit" value="{{$coupon->nomProduit}}">
                                         @else
-                                          <input type="text" class="form-control" name="produit" value="{{$coupon->nomTypeProduit}}">
+                                            <input type="text" class="form-control" name="produit" value="{{$coupon->nomTypeProduit}}">
                                         @endif
                                     </div>
                                 </div>

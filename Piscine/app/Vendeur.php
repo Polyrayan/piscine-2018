@@ -145,3 +145,5 @@ class Vendeur extends Authenticatable
     }
 
 }
+
+

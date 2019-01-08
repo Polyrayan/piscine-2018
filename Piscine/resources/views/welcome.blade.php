@@ -1,9 +1,6 @@
 @extends('navbars.navbarClient')
 
 @section('content')
-    <div class="container-fluid">
-
-
 
     @isset($typeDiscount)
     <!-- carousel -->
@@ -39,8 +36,8 @@
                 @if($typeDiscount == 'value')
                   <h4>A {{$maxDiscount->prixProduit-$discount}}€ au lieu de {{$maxDiscount->prixProduit}}€</h4>
                 @elseif($typeDiscount == 'percent')
-                  <h4>Profitez de {{$discount}}% de réduction soit seulement {{number_format((100-$discount)/100*$maxDiscount->prixProduit,2)}}€ au lieu de {{$maxDiscount->prixProduit}}</h4>
-                @else
+                      <h4>Profitez de {{$discount}}% de réduction soit seulement {{number_format((100-$discount)/100*$maxDiscount->prixProduit,2)}}€ au lieu de {{$maxDiscount->prixProduit}}€</h4>
+                  @else
                   <h4>A seulement {{$maxDiscount->prixProduit}}€</h4>
                 @endif
               </div>
@@ -123,7 +120,7 @@
 
 
     <!-- search -->
-    </br>
+    <br>
     <form method="POST">
         {{  csrf_field()  }}
        <div class="container-fluid">
@@ -233,17 +230,18 @@
     </form>
 
     <!-- table of products -->
-    </br>
-    <div class="container-fluid">
+    <br>
+    <div id="reviews" class="container-fluid">
         <table id="cart" class="table table-hover table-condensed">
             <thead>
             <tr>
                 <th style="width:30%">Produit</th>
                 <th style="width:9%" class="text-center">Couleur & Taille </th>
                 <th style="width:1%" class="text-center">Quantité</th>
-                <th style="width:10%" class="text-center">Prix</th>
-                <th style="width:10%" class="text-center">Distance</th>
+                <th style="width:5%" class="text-center">Prix</th>
+                <th style="width:5%" class="text-center">Distance</th>
                 <th style="width:10%" class="text-center">Ville</th>
+                <th style="width:2%"></th>
                 <th style="width:10%"></th>
             </tr>
             </thead>
@@ -292,7 +290,13 @@
                                  {{ $product->distance }} km
                             @endif
                         </td>
+
                         <td data-th="City"  class="text-center"> {{$product->city}}</td>
+                        <td  data-th="deliverable"  class="text-center">
+                            @if($product->livraisonProduit == 0)
+                                <i title="livraison possible pour ce produit" class="btn-sm btn-success fa fa-shipping-fast"></i>
+                            @endif
+                        </td>
                         <td data-th="Actions">
                             <a href="./commerces/{{$product->numSiretCommerce}}" class="btn btn-info" role="button" title="Accéder au magasin"> <i class="fas fa-home"></i> </a>
                             <button class="btn btn-warning btn-group" name="addShoppingCart" title="Ajouter au panier"> <i class="fas fa-cart-arrow-down"></i> </button>
@@ -311,16 +315,18 @@
                 <h5> Aucun résultat pour votre recherche </h5>
             </div>
         @endif
-        <div class="text-center">
-            {{ $products->links() }}
+        <div class="row">
+            <div class="col-lg-5"></div>
+            <div class="col-lg-6">
+                {{ $products->links() }}
+            </div>
         </div>
     </div>
     <script type='text/javascript' src="{{ URL::asset('css/bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('/js/bootstrap-carousel.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('/functions.js') }}"></script>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="{{ URL::asset('css/carousel.css') }}" rel="stylesheet"/>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 @endsection

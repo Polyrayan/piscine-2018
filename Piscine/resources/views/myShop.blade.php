@@ -78,24 +78,31 @@
                                 <td data-th="Quantity booked"  class="text-center"> {{($product->qteStockProduit)-($product->qteStockDispoProduit)}} </td>
                                 </td>
                                 <td  class="text-center">
-                                    <select name="variant" class="form-control form-control-sm col-sm-12">
-                                        @foreach($groups as $group)
-                                            @if (($product->numGroupeVariante == $group->numGroupeVariante))
-                                                <option value="{{$group->numProduit}}"> {{$group->couleurProduit}} {{$group->tailleProduit}}</option>
+                                    @if ($product->nbVariants <= 1 and empty($product->tailleProduit) and empty($product->couleurProduit ) )
+                                        <input name="variant" type="hidden" value="{{ $product->numProduit }}">
+                                    @else
+                                        <select name="variant" class="form-control form-control-sm col-sm-12">
+                                            @if($product->nbVariants <= 1)
+                                                <option value="{{$product->numProduit}}"> {{$product->couleurProduit}} {{$product->tailleProduit}}</option>
+                                            @else
+                                                @foreach($groups as $group)
+                                                        @if (($product->numGroupeVariante == $group->numGroupeVariante))
+                                                            <option value="{{$group->numProduit}}"> {{$group->couleurProduit}} {{$group->tailleProduit}}</option>
+                                                        @endif
+                                                @endforeach
                                             @endif
-                                        @endforeach
-
-                                    </select>
+                                        </select>
+                                    @endif
                                 </td>
 
                                 <td class="actions" data-th=""  class="text-center">
 
                                     <input name="product" type="hidden" value="{{ $product->numProduit }}">
 
-                                    <button class="btn btn-success btn-group" name="show" title="Afficher le produit">   <i class="fas fa-info"></i> </button>
+                                    <button class="btn btn-success btn-group" name="show" title="Afficher le produit"><i class="fas fa-info"></i> </button>
                                     <button class="btn btn-warning btn-group" name="edit" title="Modifier">   <i class="fas fa-edit"></i> </button>
                                     <button class="btn btn-danger btn-group"  name="delete" title="Supprimer"> <i class="fas fa-times-circle"></i> </button>
-                                    <button class="btn btn-info btn-group"    name="variant" title="Afficher les variantes"><i class="fas fa-copy"></i> </button>
+                                    <button class="btn btn-info btn-group"    name="showVariant" title="Afficher les variantes"><i class="fas fa-copy"></i> </button>
                                 </td>
                             </form>
                         </tr>

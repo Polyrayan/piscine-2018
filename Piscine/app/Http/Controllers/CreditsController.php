@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -23,11 +23,12 @@ class CreditsController extends Controller
             $user = "Seller";
             $adminConnected = Admin::isConnected();
             $favoriteShop = Vendeur::getMyFavoriteShop();
-            return view('credits')->with(['adminConnected' => $adminConnected , 'favoriteShop' => $favoriteShop, 'user' => $user ]);
+            return view('credits')->with(['seller' => $seller , 'adminConnected' => $adminConnected , 'favoriteShop' => $favoriteShop, 'user' => $user ]);
         } else {
             $adminConnected = Admin::isConnected();
             $favoriteShop = Vendeur::getMyFavoriteShop();
             return view('credits')->with(['adminConnected' => $adminConnected , 'favoriteShop' => $favoriteShop, 'user' => 'Seller' ]);
+
         }
     }
 }

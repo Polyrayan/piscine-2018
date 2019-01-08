@@ -28,10 +28,11 @@
             <div class="col-12 col-lg-6 add_to_cart_block">
                 <div class="card bg-light mb-3">
                     <div class="card-body">
-                        <p class="price">Prix unitaire : {{$product->prixProduit}} €</p>
+                        <b>Prix unitaire : {{$product->prixProduit}} €</b>
                         <form action="" method="post" >
                             {{  csrf_field()  }}
                             <div class="form-group">
+                                    @if($productsOfCategory->count() > 1)
                                     <label for="colors">Variantes : </label>
                                     <select name="variant" class="custom-select" id="colors">
                                         <option selected>Choisissez une variante</option>
@@ -39,6 +40,7 @@
                                             <option value="{{$prod->numProduit}}"> {{$prod->couleurProduit}} {{$prod->tailleProduit}}</option>
                                         @endforeach
                                     </select>
+                                    @endif
                             </div>
                             @if ($errors->has('variant'))
                                 <small>  <div class="alert alert-danger" role="alert"> {{ $errors->first('variant') }} </div>  </small>
@@ -82,36 +84,37 @@
 
                             </ul>
                         </div>
-                        <div class="reviews_product p-3 mb-2 ">
-                            @if($noteMoy >= 2)
-                                <i class="fa fa-star"></i>
-                            @elseif($noteMoy >= 1)
-                                <i class="fas fa-star-half-alt"></i>
-                            @endif
+                        <br>
+                        <div class="" >
+                                    @if($noteMoy >= 2)
+                                        <i class="fa fa-star"></i>
+                                    @elseif($noteMoy >= 1)
+                                        <i class="fas fa-star-half-alt"></i>
+                                    @endif
 
-                            @if($noteMoy >= 4)
-                                <i class="fa fa-star"></i>
-                            @elseif($noteMoy>=3)
-                                <i class="fas fa-star-half-alt"></i>
-                            @endif
+                                    @if($noteMoy >= 4)
+                                        <i class="fa fa-star"></i>
+                                    @elseif($noteMoy>=3)
+                                        <i class="fas fa-star-half-alt"></i>
+                                    @endif
 
-                            @if($noteMoy >= 6)
-                                <i class="fa fa-star"></i>
-                            @elseif($noteMoy>=5)
-                                <i class="fas fa-star-half-alt"></i>
-                            @endif
+                                    @if($noteMoy >= 6)
+                                        <i class="fa fa-star"></i>
+                                    @elseif($noteMoy>=5)
+                                        <i class="fas fa-star-half-alt"></i>
+                                    @endif
 
-                            @if($noteMoy >= 8)
-                                <i class="fa fa-star"></i>
-                            @elseif($noteMoy>=7)
-                                <i class="fas fa-star-half-alt"></i>
-                            @endif
+                                    @if($noteMoy >= 8)
+                                        <i class="fa fa-star"></i>
+                                    @elseif($noteMoy>=7)
+                                        <i class="fas fa-star-half-alt"></i>
+                                    @endif
 
-                            @if($noteMoy == 10)
-                                <i class="fa fa-star"></i>
-                            @elseif($noteMoy>=9)
-                                <i class="fas fa-star-half-alt"></i>
-                            @endif
+                                    @if($noteMoy == 10)
+                                        <i class="fa fa-star"></i>
+                                    @elseif($noteMoy>=9)
+                                        <i class="fas fa-star-half-alt"></i>
+                                    @endif
 
 
                             @if($noteMoy == "Non noté")
@@ -149,28 +152,47 @@
                                 <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                                 <meta itemprop="datePublished" content="01-01-2016"> le {{$_avis->dateAvis}}
                                 <div class="row">
-                                    <div class="col-lg-10">
-                                        @if($_avis->noteAvis >= 2)
+                                    <div class="col-lg-10 ">
+                                        @if($noteMoy >= 2)
                                             <i class="fa fa-star"></i>
+                                        @elseif($noteMoy >= 1)
+                                            <i class="fas fa-star-half-alt"></i>
                                         @endif
-                                        @if($_avis->noteAvis>=4)
+
+                                        @if($noteMoy >= 4)
                                             <i class="fa fa-star"></i>
+                                        @elseif($noteMoy>=3)
+                                            <i class="fas fa-star-half-alt"></i>
                                         @endif
-                                        @if($_avis->noteAvis>=6)
+
+                                        @if($noteMoy >= 6)
                                             <i class="fa fa-star"></i>
+                                        @elseif($noteMoy>=5)
+                                            <i class="fas fa-star-half-alt"></i>
                                         @endif
-                                        @if($_avis->noteAvis>=8)
+
+                                        @if($noteMoy >= 8)
                                             <i class="fa fa-star"></i>
+                                        @elseif($noteMoy>=7)
+                                            <i class="fas fa-star-half-alt"></i>
                                         @endif
-                                        @if($_avis->noteAvis == 10)
+
+                                        @if($noteMoy == 10)
                                             <i class="fa fa-star"></i>
+                                        @elseif($noteMoy>=9)
+                                            <i class="fas fa-star-half-alt"></i>
                                         @endif
+
                                         note : {{$_avis->noteAvis}}/10
                                     </div>
                                     <div class="col-lg-2">
                                         @if(isset($adminConnected))
                                             @if($adminConnected)
-                                                <button class="btn btn-warning btn-group" name="searchProducts"> supprimer </button>
+                                                <form method="POST">
+                                                    {{  csrf_field()  }}
+                                                <input name="numberReview" type="hidden" value="{{ $_avis->numAvis }}">
+                                                <button class="btn btn-warning btn-group" name="deleteReviews"> supprimer </button>
+                                                </form>
                                             @endif
                                         @endif
                                     </div>

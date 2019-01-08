@@ -4,9 +4,10 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ URL::asset('css/nav.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
+<link rel="stylesheet" href="{{ URL::asset('css/product.css') }}" />
 <script type="text/javascript" src="{{ URL::asset('js/countDown.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/countDown2.js') }}"></script>
-
+<link href="{{ URL::asset('css/carousel.css') }}" rel="stylesheet"/>
 <nav class="navbar navbar-expand-md sticky-top " style="background-color: #dbdcda">
 
     <button class="navbar-toggler navbar-light" data-toggle="collapse" data-target="#collapse_target">
@@ -15,12 +16,8 @@
 
     <div class="navbar-collapse collapse" id="collapse_target">
 
-        <a href="#" class="logo"><img class="img-responsive logo" src="{{ URL::to('img/cci.png') }}" alt=""></a>
+        <a href="#" class="navbar-brand"><img class="img-responsive"  style="height: 50px; width: 50px;" src="{{ URL::to('img/cci.png') }}" alt=""></a>
         <ul class="navbar-nav mx-auto">
-            <a class="navbar-brand" href=""></a>
-            <a class="navbar-brand" href=""></a>
-            <a class="navbar-brand" href=""></a>
-            <a class="navbar-brand" href=""></a>
 
             <li class="nav-item ">
                 <a href="\Piscine\public\" class="nav-link"> Accueil </a>

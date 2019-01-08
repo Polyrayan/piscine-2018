@@ -97,7 +97,9 @@
             <div class="col-lg-1"></div>
             <div class="col-lg-7">
                 @if($dateFinaleSet)
-                    <h3> Pour depenser votre <b>{{ $points }}</b> points restants, vous avez encore: </h3>
+                    <div class="text-center">
+                    <h3> Pour dépenser votre <b>{{ $points }}</b> points restants, vous avez encore: </h3>
+                    </div>
                     <div class="text-center"  id = "timeLeft">
                             <script> makeCounter2("timeLeft", "{{ $start }}" , "{{ $time }}" ) </script>
                     </div>

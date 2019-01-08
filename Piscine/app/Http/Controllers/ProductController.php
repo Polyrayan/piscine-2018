@@ -45,12 +45,16 @@ class ProductController extends Controller
         if($clientConnected){
           $nbCompare = Client::calculNumberOfProductToCompare();
           $id = Client::getIdClient();
-          return view('product')->with(['products' => $products, 'productsOfCategory' => $productsOfCategory ,'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'id' => $id,'nbCompare' => $nbCompare, 'suggestions' => $suggestions, 'clientConnected' => 'Client']);
+          return view('product')->with(['products' => $products, 'productsOfCategory' => $productsOfCategory ,
+              'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy, 'id' => $id,
+              'nbCompare' => $nbCompare, 'suggestions' => $suggestions, 'clientConnected' => 'Client']);
         }
         else{
           $favoriteShop = Vendeur::getMyFavoriteShop();
           $adminConnected = Admin::isConnected();
-          return view('product')->with(['products' => $products , 'productsOfCategory' => $productsOfCategory , 'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy , 'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected, 'clientConnected' => 'Seller']);
+          return view('product')->with(['products' => $products , 'productsOfCategory' => $productsOfCategory ,
+              'product' => $product , 'avis' => $avis , 'commerce' => $commerce , 'noteMoy' => $noteMoy ,
+              'favoriteShop' => $favoriteShop, 'adminConnected'=> $adminConnected, 'clientConnected' => 'Seller']);
         }
     }
 
@@ -80,6 +84,9 @@ class ProductController extends Controller
 
             flash("Nouvel ajout au panier ")->success();
             return back();
+        }elseif ($request->has('deleteReview')) {
+            Avis::deleteAvis(request('numberReview'));
+            flash('Cet avis a été supprimé')->success();
         }
     }
 }

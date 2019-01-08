@@ -151,7 +151,7 @@ class HomeController extends Controller
                 return $query->where('villeCommerce', $city);
             })->when(!empty($region) and $region != "Languedoc-Roussillon" , function ($query) use($region) {
                 return $query->where('regionCommerce', $region);
-            })->groupBy('numGroupeVariante')->paginate();
+            })->groupBy('numGroupeVariante')->paginate(10);
 
             //return $results;
             $categories = TypeProduit::orderBy('nomTypeProduit')->get();

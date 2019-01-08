@@ -34,4 +34,9 @@ class Avis extends Model
         $avis->dateAvis = Date::now()->format('Y-m-d H:i:s');
         $avis->save();
     }
+
+    public static function deleteAvis($numAvis){
+        $avis = self::where('numAvis',$numAvis)->first();
+        $avis->delete();
+    }
 }

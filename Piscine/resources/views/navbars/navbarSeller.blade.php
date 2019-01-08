@@ -4,6 +4,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ URL::asset('css/nav.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
+<link rel="stylesheet" href="{{ URL::asset('css/product.css') }}" />
+
 
 <nav class="navbar navbar-expand-md sticky-top " style="background-color: #dbdcda">
 
@@ -13,14 +15,8 @@
 
     <div class="navbar-collapse collapse" id="collapse_target">
 
-        <a href="#" class="logo"><img class="img-responsive logo" src="{{ URL::to('img/cci.png') }}" alt=""></a>
+        <a href="#" class="navbar-brand"><img class="img-responsive" style="height: 50px; width: 50px;" src="{{ URL::to('img/cci.png') }}" alt=""></a>
         <ul class="navbar-nav mr-auto">
-            <a class="navbar-brand" href=""></a>
-            <a class="navbar-brand" href=""></a>
-            <a class="navbar-brand" href=""></a>
-            <a class="navbar-brand" href=""></a>
-            <a class="navbar-brand" href=""></a>
-
             <li class="nav-item ">
                 <a href="\Piscine\public\vendeur\commerces" class="nav-link"> Mes commerces </a>
             </li>
