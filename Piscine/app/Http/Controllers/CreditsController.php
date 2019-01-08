@@ -25,9 +25,9 @@ class CreditsController extends Controller
             $favoriteShop = Vendeur::getMyFavoriteShop();
             return view('credits')->with(['adminConnected' => $adminConnected , 'favoriteShop' => $favoriteShop, 'user' => $user ]);
         } else {
-            return view('credits');
             $adminConnected = Admin::isConnected();
             $favoriteShop = Vendeur::getMyFavoriteShop();
+            return view('credits')->with(['adminConnected' => $adminConnected , 'favoriteShop' => $favoriteShop, 'user' => 'Seller' ]);
         }
     }
 }
