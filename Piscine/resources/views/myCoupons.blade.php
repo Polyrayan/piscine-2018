@@ -53,15 +53,11 @@
                             <td data-th="Pour quels produit(s)?">
                                 <div class="row">
                                     <div class="col-sm-10 col-form-label">
-                                        <?php
-                                        if($coupon->nomProduit) {
-                                            $produit = $coupon->nomProduit;
-                                        }
-                                        else {
-                                            $produit = $coupon->nomTypeProduit;
-                                        }
-                                        ?>
-                                            <input type="text" class="form-control" name="produit" value="{{$produit}}">
+                                        @if($coupon->nomProduit)
+                                          <input type="text" class="form-control" name="produit" value="{{$coupon->nomProduit}}">
+                                        @else
+                                          <input type="text" class="form-control" name="produit" value="{{$coupon->nomTypeProduit}}">
+                                        @endif
                                     </div>
                                 </div>
                             </td>
