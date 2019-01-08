@@ -59,8 +59,6 @@
                   <input type="hidden" name="shoppingCartNumber" value="{{$numPanier}}">
                     <input type="hidden" name="points" value="{{$points}}">
                     <input name="id" type="hidden" value="{{$id}}">
-                    <input name = "start" type="hidden" value="{{$start}}">
-                    <input name = "timeLeft" type="hidden" value="{{$timeLeft}}">
                   <button class="btn btn-success" name="finalPaid">Terminer et régler la commande</button>
                 </td>
               </form>

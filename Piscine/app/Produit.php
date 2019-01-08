@@ -143,6 +143,7 @@ class Produit extends Model
      * @return mixed
      */
     public static function decrementProduct($numProduct, $quantity){
+      //return $numProduct;
         return self::where('numProduit' , $numProduct)->decrement('qteStockDispoProduit', $quantity );
     }
 

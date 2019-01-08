@@ -228,10 +228,5 @@
                 </div>
             </form>
         </div>
-<<<<<<< HEAD
-    @endisset
-@endsection
-=======
 
 @endsection
->>>>>>> 71ca85e007034ff90e7951db54adce2601757338

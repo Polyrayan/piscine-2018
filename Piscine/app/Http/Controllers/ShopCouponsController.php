@@ -156,17 +156,17 @@ class ShopCouponsController extends Controller
 //                'dateLimite' => 'La date limite doit etre apres la date courante.',
 //            ]);
 //        }
-
+        $numProduit = Produit::where('nomProduit', $nomProduit)->first();
         Coupon::Create([
             'codeCoupon' => $codeCoupon,
             'numSiretCommerce' => $numSiretCommerce,
             'nomTypeProduit' => $nomTypeProduit,
-            'nomProduit' => $nomProduit,
+            'numProduit' => $nomProduit,
             'valeur' => $valeur,
             'valeurPourcentage' => $valeurPourcentage,
             'description' => $description,
             'dateLimite' => $dateNew,
-            'qteMax' => $qteMax
+            'quantiteMax' => $qteMax
         ]);
         return back();
     }

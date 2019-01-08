@@ -64,6 +64,7 @@ class ProfileController extends Controller
         $dateNow = Carbon::now();
         $dateFinale = $reduction->dateFinReduction;
         $dateFinale = Carbon::parse($dateFinale);
+        $timeLeft = $dateFinale->diffInSeconds($dateNow);
         $dateFinaleStr = $dateFinale->format("d/M/Y");
         $points = $reduction->pointsReduction;
 
@@ -71,7 +72,7 @@ class ProfileController extends Controller
             return view('profiles.myClientProfile')->with(['dateFinaleSet' => False, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
         }
 
-        return view('profiles.myClientProfile')->with(['dateFinaleSet' => True, 'dateFinale'=>$dateFinaleStr, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
+        return view('profiles.myClientProfile')->with(['dateFinaleSet' => True, 'start'=>$dateNow, 'time'=>$timeLeft, 'client' => $client, 'points' => $points, 'id' => $id, 'completedOrders' => $history, 'processingOrders' => $processingOrders, 'nbCompare' => $nbCompare]);
 
     }
 

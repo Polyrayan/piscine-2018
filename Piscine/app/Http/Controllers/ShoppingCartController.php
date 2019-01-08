@@ -84,11 +84,14 @@ class ShoppingCartController extends Controller
             $client = Client::getClientWithId(request('id'));
             $reduction = Reduction::where('mailClient', $client->mailClient)->first();
             $newPoints = $reduction->pointsReduction + intval(request('points'));
-            $dateFinale = Carbon::now();
-            $dateFinale = $dateFinale->addDays(14)->format('Y-m-d h:i:s');
+            $dateNow= Carbon::now();
+            $dateFinale = $dateNow->addDays(14)->format('Y-m-d h:i:s');
             Reduction::where('numReduction', $reduction->numReduction)->update(['pointsReduction' => $newPoints , 'dateFinReduction'=>$dateFinale]);
             flash("Félicitations, votre commande a été prise en compte.")->success();
             return redirect('/client/profil');
+//            return redirect('/client/profil')->with(['start' => $dateNow, 'time' => 360] );
+//            return ProfileController::show();
+
           }
 
         elseif ($request->has('points')){
@@ -150,7 +153,8 @@ class ShoppingCartController extends Controller
             return view('confirmShoppingCart')->with(['id' => $id, 'productCase3' => $undeliverablesProducts,'total' => $total,'nbCompare' => $nbCompare, 'appliedCoupon'=>False, 'appliedPoints'=>False]);
         }
         else{
-            return "Error unknown case";
+            //return "Error unknown case";
+            return redirect('/');
         }
     }
 
@@ -384,7 +388,7 @@ class ShoppingCartController extends Controller
                 'appliedCoupon' => True]);
         }
         else{
-            return "Error unknown case";
+            return redirect('/');
         }
     }
 
@@ -457,7 +461,7 @@ class ShoppingCartController extends Controller
                 'appliedPoints' => True]);
         }
         else{
-            return "Error unknown case";
+            return redirect('/');
         }
     }
 

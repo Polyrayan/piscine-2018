@@ -95,9 +95,9 @@
                 </form>
             </div>
             <div class="col-lg-1"></div>
-            <div class="col-lg-6">
+            <div class="col-lg-7">
                 @if($dateFinaleSet)
-                    <h3> Pour depenser votre <b>{{ $points }}</b> points restants, vous avez encore : </h3>
+                    <h3> Pour depenser votre <b>{{ $points }}</b> points restants, vous avez encore: </h3>
                     <div class="text-center"  id = "timeLeft">
                             <script> makeCounter2("timeLeft", "{{ $start }}" , "{{ $time }}" ) </script>
                     </div>
@@ -115,7 +115,7 @@
     <br>
     @if($processingOrders->count() != 0)
         <div class = "container-fluid">
-            <h3>  Commande en cours : </h3>t
+            <h3>  Commande en cours : </h3>
             <table id="cart" class="table table-hover table-condensed">
                 <thead>
                 <tr>
