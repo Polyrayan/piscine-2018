@@ -11,7 +11,7 @@
    - [x] : créer la base de données.
    - [x] : Respecter les règles de conventions de PHP.
 ##### 5%
-- [ ] :  MVC avec Laravel.
+- [x] :  MVC avec Laravel.
   Mais aussi:
   - [x] : des commentaires.
   - [x] : des objets.
@@ -100,4 +100,15 @@ un **gestionnaire de dépendance**( :*Composer*) qui nous épargne :
 
 
 # VI) Bootstrap
+
+	A suivre...
+# VII) MVC
+
+	A suivre...
+# VIII Midlleware 
+
+	A suivre...
+
+# IX Hébergement 
+
 	A suivre...
