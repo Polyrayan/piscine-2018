@@ -136,7 +136,7 @@ class Vendeur extends Authenticatable
     }
 
         public static function isConnected(){
-        if(Auth::guard('client')->check()){
+        if(Auth::guard('seller')->check()){
             return true;
         }
         else{
@@ -145,5 +145,3 @@ class Vendeur extends Authenticatable
     }
 
 }
-
-
