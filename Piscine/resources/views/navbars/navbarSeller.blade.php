@@ -4,7 +4,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ URL::asset('css/nav.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/shoppingCart.css') }}" />
-<!------ Include the above in your HEAD tag ---------->
 
 <nav class="navbar navbar-expand-md sticky-top " style="background-color: #dbdcda">
 
@@ -51,9 +50,6 @@
                     <a  href="\Piscine\public\admin" class="nav-link"> <font color="#DF3A01"> Arrêter l'aide et revenir à la page admin </font> </a>
                 </li>
             @else
-                <li class="nav-item">
-                    <a  href="" class="nav-link"> Aide </a>
-                </li>
                 <li class="nav-item">
                     <a  href="\Piscine\public\vendeur\deconnexion" class="nav-link"> Déconnexion </a>
                 </li>
